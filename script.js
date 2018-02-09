@@ -2,7 +2,7 @@ let mainContainer = document.querySelector("main #main-container");
 let mainContainerSize = mainContainer.getBoundingClientRect();
 let svg = document.querySelector("main svg");
 let svgDesktop = document.querySelector("main #desktop-svg rect.cls-5");
-
+let bigBox = document.querySelector("#bigBox");
 let play = document.querySelector("main #play");
 let topValue;
 
@@ -33,15 +33,25 @@ function reSizePlay() {
         }
     }
 
-    console.log(svgDesktopSize.height);
     play.style.height = svgDesktopSize.height + "px";
-    play.style.width = (svgDesktopSize.width - .4) + "px";
+    play.style.width = (svgDesktopSize.width - .9) + "px";
 
     topValue = Math.abs((getOffset(svgDesktop).top) - (getOffset(play).top));
 
-
-    console.log(topValue);
     play.style.top = -1 * topValue + "px";
     play.style.bottom = topValue + "px";
+
+}
+
+
+
+function bigBoxSize(elem){
+    let valueH = document.querySelector("#sidebar ."+elem+"H").value;
+    let valueW = document.querySelector("#sidebar ."+elem+"W").value;
+
+    bigBox.style.height = valueH+"px";
+    bigBox.style.width = valueW+"px";
+    console.log(valueH);
+
 
 }

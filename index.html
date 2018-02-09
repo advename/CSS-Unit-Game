@@ -51,7 +51,7 @@
             position: absolute;
             z-index: 300;
             top: 0;
-            left: .9px;
+            left: 2.6px;
             right: 0;
             bottom: 0;
             margin: auto;
@@ -63,9 +63,29 @@
         #browser {
             height: 100%;
             width: 100%;
-            background: grey;
+            background: #93c3e0;
             position: relative;
+            overflow: auto;
         }
+
+        #bigBox {
+            height: 50%;
+            width: 50%;
+            background-color: #e05a34;
+            transition: height 1.5s, width 1.5s;
+            border-radius: 5px;
+            position: relative;
+            top: 0;
+            left: 0;
+        }
+
+
+
+
+
+
+
+
 
         #sidebar-container {
             grid-column: span 1;
@@ -77,23 +97,54 @@
         #sidebar {
             margin: 20px;
             display: grid;
-            color:white;
+            color: white;
         }
-        #sidebar h3{
+
+        #sidebar h2 {
+            margin-bottom: 30px;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        #sidebar h3 {
             font-weight: bold;
             color: white;
             margin-bottom: 10px;
-
+            float: left;
         }
-        #sidebar table{
+
+        #sidebar .control-header {
+            width: 60%;
+        }
+
+        #sidebar button {
+            float: right;
+        }
+
+        #sidebar table {
             margin-bottom: 30px;
         }
+
         #sidebar input {
             height: 20px;
             width: 70px;
             margin-bottom: 5px;
             text-align: right;
             font-size: 18px;
+            border: none;
+            margin-right: 4px;
+        }
+
+        /* ALWAYS SHOW INPUT ARROWS */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+
+            opacity: 1;
+
+        }
+
+        #sidebar table p {
+            font-weight: 500;
         }
     </style>
     <title>CSS length Unit Game</title>
@@ -106,7 +157,7 @@
             <div id="main-container">
                 <div id="play">
                     <div id="browser">
-
+                        <div id="bigBox"></div>
                     </div>
                 </div>
                 <div id="desktop-container">
@@ -117,26 +168,28 @@
             </div>
             <div id="sidebar-container">
                 <div id="sidebar">
-                    <h3>Pixels:</h3>
-                    <table class="pixels-control" style="width:50%">
+                    <h2>Big BOX</h2>
+                    <div class="control-header">
+                        <h3>Pixels:</h3> <button onclick="bigBoxSize('pixel')">Apply Pixels</button></div>
+                    <table class="pixels-control" style="width:60%">
                         <tr>
                             <td>Height:</td>
                             <td>
-                                <p><input class="pixel" type="number" value="50">px</p>
+                                <p><input class="pixelH" type="number" value="50">px</p>
                             </td>
 
                         </tr>
                         <tr>
                             <td>Width:</td>
                             <td>
-                                <p><input class="pixel" type="number" value="50">px</p>
+                                <p><input class="pixelW" type="number" value="50">px</p>
                             </td>
                         </tr>
                     </table>
 
 
                     <h3>EM:</h3>
-                    <table class="pixels-control" style="width:50%">
+                    <table class="pixels-control" style="width:60%">
                         <tr>
                             <td>Height:</td>
                             <td>
@@ -154,35 +207,35 @@
 
 
                     <h3>Precentage:</h3>
-                    <table class="pixels-control" style="width:50%">
+                    <table class="pixels-control" style="width:60%">
                         <tr>
                             <td>Height:</td>
                             <td>
-                                <p><input class="pixel" type="number" value="50">em</p>
+                                <p><input class="pixel" type="number" value="50">%</p>
                             </td>
 
                         </tr>
                         <tr>
                             <td>Width:</td>
                             <td>
-                                <p><input class="pixel" type="number" value="50">em</p>
+                                <p><input class="pixel" type="number" value="50">%</p>
                             </td>
                         </tr>
                     </table>
 
                     <h3>ViewPort:</h3>
-                    <table class="pixels-control" style="width:50%">
+                    <table class="pixels-control" style="width:60%">
                         <tr>
                             <td>Height:</td>
                             <td>
-                                <p><input class="pixel" type="number" value="50">em</p>
+                                <p><input class="pixel" type="number" value="50">vh</p>
                             </td>
 
                         </tr>
                         <tr>
                             <td>Width:</td>
                             <td>
-                                <p><input class="pixel" type="number" value="50">em</p>
+                                <p><input class="pixel" type="number" value="50">vw</p>
                             </td>
                         </tr>
                     </table>
