@@ -35,7 +35,7 @@ function reSizePlay() {
 
     console.log(svgDesktopSize.height);
     play.style.height = svgDesktopSize.height + "px";
-    play.style.width = (svgDesktopSize.width - .5) + "px";
+    play.style.width = (svgDesktopSize.width - .4) + "px";
 
     topValue = Math.abs((getOffset(svgDesktop).top) - (getOffset(play).top));
 
