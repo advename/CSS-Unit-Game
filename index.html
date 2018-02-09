@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css-reset.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <title>CSS length Unit Game</title>
     <style>
         main {
@@ -11,7 +12,7 @@
             width: 100vw;
             max-width: 100%;
             background: #d8e0e8;
-            position: relative;
+
         }
 
         main svg {
@@ -21,21 +22,22 @@
             right: 0;
             bottom: 0;
             margin: auto;
-            height: 70vmin;
-            width: 70vmin;
-            filter: drop-shadow(0px 0px 3px #6b6c6d)
+            height: 80vmin;
+            width: 80vmin;
+            filter: drop-shadow(0px 0px 3px #6b6c6d);
+            z-index: 10;
         }
 
         #desktop-container {
-            position: relative;
+            position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
             margin: auto;
-            height: 70vmin;
-            width: 70vmin;
-            background: white;
+            vertical-align: middle;
+            background: green;
+            z-index: 20;
         }
     </style>
 </head>
@@ -60,5 +62,26 @@
 </body>
 </html>
 <script>
+    let svgDesktop = document.querySelector("main #desktop-svg rect.cls-5");
+    let desktop = document.querySelector("main #desktop-container");
+    let playSize = svgDesktop.getBoundingClientRect();
+    let topValueSvg, topValueDesktop, topValue;
+
+    desktop.style.height = playSize.height + "px";
+    desktop.style.width = playSize.width + "px";
+
+    function getOffset(el) {
+        el = el.getBoundingClientRect();
+        return {
+        left: el.left + window.scrollX,
+        top: el.top + window.scrollY
+        }
+    }
+    topValue = Math.abs((getOffset(svgDesktop).top) - (getOffset(desktop).top));
+
+
+    console.log(topValue);
+    desktop.style.top = -1 * topValue + "px";
+    desktop.style.bottom = topValue + "px";
 
 </script>
