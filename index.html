@@ -5,147 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Assistant" rel="stylesheet">
     <link rel="stylesheet" href="css-reset.css">
+    <link rel="stylesheet" href="style.css">
     <style>
-        body {
-            font-family: 'Assistant', sans-serif;
-        }
-
-        main {
-            height: 100vh;
-            width: 100vw;
-            max-width: 100%;
-            background: #d8e0e8;
-        }
-
-        #grid-container {
-            height: 90vh;
-            width: 90vw;
-            max-height: 1280px;
-            max-width: 1280px;
-            display: grid;
-            grid-gap: 20px;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: auto;
-            position: relative;
-            left: 50%;
-            top: 50%;
-            -webkit-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-        }
-
-        #main-container {
-            grid-column: span 2;
-            width: 100%;
-            height: 90vh;
-            display: table;
-            position: relative;
-        }
-
-        #desktop-container {
-            display: table-cell;
-            text-align: center;
-            vertical-align: middle;
-        }
-
-        #play {
-            position: absolute;
-            z-index: 300;
-            top: 0;
-            left: 2.6px;
-            right: 0;
-            bottom: 0;
-            margin: auto;
-            background: yellow;
-            height: 100px;
-            width: 100px;
-        }
-
-        #browser {
-            height: 100%;
-            width: 100%;
-            background: #93c3e0;
-            position: relative;
-            overflow: auto;
-        }
-
-        #bigBox {
-            height: 50%;
-            width: 50%;
-            background-color: #e05a34;
-            transition: height 1.5s, width 1.5s;
-            border-radius: 5px;
-            position: relative;
-            top: 0;
-            left: 0;
-        }
-
-
-
-
-
-
-
-
-
-        #sidebar-container {
-            grid-column: span 1;
-            width: 100%;
-            background: #8295a9;
-            border-radius: 30px;
-        }
-
-        #sidebar {
-            margin: 20px;
-            display: grid;
-            color: white;
-        }
-
-        #sidebar h2 {
-            margin-bottom: 30px;
-            font-weight: bold;
-            text-decoration: underline;
-        }
-
-        #sidebar h3 {
-            font-weight: bold;
-            color: white;
-            margin-bottom: 10px;
-            float: left;
-        }
-
-        #sidebar .control-header {
-            width: 60%;
-        }
-
-        #sidebar button {
-            float: right;
-        }
-
-        #sidebar table {
-            margin-bottom: 30px;
-        }
-
-        #sidebar input {
-            height: 20px;
-            width: 70px;
-            margin-bottom: 5px;
-            text-align: right;
-            font-size: 18px;
-            border: none;
-            margin-right: 4px;
-        }
-
-        /* ALWAYS SHOW INPUT ARROWS */
-        input[type=number]::-webkit-inner-spin-button,
-        input[type=number]::-webkit-outer-spin-button {
-
-            opacity: 1;
-
-        }
-
-        #sidebar table p {
-            font-weight: 500;
-        }
     </style>
     <title>CSS length Unit Game</title>
 
@@ -168,81 +29,50 @@
             </div>
             <div id="sidebar-container">
                 <div id="sidebar">
-                    <h2>Big BOX</h2>
-                    <div class="control-header">
-                        <h3>Pixels:</h3> <button onclick="bigBoxSize('pixel')">Apply Pixels</button></div>
-                    <table class="pixels-control" style="width:60%">
-                        <tr>
-                            <td>Height:</td>
-                            <td>
-                                <p><input class="pixelH" type="number" value="50">px</p>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>Width:</td>
-                            <td>
-                                <p><input class="pixelW" type="number" value="50">px</p>
-                            </td>
-                        </tr>
-                    </table>
 
 
-                    <h3>EM:</h3>
-                    <table class="pixels-control" style="width:60%">
-                        <tr>
-                            <td>Height:</td>
-                            <td>
-                                <p><input class="pixel" type="number" value="50">em</p>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>Width:</td>
-                            <td>
-                                <p><input class="pixel" type="number" value="50">em</p>
-                            </td>
-                        </tr>
-                    </table>
 
 
-                    <h3>Precentage:</h3>
-                    <table class="pixels-control" style="width:60%">
-                        <tr>
-                            <td>Height:</td>
-                            <td>
-                                <p><input class="pixel" type="number" value="50">%</p>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>Width:</td>
-                            <td>
-                                <p><input class="pixel" type="number" value="50">%</p>
-                            </td>
-                        </tr>
-                    </table>
-
-                    <h3>ViewPort:</h3>
-                    <table class="pixels-control" style="width:60%">
-                        <tr>
-                            <td>Height:</td>
-                            <td>
-                                <p><input class="pixel" type="number" value="50">vh</p>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>Width:</td>
-                            <td>
-                                <p><input class="pixel" type="number" value="50">vw</p>
-                            </td>
-                        </tr>
-                    </table>
+                </div>
+                <div id="direction">
+                    <p class="left hide" onclick="changeLevel('left')">&#9668;</p>
+                    <p class="right" onclick="changeLevel('right')">&#9658;</p>
                 </div>
             </div>
         </div>
     </main>
+
+
+    <template id="level-template">
+        <div id="level-n" class="level-container">
+                        <h2 class="level-number">Level 1</h2>
+                        <div class="header">
+                            <h3>Task:</h3>
+                            <p class="description">Change the height and width of the Red container to 700px.</p>
+                        </div>
+                        <div class="bigBox-control hide">
+                            <h3>Red container controls:</h3>
+                            <table class="bigBox-table" style="width:60%">
+                                <tr>
+                                    <td>Height:</td>
+                                    <td>
+                                        <input class="inputHeight" type="text" placeholder="300px">
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>Width:</td>
+                                    <td>
+                                        <input class="inputWidth" type="text" placeholder="40%">
+                                    </td>
+                                </tr>
+                            </table>
+                            <button onclick="bigBoxSize('level-n','height','width')">Apply & Check</button>
+                        </div>
+                        <h4 class="correct-message hide">CORRECT!</h4>
+                        <h4 class="wrong-message hide">Wrong, try again!</h4>
+                    </div>
+    </template>
 
 </body>
 <script src="script.js"></script>
