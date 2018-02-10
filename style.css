@@ -167,13 +167,14 @@ main {
 #sidebar input {
     color: #121213;
     height: 20px;
-    width: 70px;
+    width: 100px;
     margin-bottom: 5px;
     text-align: right;
     font-size: 18px;
     border: none;
     margin-right: 4px;
     padding-right: 5px;
+    margin-left: 10px;
 }
 #sidebar input::placeholder {
     color: #878f90;

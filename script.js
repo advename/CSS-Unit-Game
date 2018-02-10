@@ -75,14 +75,14 @@ function createLevels() {
         }
         if (elem.bboxa) {
             clone.querySelector(".bigBox-control").classList.remove("hide");
-            clone.querySelector("button").setAttribute("onClick", "bigBoxSize('"+elem.level + "','" + elem.bboxh + "','" + elem.bboxh + "')");
+            clone.querySelector("button").setAttribute("onClick", "bigBoxSize('" + elem.level + "','" + elem.bboxh + "','" + elem.bboxw + "')");
         }
         sideBar.appendChild(clone);
     });
     document.querySelector("#level-1").style.left = "0px";
     levelContainer = document.querySelectorAll(".level-container");
-    levelContainer.forEach(elem=>{
-        elem.style.width = (sideBarContainerSize.width - 39)+"px";
+    levelContainer.forEach(elem => {
+        elem.style.width = (sideBarContainerSize.width - 39) + "px";
     })
 }
 
@@ -92,7 +92,7 @@ function changeLevel(direction) {
     if (direction == "left") {
         console.log("+++++++++++++++++");
 
-        console.log(currentLevel-1);
+        console.log(currentLevel - 1);
         console.log(currentLevel);
         console.log(document.querySelector("#level-" + (1 + currentLevel)));
 
@@ -127,13 +127,79 @@ function changeLevel(direction) {
     }
 }
 
+//check input for current level
+function bigBoxSize(levelN, height, width) {
+    let bbHeightInput = document.querySelector("#level-" + levelN + " .bigBox-control .inputHeight").value;
+    let bbHeightInputUnit = bbHeightInput.substr(-2);
+    if (bbHeightInputUnit.includes("%")) {bbHeightInputUnit = "%"};
+    let bbWidthInput = document.querySelector("#level-" + levelN + " .bigBox-control .inputWidth").value;
+    let bbWidthInputUnit = bbWidthInput.substr(-2);
+    if (bbWidthInputUnit.includes("%")) {bbWidthInputUnit = "%"};
 
-function bigBoxSize(levelN, height, width){
-    let bbheightInput = document.querySelector("#level-"+levelN+" .bigBox-control .inputHeight").value;
-    let bbhWidthInput = document.querySelector("#level-"+levelN+" .bigBox-control .inputWidth").value;
-    console.log(bbhWidthInput);
-    bigBox.style.height = bbheightInput + "px";
-    bigBox.style.width = bbheightInput + "px";
+
+    //if checkAllowedUnit passed, it returns true
+    if (checkAllowedUnit(bbHeightInputUnit, bbWidthInputUnit, levelN)) {
+        if (bbHeightInputUnit === "vh") {
+            bbHeightInputUnit.replace("vh", "%");
+        }
+        if (bbWidthInputUnit === "vw") {
+            bbWidthInputUnit.replace("vw", "%");
+        }
+        bigBox.style.height = bbHeightInput;
+        bigBox.style.width = bbWidthInput;
+
+        if (bbHeightInput === height && bbWidthInput === width) {
+            displayCorrectMessage(levelN,"CORRECT!")
+        }
+
+    };
+
+
+
+}
+
+function checkAllowedUnit(checkForHeight, checkForWidth, levelN) {
+
+    //check height units
+    if (checkForHeight === "vh" || checkForHeight === "px" || checkForHeight === "em" || checkForHeight === "%" || checkForHeight === "vmin" || checkForHeight === "vmax") {
+        //do nothing
+        return true;
+    } else {
+        displayWrongMessage(levelN,"Ups. Seems like you used an unit not made for that direction.");
+        return false;
+    }
+
+    //Check width units
+    if (checkForWidth === "vw" || checkForWidth === "px" || checkForWidth === "em" || checkForWidth === "%" || checkForWidth === "vmin" || checkForWidth === "vmax") {
+        //do nothing
+        return true;
+    } else {
+        displayWrongMessage(levelN,"Ups. Seems like you used an unit not made for that direction.");
+        return false;
+    }
+
+}
+
+
+//display wrong message
+function displayWrongMessage(levelN,message) {
+    let wrongMessage = document.querySelector("#level-" + levelN + " .wrong-message");
+    wrongMessage.textContent = message;
+    wrongMessage.classList.remove("hide");
+    setTimeout(function () {
+        wrongMessage.classList.add("hide");
+    }, 5000)
+
+}
+//display wrong message
+function displayCorrectMessage(levelN,message) {
+    let correctMessage = document.querySelector("#level-" + levelN + " .correct-message");
+    correctMessage.textContent = message;
+    correctMessage.classList.remove("hide");
+    setTimeout(function () {
+        correctMessage.classList.add("hide");
+    }, 10000)
+
 }
 
 
