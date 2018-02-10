@@ -54,7 +54,7 @@ function init() {
 
     }
 
-    sidebar.style.width = (sideBarContainerSize.width - 40) + "px";
+    sideBar.style.width = (sideBarContainerSize.width - 40) + "px";
 
 
     widthOfSideBar = sideBarContainerSize.width + 41;

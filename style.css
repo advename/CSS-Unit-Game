@@ -64,7 +64,7 @@ main {
 #bigBox {
     height: 50%;
     width: 50%;
-    background-color: #e05a34;
+    background: linear-gradient(to bottom right, #e05a34, red);
     transition: height 1.5s, width 1.5s;
     border-radius: 5px;
     position: relative;
