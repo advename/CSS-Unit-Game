@@ -1,13 +1,13 @@
 body {
     font-family: 'Assistant', sans-serif;
     color: #282b2d;
+    background: #d8e0e8;
 }
 
 main {
     height: 100vh;
     width: 100vw;
     max-width: 100%;
-    background: #d8e0e8;
 }
 
 #grid-container {
@@ -59,6 +59,7 @@ main {
     background: #c4d9e6;
     position: relative;
     overflow: auto;
+    font-size: 16px;
 }
 
 #bigBox {
@@ -72,7 +73,7 @@ main {
     left: 0;
 }
 
-#smallBox{
+#smallBox {
     height: 50%;
     width: 50%;
     background: #51d86a;
@@ -83,6 +84,7 @@ main {
     left: 0;
     max-height: 100%;
     max-width: 100%;
+    display: none;
 }
 
 
@@ -107,10 +109,10 @@ main {
     height: 100%;
     color: white;
     position: relative;
-    overflow-x:hidden;
+    overflow-x: hidden;
 }
 
-#sidebar .level-container{
+#sidebar .level-container {
     position: absolute;
     left: 110%;
     transition: left .7s;
@@ -118,9 +120,10 @@ main {
 
 
 #sidebar h2 {
-    margin-bottom: 50px;
-    font-size: 60px;
+    margin-bottom: 20px;
+    font-size: 300%;
 }
+
 #sidebar .header {
     margin-bottom: 40px;
 }
@@ -132,18 +135,20 @@ main {
     font-size: 25px;
 }
 
-#sidebar .box-controls .bigBox-control, #sidebar .box-controls .smallBox-control {
+#sidebar .box-controls .bigBox-control,
+#sidebar .box-controls .smallBox-control {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     padding: 15px 0px;
     margin: 0 5px 50px 5px;
     border-radius: 0px 0px 0px 5px;
 }
-#sidebar .bigBox-control{
+
+#sidebar .bigBox-control {
     border-left: 20px solid #DF2935;
 
 }
 
-#sidebar .smallBox-control{
+#sidebar .smallBox-control {
     border-left: 20px solid #51d86a;
 }
 
@@ -153,7 +158,7 @@ main {
     margin-bottom: 15px;
 }
 
-#sidebar button {
+button {
     background: #ffffff;
     background: -webkit-linear-gradient(#ffffff, #cccccc);
     background: linear-gradient(#ffffff, #cccccc);
@@ -169,7 +174,8 @@ main {
     display: block;
     margin: auto;
 }
-#sidebar button:hover {
+
+button:hover {
     background: -webkit-linear-gradient(#ffffff, #bfbfbf);
     background: linear-gradient(#ffffff, #bfbfbf);
     border: 1px solid #716565;
@@ -196,6 +202,7 @@ main {
     padding-right: 5px;
     margin-left: 10px;
 }
+
 #sidebar input::placeholder {
     color: #878f90;
 }
@@ -213,14 +220,15 @@ input[type=number]::-webkit-outer-spin-button {
     font-weight: 500;
 }
 
-#sidebar .correct-message , #sidebar .wrong-message{
+#sidebar .correct-message,
+#sidebar .wrong-message {
     color: #2eff37;
-    text-align:center;
+    text-align: center;
     font-size: 30px;
     text-shadow: 2px 1px 2px #484848;
 }
 
-#sidebar .wrong-message{
+#sidebar .wrong-message {
     color: #e05a34;
 
 }
@@ -229,7 +237,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 
 
-#direction{
+#direction {
     color: #d3dce2;
     position: absolute;
     width: 70%;
@@ -239,21 +247,132 @@ input[type=number]::-webkit-outer-spin-button {
     margin: auto;
 
 }
-#direction .left, #direction .right{
+
+#direction .left,
+#direction .right {
     padding: 10px;
     font-size: 45px;
     cursor: pointer;
 }
-#direction .left:hover, #direction .right:hover{
+
+#direction .left:hover,
+#direction .right:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 30%;
 }
-#direction .left{
-    float:left;
+
+#direction .left {
+    float: left;
 }
-#direction .right{
-    float:right;
+
+#direction .right {
+    float: right;
 }
-.hide{
-    display:none;
+
+#screenWarning {
+    display: none;
+}
+
+.hide {
+    display: none;
+}
+
+
+
+
+
+
+
+
+/* Big devices (very large desktops, more than 1200px)
+    No media query since this is the default in Bootstrap */
+
+/* Extra large devices (large desktops, 1200px and up) */
+
+@media (max-width: 1600px) and (max-height: 800px) {
+    #sidebar .header {
+        margin-bottom: 10px;
+    }
+    #sidebar h2 {
+        font-size: 200%;
+        margin-bottom: 10px;
+    }
+    #sidebar .header h3 {
+        margin-bottom: 5px;
+    }
+    #sidebar .box-controls .bigBox-control,
+    #sidebar .box-controls .smallBox-control {
+        padding: 7px 0px;
+        margin: 0 5px 20px 5px;
+    }
+    /*
+    #sidebar .box-controls {
+        transform: scale(.8);
+        margin-top: -10px;
+    }
+    #sidebar {
+        margin: 10px;
+    }
+    #sidebar input {
+        width: 70px;
+    }*/
+}
+
+/* Large devices (desktops, 992px and up) */
+
+@media (max-width: 992px) {
+    #grid-container {
+        grid-gap: 0px;
+    }
+    #sidebar h2 {
+        font-size: 200%;
+    }
+    #sidebar {
+        margin: 7px;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+
+@media (max-width: 768px) {}
+
+/* Small devices (landscape phones, 576px and up) */
+
+@media (max-width: 576px) {
+    #main-container {
+        grid-column: span 3;
+
+    }
+    #sidebar-container {
+        grid-column: span 3;
+        height: 90vh;
+    }
+    #screenWarning {
+        height: 81vh;
+        width: 81vw;
+        max-width: 100%;
+        padding: 10vh 10vw;
+        position: fixed;
+        z-index: 10000;
+        background: rgba(27, 25, 25, 0.81);
+        top: 0;
+        left: 0;
+        display: table;
+    }
+    #screenWarning .screenWarningBox {
+        width: 100%;
+        height: 100%;
+        background: #525d69;
+        border-radius: 20px;
+        color: #c0c7ce;
+    }
+    #screenWarning h2 {
+        padding: 20px;
+        font-size: 200%;
+        font-weight: bold;
+    }
+    #screenWarning p {
+        padding: 20px;
+        text-align: justify;
+    }
 }

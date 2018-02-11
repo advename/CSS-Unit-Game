@@ -77,10 +77,10 @@ function createLevels() {
         if (elem.bboxa == 1) {
             clone.querySelector(".bigBox-control").classList.remove("hide");
         }
-         if (elem.sboxa == 1) {
+        if (elem.sboxa == 1) {
             clone.querySelector(".smallBox-control").classList.remove("hide");
         }
-         clone.querySelector("button").setAttribute("onClick", "bigBoxSize('" + elem.level + "','" + elem.bboxh + "','" + elem.bboxw + "','" + elem.sboxh + "','" + elem.sboxw + "')");
+        clone.querySelector("button").setAttribute("onClick", "checkBoxSize('" + elem.level + "','" + elem.bboxh + "','" + elem.bboxw + "','" + elem.sboxh + "','" + elem.sboxw + "')");
         sideBar.appendChild(clone);
     });
     document.querySelector("#level-1").style.left = "0px";
@@ -88,19 +88,14 @@ function createLevels() {
     levelContainer.forEach(elem => {
         elem.style.width = (sideBarContainerSize.width - 39) + "px";
     })
+    hideShowSmall(1);
+    hideShowBig(1);
 }
 
 
 
 function changeLevel(direction) {
     if (direction == "left") {
-        console.log("+++++++++++++++++");
-
-        console.log(currentLevel - 1);
-        console.log(currentLevel);
-        console.log(document.querySelector("#level-" + (1 + currentLevel)));
-
-
         document.querySelector("#level-" + (currentLevel - 1)).style.left = "0px";
         document.querySelector("#level-" + currentLevel).style.left = (1 * widthOfSideBar) + "px";
 
@@ -114,9 +109,10 @@ function changeLevel(direction) {
             currentLevel = currentLevel - 1;
         }
 
+        hideShowSmall(currentLevel);
+        hideShowBig(currentLevel);
     } else if (direction == "right") {
         document.querySelector("#level-" + currentLevel).style.left = (-1 * widthOfSideBar) + "px";
-
         document.querySelector("#level-" + (currentLevel + 1)).style.left = "0px";
 
         if (currentLevel == 1) {
@@ -127,35 +123,118 @@ function changeLevel(direction) {
         if (currentLevel < 5) {
             currentLevel = currentLevel + 1;
         }
-
+        hideShowSmall(currentLevel);
+        hideShowBig(currentLevel);
     }
 }
 
+function hideShowSmall(level) {
+    console.log(data[level-1].sboxa);
+    if (data[level-1].sboxa == 0) {
+        smallBox.style.display = "none";
+    } else {
+        smallBox.style.display = "block";
+    }
+}
+function hideShowBig(level) {
+    console.log(data[level-1].bboxa);
+    if (data[level-1].bboxa == 0) {
+        bigBox.style.display = "none";
+    } else {
+        bigBox.style.display = "block";
+    }
+}
+
+
 //check input for current level
 function checkBoxSize(levelN, bHeight, bWidth, sHeight, sWidth) {
+    //BIG BOX VARIABLES
     let bbHeightInput = document.querySelector("#level-" + levelN + " .bigBox-control .inputHeight").value;
     let bbHeightInputUnit = bbHeightInput.substr(-2);
-    if (bbHeightInputUnit.includes("%")) {bbHeightInputUnit = "%"};
+    if (bbHeightInputUnit.includes("%")) {
+        bbHeightInputUnit = "%"
+    };
     let bbWidthInput = document.querySelector("#level-" + levelN + " .bigBox-control .inputWidth").value;
     let bbWidthInputUnit = bbWidthInput.substr(-2);
-    if (bbWidthInputUnit.includes("%")) {bbWidthInputUnit = "%"};
+    if (bbWidthInputUnit.includes("%")) {
+        bbWidthInputUnit = "%"
+    };
+    let bbActive = data[levelN - 1].bboxa;
+
+    //SMALL BOX VARIABLES
+    let sbHeightInput = document.querySelector("#level-" + levelN + " .smallBox-control .inputHeight").value;
+    let sbHeightInputUnit = sbHeightInput.substr(-2);
+    if (sbHeightInputUnit.includes("%")) {
+        sbHeightInputUnit = "%"
+    };
+    let sbWidthInput = document.querySelector("#level-" + levelN + " .smallBox-control .inputWidth").value;
+    let sbWidthInputUnit = sbWidthInput.substr(-2);
+    if (sbWidthInputUnit.includes("%")) {
+        sbWidthInputUnit = "%"
+    };
+    let sbActive = data[levelN - 1].sboxa;
 
 
-    //if checkAllowedUnit passed, it returns true
-    if (checkAllowedUnit(bbHeightInputUnit, bbWidthInputUnit, levelN)) {
-        if (bbHeightInputUnit === "vh") {
+    if (bbActive == 1 && sbActive == 1) {
+        if (checkAllowedUnit(bbHeightInputUnit, bbWidthInputUnit, levelN) && checkAllowedUnit(sbHeightInputUnit, sbWidthInputUnit, levelN)) {
+            console.log("passed both");
+            // Because of created Window, change viewports to percentage in order to fit to size
             bbHeightInputUnit.replace("vh", "%");
-        }
-        if (bbWidthInputUnit === "vw") {
             bbWidthInputUnit.replace("vw", "%");
+            sbHeightInputUnit.replace("vh", "%");
+            sbWidthInputUnit.replace("vw", "%");
+
+            // Apply heights
+            bigBox.style.height = bbHeightInput;
+            bigBox.style.width = bbWidthInput;
+            smallBox.style.height = sbHeightInput;
+            smallBox.style.width = sbWidthInput;
+
+            // Check if inputs are correct
+            if (bbHeightInput === bHeight && bbWidthInput === bWidth && sbHeightInput === sHeight && sbWidthInput === sWidth) {
+                displayCorrectMessage(levelN, "CORRECT!")
+            } else {
+                displayWrongMessage(levelN, "Something seems not to beis not right, try again");
+            }
         }
+    } else if (bbActive == 1) {
+
+        console.log("passed bigBox");
+        // Because of created Window, change viewports to percentage in order to fit to size
+        bbHeightInputUnit.replace("vh", "%");
+        bbWidthInputUnit.replace("vw", "%");
+
+        // Apply heights
         bigBox.style.height = bbHeightInput;
         bigBox.style.width = bbWidthInput;
 
-        if (bbHeightInput === height && bbWidthInput === width) {
-            displayCorrectMessage(levelN,"CORRECT!")
+        console.log(bbHeightInput +" and "+ bHeight);
+        console.log(bbWidthInput +" and "+ bWidth);
+        // Check if inputs are correct
+        if (bbHeightInput === bHeight && bbWidthInput === bWidth) {
+            displayCorrectMessage(levelN, "CORRECT!")
+        } else {
+            displayWrongMessage(levelN, "Something seems not to beis not right, try again");
         }
-    };
+    } else if (sbActive == 1) {
+        console.log("passed smallBox");
+        // Because of created Window, change viewports to percentage in order to fit to size
+        sbHeightInputUnit.replace("vh", "%");
+        sbWidthInputUnit.replace("vw", "%");
+
+        // Apply heights
+        smallBox.style.height = sbHeightInput;
+        smallBox.style.width = sbWidthInput;
+
+        // Check if inputs are correct
+        if (sbHeightInput === sHeight && sbWidthInput === sWidth) {
+            displayCorrectMessage(levelN, "CORRECT!")
+        } else {
+            displayWrongMessage(levelN, "Something seems not to beis not right, try again");
+        }
+    } else {
+        displayWrongMessage(levelN, "Sorry. Something went wrong :/ - Please contact lars@advena.me");
+    }
 }
 
 function checkAllowedUnit(checkForHeight, checkForWidth, levelN) {
@@ -165,7 +244,7 @@ function checkAllowedUnit(checkForHeight, checkForWidth, levelN) {
         //do nothing
         return true;
     } else {
-        displayWrongMessage(levelN,"Ups. Seems like you used an unit not made for that direction.");
+        displayWrongMessage(levelN, "Ups. Seems like you used an unit not made for that direction.");
         return false;
     }
 
@@ -174,7 +253,7 @@ function checkAllowedUnit(checkForHeight, checkForWidth, levelN) {
         //do nothing
         return true;
     } else {
-        displayWrongMessage(levelN,"Ups. Seems like you used an unit not made for that direction.");
+        displayWrongMessage(levelN, "Ups. Seems like you used an unit not made for that direction.");
         return false;
     }
 
@@ -182,7 +261,7 @@ function checkAllowedUnit(checkForHeight, checkForWidth, levelN) {
 
 
 //display wrong message
-function displayWrongMessage(levelN,message) {
+function displayWrongMessage(levelN, message) {
     let wrongMessage = document.querySelector("#level-" + levelN + " .wrong-message");
     wrongMessage.textContent = message;
     wrongMessage.classList.remove("hide");
@@ -192,7 +271,7 @@ function displayWrongMessage(levelN,message) {
 
 }
 //display wrong message
-function displayCorrectMessage(levelN,message) {
+function displayCorrectMessage(levelN, message) {
     let correctMessage = document.querySelector("#level-" + levelN + " .correct-message");
     correctMessage.textContent = message;
     correctMessage.classList.remove("hide");
@@ -203,7 +282,9 @@ function displayCorrectMessage(levelN,message) {
 }
 
 
-
+function letMeContinue(){
+    document.querySelector("#screenWarning").style.display = "none";
+}
 // Transform Google JSON data to normal array
 class FetchGoogleJSON {
     constructor(url, callback, prettify = true) {
