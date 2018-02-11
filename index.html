@@ -18,7 +18,9 @@
             <div id="main-container">
                 <div id="play">
                     <div id="browser">
-                        <div id="bigBox"></div>
+                        <div id="bigBox">
+                            <div id="smallBox"></div>
+                        </div>
                     </div>
                 </div>
                 <div id="desktop-container">
@@ -50,7 +52,7 @@
                             <h3>Task:</h3>
                             <p class="description">Change the height and width of the Red container to 700px.</p>
                         </div>
-                        <div class="bigBox-control hide">
+                        <div class="bigBox-control hide box-controls">
                             <h3>Red container controls:</h3>
                             <table class="bigBox-table" style="width:60%">
                                 <tr>
@@ -58,7 +60,6 @@
                                     <td>
                                         <input class="inputHeight" type="text" placeholder="300px">
                                     </td>
-
                                 </tr>
                                 <tr>
                                     <td>Width:</td>
@@ -67,8 +68,28 @@
                                     </td>
                                 </tr>
                             </table>
-                            <button onclick="bigBoxSize('level-n','height','width')">Apply & Check</button>
+                            <button onclick="bigBoxSize('level-n','height','width')">Apply &amp; Check</button>
                         </div>
+
+                        <div class="smallBox-control hide box-controls">
+                            <h3>Green container controls:</h3>
+                            <table class="smallBox-table" style="width:60%">
+                                <tr>
+                                    <td>Height:</td>
+                                    <td>
+                                        <input class="inputHeight" type="text" placeholder="20vh">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Width:</td>
+                                    <td>
+                                        <input class="inputWidth" type="text" placeholder="5em">
+                                    </td>
+                                </tr>
+                            </table>
+                            <button onclick="smallBoxSize('level-n','height','width')">Apply &amp; Check</button>
+                        </div>
+
                         <h4 class="correct-message hide">CORRECT!</h4>
                         <h4 class="wrong-message hide">Wrong, try again!</h4>
                     </div>

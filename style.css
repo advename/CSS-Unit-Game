@@ -64,7 +64,7 @@ main {
 #bigBox {
     height: 50%;
     width: 50%;
-    background: linear-gradient(to bottom right, #e05a34, red);
+    background: #DF2935;
     transition: height 1.5s, width 1.5s;
     border-radius: 5px;
     position: relative;
@@ -72,6 +72,18 @@ main {
     left: 0;
 }
 
+#smallBox{
+    height: 50%;
+    width: 50%;
+    background: #51d86a;
+    transition: height 1.5s, width 1.5s;
+    border-radius: 5px;
+    position: relative;
+    top: 0;
+    left: 0;
+    max-height: 100%;
+    max-width: 100%;
+}
 
 
 
@@ -86,6 +98,7 @@ main {
     background: #8295a9;
     border-radius: 30px;
     position: relative;
+    z-index: 400;
 }
 
 #sidebar {
@@ -119,14 +132,21 @@ main {
     font-size: 25px;
 }
 
-
-#sidebar .bigBox-control{
-    border-left: 10px solid #e05a34;
+#sidebar .box-controls{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     padding: 15px 0px;
-    margin: 0 20px;
+    margin: 0 5px 50px 5px;
 }
-#sidebar .bigBox-control h3 {
+#sidebar .bigBox-control{
+    border-left: 10px solid #DF2935;
+
+}
+
+#sidebar .smallBox-control{
+    border-left: 10px solid #51d86a;
+}
+
+#sidebar .box-controls h3 {
     padding-left: 15px;
     color: white;
     margin-bottom: 15px;

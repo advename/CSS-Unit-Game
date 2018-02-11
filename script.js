@@ -3,6 +3,7 @@ let mainContainerSize = mainContainer.getBoundingClientRect();
 let svg = document.querySelector("main svg");
 let svgDesktop = document.querySelector("main #desktop-svg rect.cls-5");
 let bigBox = document.querySelector("#bigBox");
+let smallBox = document.querySelector("#smallBox");
 let play = document.querySelector("main #play");
 const levelTemplate = document.querySelector("#level-template");
 const sideBar = document.querySelector("#sidebar");
@@ -73,9 +74,14 @@ function createLevels() {
         if (elem.level == 1) {
             clone.querySelector("#level-" + elem.level).style.left = "0px;"
         }
-        if (elem.bboxa) {
+        if (elem.bboxa == 1) {
             clone.querySelector(".bigBox-control").classList.remove("hide");
             clone.querySelector("button").setAttribute("onClick", "bigBoxSize('" + elem.level + "','" + elem.bboxh + "','" + elem.bboxw + "')");
+        }
+        console.log(elem.sboxa)
+         if (elem.sboxa == 1) {
+            clone.querySelector(".smallBox-control").classList.remove("hide");
+            clone.querySelector("button").setAttribute("onClick", "smallBoxSize('" + elem.level + "','" + elem.sboxh + "','" + elem.sboxw + "')");
         }
         sideBar.appendChild(clone);
     });
