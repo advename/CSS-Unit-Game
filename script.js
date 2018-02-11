@@ -214,7 +214,7 @@ function checkBoxSize(levelN, bHeight, bWidth, sHeight, sWidth) {
         if (bbHeightInput === bHeight && bbWidthInput === bWidth) {
             displayCorrectMessage(levelN, "CORRECT!")
         } else {
-            displayWrongMessage(levelN, "Something seems not to beis not right, try again");
+            displayWrongMessage(levelN, "Something seems not to be right, try again");
         }
     } else if (sbActive == 1) {
         console.log("passed smallBox");
