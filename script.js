@@ -19,6 +19,8 @@ const link = "https://spreadsheets.google.com/feeds/list/1T2dyKXx_OuFsAcSLnPaUYE
 init();
 // INITIALIZE SIZES
 function init() {
+    /*
+    Intention of the code was to resize the svg 4 to 5. However, percentage did the work too!
     if (mainContainerSize.width < mainContainerSize.height) {
         let size = mainContainerSize.width / 5;
         svg.style.height = (size * 4) + "px";
@@ -31,9 +33,11 @@ function init() {
         svg.style.width = (size * 5) + "px";
         //mainContainer.style.height = (size*4) + "px";
         reSizePlay();
+    }*/
 
-    }
-
+    svg.style.height = "95%";
+    svg.style.width = "95%";
+    reSizePlay();
     function reSizePlay() {
         let svgDesktopSize = svgDesktop.getBoundingClientRect();
 
@@ -56,8 +60,6 @@ function init() {
     }
 
     sideBar.style.width = (sideBarContainerSize.width - 40) + "px";
-
-
     widthOfSideBar = sideBarContainerSize.width + 41;
 }
 
@@ -80,7 +82,7 @@ function createLevels() {
         if (elem.sboxa == 1) {
             clone.querySelector(".smallBox-control").classList.remove("hide");
         }
-        clone.querySelector("button").setAttribute("onClick", "checkBoxSize('" + elem.level + "','" + elem.bboxh + "','" + elem.bboxw + "','" + elem.sboxh + "','" + elem.sboxw + "')");
+        clone.querySelector("button").setAttribute("onClick", "checkBoxSize('" + elem.level + "')");
         sideBar.appendChild(clone);
     });
     document.querySelector("#level-1").style.left = "0px";
@@ -147,7 +149,10 @@ function hideShowBig(level) {
 
 
 //check input for current level
-function checkBoxSize(levelN, bHeight, bWidth, sHeight, sWidth) {
+function checkBoxSize(levelN) {
+    // Current levels array data
+    let dataL = data[levelN - 1];
+
     //BIG BOX VARIABLES
     let bbHeightInput = document.querySelector("#level-" + levelN + " .bigBox-control .inputHeight").value;
     let bbHeightInputUnit = bbHeightInput.substr(-2);
@@ -191,7 +196,7 @@ function checkBoxSize(levelN, bHeight, bWidth, sHeight, sWidth) {
             smallBox.style.width = sbWidthInput;
 
             // Check if inputs are correct
-            if (bbHeightInput === bHeight && bbWidthInput === bWidth && sbHeightInput === sHeight && sbWidthInput === sWidth) {
+            if (bbHeightInput === dataL.bboxh && bbWidthInput === dataL.bboxw && sbHeightInput === dataL.sboxh && sbWidthInput === dataL.sboxw) {
                 displayCorrectMessage(levelN, "CORRECT!")
             } else {
                 displayWrongMessage(levelN, "Something seems not to beis not right, try again");
@@ -208,10 +213,8 @@ function checkBoxSize(levelN, bHeight, bWidth, sHeight, sWidth) {
         bigBox.style.height = bbHeightInput;
         bigBox.style.width = bbWidthInput;
 
-        console.log(bbHeightInput +" and "+ bHeight);
-        console.log(bbWidthInput +" and "+ bWidth);
         // Check if inputs are correct
-        if (bbHeightInput === bHeight && bbWidthInput === bWidth) {
+        if (bbHeightInput === dataL.bboxh && bbWidthInput === dataL.bboxw) {
             displayCorrectMessage(levelN, "CORRECT!")
         } else {
             displayWrongMessage(levelN, "Something seems not to be right, try again");
@@ -227,7 +230,7 @@ function checkBoxSize(levelN, bHeight, bWidth, sHeight, sWidth) {
         smallBox.style.width = sbWidthInput;
 
         // Check if inputs are correct.
-        if (sbHeightInput === sHeight && sbWidthInput === sWidth) {
+        if (sbHeightInput === dataL.sboxh && sbWidthInput === dataL.sboxw) {
             displayCorrectMessage(levelN, "CORRECT!")
         } else {
             displayWrongMessage(levelN, "Something seems not to beis not right, try again");
