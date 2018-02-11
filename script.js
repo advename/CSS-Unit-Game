@@ -281,7 +281,23 @@ function displayCorrectMessage(levelN, message) {
 
 }
 
+//show more or less info about css info
+function showInfo(status){
+    let info = document.querySelector("#info");
+    let moreInfo = document.querySelector("#info .more-info");
+    console.log(typeof status);
+    if(status == "true"){
+        info.classList.add("active");
+        moreInfo.style.display = "block";
+    }
+    else{
+        info.classList.remove("active");
+        moreInfo.style.display = "none";
+    }
+}
 
+
+// disable mobile warning message for small screen
 function letMeContinue(){
     document.querySelector("#screenWarning").style.display = "none";
 }
