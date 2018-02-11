@@ -226,7 +226,7 @@ function checkBoxSize(levelN, bHeight, bWidth, sHeight, sWidth) {
         smallBox.style.height = sbHeightInput;
         smallBox.style.width = sbWidthInput;
 
-        // Check if inputs are correct
+        // Check if inputs are correct.
         if (sbHeightInput === sHeight && sbWidthInput === sWidth) {
             displayCorrectMessage(levelN, "CORRECT!")
         } else {
