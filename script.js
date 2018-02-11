@@ -76,13 +76,11 @@ function createLevels() {
         }
         if (elem.bboxa == 1) {
             clone.querySelector(".bigBox-control").classList.remove("hide");
-            clone.querySelector("button").setAttribute("onClick", "bigBoxSize('" + elem.level + "','" + elem.bboxh + "','" + elem.bboxw + "')");
         }
-        console.log(elem.sboxa)
          if (elem.sboxa == 1) {
             clone.querySelector(".smallBox-control").classList.remove("hide");
-            clone.querySelector("button").setAttribute("onClick", "smallBoxSize('" + elem.level + "','" + elem.sboxh + "','" + elem.sboxw + "')");
         }
+         clone.querySelector("button").setAttribute("onClick", "bigBoxSize('" + elem.level + "','" + elem.bboxh + "','" + elem.bboxw + "','" + elem.sboxh + "','" + elem.sboxw + "')");
         sideBar.appendChild(clone);
     });
     document.querySelector("#level-1").style.left = "0px";
@@ -134,7 +132,7 @@ function changeLevel(direction) {
 }
 
 //check input for current level
-function bigBoxSize(levelN, height, width) {
+function checkBoxSize(levelN, bHeight, bWidth, sHeight, sWidth) {
     let bbHeightInput = document.querySelector("#level-" + levelN + " .bigBox-control .inputHeight").value;
     let bbHeightInputUnit = bbHeightInput.substr(-2);
     if (bbHeightInputUnit.includes("%")) {bbHeightInputUnit = "%"};
@@ -157,11 +155,7 @@ function bigBoxSize(levelN, height, width) {
         if (bbHeightInput === height && bbWidthInput === width) {
             displayCorrectMessage(levelN,"CORRECT!")
         }
-
     };
-
-
-
 }
 
 function checkAllowedUnit(checkForHeight, checkForWidth, levelN) {

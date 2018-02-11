@@ -112,7 +112,7 @@ main {
 
 #sidebar .level-container{
     position: absolute;
-    left: 100%;
+    left: 110%;
     transition: left .7s;
 }
 
@@ -132,18 +132,19 @@ main {
     font-size: 25px;
 }
 
-#sidebar .box-controls{
+#sidebar .box-controls .bigBox-control, #sidebar .box-controls .smallBox-control {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     padding: 15px 0px;
     margin: 0 5px 50px 5px;
+    border-radius: 0px 0px 0px 5px;
 }
 #sidebar .bigBox-control{
-    border-left: 10px solid #DF2935;
+    border-left: 20px solid #DF2935;
 
 }
 
 #sidebar .smallBox-control{
-    border-left: 10px solid #51d86a;
+    border-left: 20px solid #51d86a;
 }
 
 #sidebar .box-controls h3 {
@@ -180,7 +181,6 @@ main {
 
 #sidebar table {
     margin: 0 auto;
-    margin-bottom: 30px;
 
 }
 

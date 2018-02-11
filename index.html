@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,8 @@
     <link rel="stylesheet" href="css-reset.css">
     <link rel="stylesheet" href="style.css">
     <style>
+
+
     </style>
     <title>CSS length Unit Game</title>
 
@@ -52,7 +55,8 @@
                             <h3>Task:</h3>
                             <p class="description">Change the height and width of the Red container to 700px.</p>
                         </div>
-                        <div class="bigBox-control hide box-controls">
+                        <div class="box-controls">
+                           <div class="bigBox-control hide">
                             <h3>Red container controls:</h3>
                             <table class="bigBox-table" style="width:60%">
                                 <tr>
@@ -68,10 +72,8 @@
                                     </td>
                                 </tr>
                             </table>
-                            <button onclick="bigBoxSize('level-n','height','width')">Apply &amp; Check</button>
-                        </div>
-
-                        <div class="smallBox-control hide box-controls">
+                            </div>
+                        <div class="smallBox-control hide">
                             <h3>Green container controls:</h3>
                             <table class="smallBox-table" style="width:60%">
                                 <tr>
@@ -87,7 +89,8 @@
                                     </td>
                                 </tr>
                             </table>
-                            <button onclick="smallBoxSize('level-n','height','width')">Apply &amp; Check</button>
+                        </div>
+                        <button onclick="checkBoxSize('level-n','bHeight','bWidth','sHeight',,'sWidth')">Apply &amp; Check</button>
                         </div>
 
                         <h4 class="correct-message hide">CORRECT!</h4>
@@ -97,4 +100,5 @@
 
 </body>
 <script src="script.js"></script>
+
 </html>
