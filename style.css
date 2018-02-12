@@ -44,7 +44,7 @@ main {
     position: absolute;
     z-index: 300;
     top: 0;
-    left: 2.6px;
+    left: 0px;
     right: 0;
     bottom: 0;
     margin: auto;
@@ -84,7 +84,19 @@ main {
     left: 0;
     max-height: 100%;
     max-width: 100%;
-    display: none;
+}
+
+#smallText {
+    font-size: 16px;
+    color: #2c3a2f;
+    transition: height 1.5s, width 1.5s;
+    position: relative;
+    top: 0;
+    left: 0;
+    max-height: 100%;
+    max-width: 100%;
+    text-shadow: 0px 0px 10px #ffffff;
+
 }
 
 
@@ -121,7 +133,8 @@ main {
 
 #sidebar h2 {
     margin-bottom: 20px;
-    font-size: 300%;
+    font-size: 200%;
+    text-align: center;
 }
 
 #sidebar .header {
@@ -150,6 +163,10 @@ main {
 
 #sidebar .smallBox-control {
     border-left: 20px solid #51d86a;
+}
+
+#sidebar .textBorder {
+    border-left: 20px solid #2c3a2f;
 }
 
 #sidebar .box-controls h3 {
@@ -193,27 +210,17 @@ button:hover {
 #sidebar input {
     color: #121213;
     height: 20px;
-    width: 100px;
+    max-width: 75%;
     margin-bottom: 5px;
     text-align: right;
-    font-size: 18px;
+    font-size: 16px;
     border: none;
-    margin-right: 4px;
     padding-right: 5px;
     margin-left: 10px;
 }
 
 #sidebar input::placeholder {
     color: #878f90;
-}
-
-/* ALWAYS SHOW INPUT ARROWS */
-
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-
-    opacity: 1;
-
 }
 
 #sidebar table p {
@@ -241,17 +248,16 @@ input[type=number]::-webkit-outer-spin-button {
 #direction {
     color: #d3dce2;
     position: absolute;
-    width: 70%;
-    bottom: 5%;
-    left: 0;
-    right: 0;
+    width: 80%;
+    top: 15px;
+    right: 0px;
+    left: 0px;
     margin: auto;
 
 }
 
 #direction .left,
 #direction .right {
-    padding: 10px;
     font-size: 45px;
     cursor: pointer;
 }
@@ -339,11 +345,16 @@ input[type=number]::-webkit-outer-spin-button {
 @media (max-width: 1600px) and (max-height: 800px) {
 
     #sidebar .header h3 {
-        margin-bottom: 10px;
+        margin-bottom: 5px;
+        font-size: 20px;
     }
     #sidebar .box-controls .bigBox-control,
     #sidebar .box-controls .smallBox-control {
-        margin: 0 5px 30px 5px;
+        margin: 0 5px 10px 5px;
+        padding: 5px 10px;
+    }
+    #sidebar .header {
+    margin-bottom: 15px;
     }
     /*
     #sidebar .box-controls {

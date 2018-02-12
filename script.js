@@ -4,6 +4,7 @@ let svg = document.querySelector("main svg");
 let svgDesktop = document.querySelector("main #desktop-svg rect.cls-5");
 let bigBox = document.querySelector("#bigBox");
 let smallBox = document.querySelector("#smallBox");
+let smallText = document.querySelector("#smallText");
 let play = document.querySelector("main #play");
 const levelTemplate = document.querySelector("#level-template");
 const sideBar = document.querySelector("#sidebar");
@@ -38,6 +39,7 @@ function init() {
     svg.style.height = "95%";
     svg.style.width = "95%";
     reSizePlay();
+
     function reSizePlay() {
         let svgDesktopSize = svgDesktop.getBoundingClientRect();
 
@@ -50,7 +52,7 @@ function init() {
         }
 
         play.style.height = svgDesktopSize.height + "px";
-        play.style.width = (svgDesktopSize.width - .9) + "px";
+        play.style.width = (svgDesktopSize.width - 2.3) + "px";
 
         topValue = Math.abs((getOffset(svgDesktop).top) - (getOffset(play).top));
 
@@ -79,8 +81,13 @@ function createLevels() {
         if (elem.bboxa == 1) {
             clone.querySelector(".bigBox-control").classList.remove("hide");
         }
-        if (elem.sboxa == 1) {
+        if (elem.sboxa === "div") {
             clone.querySelector(".smallBox-control").classList.remove("hide");
+            clone.querySelector(".smallBox-control h3").textContent = "Green container controls:"
+        }
+        if (elem.sboxa === "p") {
+            clone.querySelector(".smallBox-control").classList.remove("hide");
+            clone.querySelector(".smallBox-control h3").textContent = "Text controls:"
         }
         clone.querySelector("button").setAttribute("onClick", "checkBoxSize('" + elem.level + "')");
         sideBar.appendChild(clone);
@@ -113,6 +120,7 @@ function changeLevel(direction) {
 
         hideShowSmall(currentLevel);
         hideShowBig(currentLevel);
+        defaultSize(currentLevel);
     } else if (direction == "right") {
         document.querySelector("#level-" + currentLevel).style.left = (-1 * widthOfSideBar) + "px";
         document.querySelector("#level-" + (currentLevel + 1)).style.left = "0px";
@@ -122,29 +130,58 @@ function changeLevel(direction) {
         } else if (currentLevel == (data.length) - 1) {
             rightDirection.classList.add("hide");
         }
-        if (currentLevel < 5) {
+        if (currentLevel < data.length) {
             currentLevel = currentLevel + 1;
         }
         hideShowSmall(currentLevel);
         hideShowBig(currentLevel);
+        defaultSize(currentLevel);
+    }
+}
+
+function hideShowBig(level) {
+    if (data[level - 1].bboxa == 0) {
+        bigBox.style.display = "none";
+    } else {
+        bigBox.style.display = "block";
+        bigBox.style.height = data[level - 1].bboxd
     }
 }
 
 function hideShowSmall(level) {
-    console.log(data[level-1].sboxa);
-    if (data[level-1].sboxa == 0) {
-        smallBox.style.display = "none";
+    let cLevel = level - 1;
+    if (data[cLevel].sboxa === "div") {
+        smallBox.classList.remove("hide");
+        smallText.classList.add("hide");
+        document.querySelector("#level-" + level + " .smallBox-control").classList.remove("textBorder");
+
+    } else if (data[cLevel].sboxa === "p") {
+        smallText.classList.remove("hide");
+        smallBox.classList.add("hide");
+        document.querySelector("#level-" + level + " .smallBox-control").classList.add("textBorder");
     } else {
-        smallBox.style.display = "block";
+        smallBox.classList.add("hide");
+        smallText.classList.add("hide");
     }
-}
-function hideShowBig(level) {
-    console.log(data[level-1].bboxa);
-    if (data[level-1].bboxa == 0) {
-        bigBox.style.display = "none";
-    } else {
-        bigBox.style.display = "block";
+    let marginString = data[level - 1].sboxm;
+    let marginArray = marginString.split(/[/]/);
+    if (marginArray.indexOf("0") > -1){
+        document.querySelector("#level-" + level + " .sMarginTree").classList.add("hide");
     }
+    else{
+        document.querySelector("#level-" + level + " .sMarginTree").classList.remove("hide");
+    }
+
+    let paddingString = data[level - 1].sboxp;
+    let paddingArray = paddingString.split(/[/]/);
+    if (paddingArray.indexOf("0") > -1){
+        document.querySelector("#level-" + level + " .sPaddingTree").classList.add("hide");
+    }
+    else{
+        document.querySelector("#level-" + level + " .sPaddingTree").classList.remove("hide");
+    }
+
+
 }
 
 
@@ -241,15 +278,32 @@ function checkBoxSize(levelN) {
 }
 
 function checkAllowedUnit(checkForHeight, checkForWidth, levelN) {
-
-    //check height units
-    if (checkForHeight === "vh" || checkForHeight === "px" || checkForHeight === "em" || checkForHeight === "%" || checkForHeight === "vmin" || checkForHeight === "vmax") {
+    let allowedH = ["vh", "px", "em", "%"];
+    if (allowedH.indexOf(checkForHeight) > -1) {
         //do nothing
+        console.log("exists");
         return true;
     } else {
         displayWrongMessage(levelN, "Ups. Seems like you used an unit not made for that direction.");
+        console.log("not existing");
         return false;
     }
+
+    //check height units
+    /*
+
+        //check height units
+        if (checkForHeight === "vh" || checkForHeight === "px" || checkForHeight === "em" || checkForHeight === "%" || checkForHeight === "vmin" || checkForHeight === "vmax") {
+            //do nothing
+            return true;
+        } else {
+            displayWrongMessage(levelN, "Ups. Seems like you used an unit not made for that direction.");
+            return false;
+        }
+
+
+
+    */
 
     //Check width units
     if (checkForWidth === "vw" || checkForWidth === "px" || checkForWidth === "em" || checkForWidth === "%" || checkForWidth === "vmin" || checkForWidth === "vmax") {
@@ -262,6 +316,21 @@ function checkAllowedUnit(checkForHeight, checkForWidth, levelN) {
 
 }
 
+
+function defaultSize(level){
+    let defaultSizeDataBB = data[level - 1].bboxd;
+    let defaultArrayBB = defaultSizeDataBB.split(/[/]/);
+    let defaultSizeDataSB = data[level - 1].sboxd;
+    let defaultArraySB = defaultSizeDataSB.split(/[/]/);
+    bigBox.style.height =defaultArrayBB[0];
+    bigBox.style.width = defaultArrayBB[1];
+    if(data[level - 1].sboxa === "div"){
+        smallBox.style.height = defaultArraySB[0];
+        smallBox.style.width = defaultArraySB[1];
+    }else if(data[level - 1].sboxa === "p"){
+        smallText.style.fontSize = defaultArraySB[0];
+    }
+}
 
 //display wrong message
 function displayWrongMessage(levelN, message) {
@@ -285,15 +354,14 @@ function displayCorrectMessage(levelN, message) {
 }
 
 //show more or less info about css info
-function showInfo(status){
+function showInfo(status) {
     let info = document.querySelector("#info");
     let moreInfo = document.querySelector("#info .more-info");
     console.log(typeof status);
-    if(status == "true"){
+    if (status == "true") {
         info.classList.add("active");
         moreInfo.style.display = "block";
-    }
-    else{
+    } else {
         info.classList.remove("active");
         moreInfo.style.display = "none";
     }
@@ -301,7 +369,7 @@ function showInfo(status){
 
 
 // disable mobile warning message for small screen
-function letMeContinue(){
+function letMeContinue() {
     document.querySelector("#screenWarning").style.display = "none";
 }
 // Transform Google JSON data to normal array
