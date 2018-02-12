@@ -369,7 +369,7 @@ function checkBoxSize(levelN) {
             smallBox.style.width = replaceViewport(sWidthInput);
 
             // Check if inputs are correct
-            if (bHeightInput === dataL.bboxh && bWidthInput === dataL.bboxw && sHeightInput === dataL.sboxh && sWidthInput === dataL.sboxh) {
+            if (bHeightInput === dataL.bboxh && bWidthInput === dataL.bboxw && sHeightInput === dataL.sboxh && sWidthInput === dataL.sboxw) {
                 displayCorrectMessage(levelN, "CORRECT!")
             } else {
                 displayWrongMessage(levelN, "Something seems not to be right, try again");
