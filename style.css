@@ -89,7 +89,7 @@ main {
 #smallText {
     font-size: 16px;
     color: #2c3a2f;
-    transition: height 1.5s, width 1.5s;
+    transition: font-size 1.5s;
     position: relative;
     top: 0;
     left: 0;
@@ -146,6 +146,10 @@ main {
     color: white;
     margin-bottom: 15px;
     font-size: 25px;
+}
+#sidebar .description span{
+    font-weight: bold;
+    color: #FFEB3B;
 }
 
 #sidebar .box-controls .bigBox-control,

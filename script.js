@@ -57,7 +57,7 @@ function createLevels() {
         const clone = levelTemplate.cloneNode(true);
         clone.querySelector("#level-n").id = "level-" + elem.level;
         clone.querySelector(".level-number").textContent = "Level " + elem.level;
-        clone.querySelector(".description").textContent = elem.description;
+        clone.querySelector(".description").innerHTML = elem.description;
 
         if (elem.level == 1) {
             clone.querySelector("#level-" + elem.level).style.left = "0px;"
