@@ -48,8 +48,61 @@
             <div class="info-icon" onclick="showInfo('true')">
                 <p class="info-icon-i">i</p>
             </div>
+            <div class="more-info-background">
+            </div>
             <div class="more-info" onclick="showInfo('false')">
-                <h2>More info to come...</h2>
+                <div class="info-left">
+                    <h2>CSS UNITS</h2>
+                    <p>CSS or the style sheet of a website has many length units, same as we have centimeters (cm), millimeters (mm), inches (in) and so on and so forth in the real world. While we can use the units cm, mm and in with our style sheet, they are yet not recommended as they are not friendly to use with Web sites. Moreover, as Web sites are displayed on different screen sizes, we want to work relative to the screen size of the device displaying the website.<br><br> Therefore, in CSS we work with two types of length units:</p>
+                    <ul>
+                        <li>relative (depends on screen or an element size) and </li>
+                        <li>absolute (fixed size)</li>
+                    </ul>
+                    <br><br>
+                    <p>There are over 10 length units compatible with CSS, however, most of the times we're only going to need a couple of them:</p>
+                    <table>
+                        <tr>
+                            <th>Unit</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                        <tr>
+                            <td>px</td>
+                            <td>Pixels - absolute unit</td>
+                            <td>1px = 1/96th of 1in</td>
+                        </tr>
+                        <tr>
+                            <td>em</td>
+                            <td>Relative to the font size of the element</td>
+                            <td>2em means 2 times the size of the elements font</td>
+                        </tr>
+                        <tr>
+                            <td>vh</td>
+                            <td>Viewport Height - relative to the browser window height</td>
+                            <td>50vh would fill half of the screen vertically</td>
+                        </tr>
+                        <tr>
+                            <td>vw</td>
+                            <td>Viewport Width - relative to the browser window width</td>
+                            <td>50vw would fill half of the screen horizontally</td>
+                        </tr>
+                        <tr>
+                            <td>%</td>
+                            <td>Percentage - relative to the size of container enclosing the element</td>
+                            <td>Self explaining</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="info-right">
+                   <h3>Tablet Example</h3><br>
+                   <p>Imagine this was a Tablet, which has a browser window with a height of 300px and a width of 280px. All these lines below have a height of 20px and the width are indicated inside the box.</p>
+                    <div class="info-tablet">
+                       <div class="tablet-browser"><br>
+                           <p>200px ( filling 75% of 280px )</p>
+                           <p>12em ( equals to 168px )</p>
+                       </div>
+                    </div>
+                </div>
             </div>
         </div>
 

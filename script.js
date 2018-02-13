@@ -74,6 +74,8 @@ function createLevels() {
             clone.querySelector(".smallBox-control h3").textContent = "Text controls:";
             clone.querySelector(".smallBox-control .text-height").textContent = "Font-size:";
             clone.querySelector(".smallBox-control .text-width").classList.add("hide");
+            if(elem.sboxh == 0){
+                clone.querySelector(".smallBox-control .inputHeight").classList.add("hide");}
             clone.querySelector(".smallBox-control .inputWidth").classList.add("hide");
         }
         clone.querySelector("button").setAttribute("onClick", "checkBoxSize('" + elem.level + "')");
@@ -217,6 +219,11 @@ function marginArrayActive(levelN) {
 
 }
 
+function splitToArray(input){
+    let array = input.split(/[ ]/);
+    return array;
+}
+
 function paddingArrayActive(levelN) {
     let status = 0;
     let array = data[(levelN - 1)].sboxp.split(/[ ]/);
@@ -268,117 +275,38 @@ function checkBoxSize(levelN) {
     // Font size
     let sFontUnit = getHeightUnit(levelN, ".smallBox-control");
     let sFontInput = document.querySelector("#level-" + levelN + " .smallBox-table .inputHeight").value;
-
+    let sFontActive = data[levelN - 1].sboxh;
     // Margin
     let marginUnit = getArrayUnit(levelN, ".inputMargin");
     let inputMargin = document.querySelector("#level-" + levelN + " .inputMargin").value;
+    // Convert margin input from one value or two value to four values
+    if(splitToArray(inputMargin).length == 1){
+        inputMargin = inputMargin + " " + inputMargin + " " + inputMargin + " " + inputMargin;
+    }
+    else if(splitToArray(inputMargin).length == 2){
+        inputMargin = splitToArray(inputMargin)[0] + " " + splitToArray(inputMargin)[1] + " " + splitToArray(inputMargin)[0] + " " + splitToArray(inputMargin)[1];
+    }
 
     // Padding
     let paddingUnit = getArrayUnit(levelN, ".inputPadding");
     let inputPadding = document.querySelector("#level-" + levelN + " .inputPadding").value;
+    // Convert padding input from one value or two value to four values
+    if(splitToArray(inputPadding).length == 1){
+        inputPadding = inputPadding + " " + inputPadding + " " + inputPadding + " " + inputPadding;
+    }
+    else if(splitToArray(inputPadding).length == 2){
+        inputPadding = splitToArray(inputPadding)[0] + " " + splitToArray(inputPadding)[1] + " " + splitToArray(inputPadding)[0] + " " + splitToArray(inputPadding)[1];
+    }
 
-    if (bbActive == 1 && sbActive === "p" && marginArrayActive(levelN) && paddingArrayActive(levelN)) {
-        if (checkAllowedUnit(bHeightUnit, bWidthUnit, levelN) && checkAllowedUnit(sFontUnit, "px", levelN) && marginUnit && paddingUnit) {
 
-            console.log("big box and p and margin and padding passed")
+    let checkStatus = 0;
 
-            // Because of created Window, change viewports to percentage in order to fit to size
-            // Apply heights
-            bigBox.style.height = replaceViewport(bHeightInput);
-            bigBox.style.width = replaceViewport(bWidthInput);
-            smallText.style.fontSize = replaceViewport(sFontInput);
-            smallText.style.padding = replaceViewport(inputPadding);
-            smallText.style.margin = replaceViewport(inputMargin);
 
-            // Check if inputs are correct
-            if (bHeightInput === dataL.bboxh && bWidthInput === dataL.bboxw && sFontInput === dataL.sboxh && inputMargin === dataL.sboxm && inputPadding === dataL.sboxp) {
-                displayCorrectMessage(levelN, "CORRECT!")
-            } else {
-                displayWrongMessage(levelN, "Something seems not to be right, try again");
-            }
-        }
-    } else if (bbActive == 1 && sbActive === "p" && marginArrayActive(levelN)) {
-        if (checkAllowedUnit(bHeightUnit, bWidthUnit, levelN) && checkAllowedUnit(sFontUnit, "px", levelN) && marginUnit) {
-
-            console.log("big box and p and margin passed");
-
-            // Because of created Window, change viewports to percentage in order to fit to size
-            // Apply heights
-            bigBox.style.height = replaceViewport(bHeightInput);
-            bigBox.style.width = replaceViewport(bWidthInput);
-            smallText.style.fontSize = replaceViewport(sFontInput);
-            smallText.style.margin = replaceViewport(inputMargin);
-
-            // Check if inputs are correct
-            if (bHeightInput === dataL.bboxh && bWidthInput === dataL.bboxw && sFontInput === dataL.sboxh && inputMargin === dataL.sboxm) {
-                displayCorrectMessage(levelN, "CORRECT!")
-            } else {
-                displayWrongMessage(levelN, "Something seems not to be right, try again");
-            }
-        }
-
-    }else if (bbActive == 1 && sbActive === "p" && paddingArrayActive(levelN)) {
-        if (checkAllowedUnit(bHeightUnit, bWidthUnit, levelN) && checkAllowedUnit(sFontUnit, "px", levelN) && paddingUnit) {
-
-            console.log("big box and p and padding passed");
-
-            // Because of created Window, change viewports to percentage in order to fit to size
-            // Apply heights
-            bigBox.style.height = replaceViewport(bHeightInput);
-            bigBox.style.width = replaceViewport(bWidthInput);
-            smallText.style.fontSize = replaceViewport(sFontInput);
-            smallText.style.padding = replaceViewport(inputPadding);
-
-            // Check if inputs are correct
-            if (bHeightInput === dataL.bboxh && bWidthInput === dataL.bboxw && sFontInput === dataL.sboxh && inputPadding === dataL.sboxp) {
-                displayCorrectMessage(levelN, "CORRECT!")
-            } else {
-                displayWrongMessage(levelN, "Something seems not to be right, try again");
-            }
-        }
-
-    }else if (bbActive == 1 && sbActive === "p") {
-        if (checkAllowedUnit(bHeightUnit, bWidthUnit, levelN) && checkAllowedUnit(sFontUnit, "px", levelN)) {
-
-            console.log("big box and p passed");
-
-            // Because of created Window, change viewports to percentage in order to fit to size
-            // Apply heights
-            bigBox.style.height = replaceViewport(bHeightInput);
-            bigBox.style.width = replaceViewport(bWidthInput);
-            smallText.style.fontSize = replaceViewport(sFontInput);
-
-            // Check if inputs are correct
-            if (bHeightInput === dataL.bboxh && bWidthInput === dataL.bboxw && sFontInput === dataL.sboxh) {
-                displayCorrectMessage(levelN, "CORRECT!")
-            } else {
-                displayWrongMessage(levelN, "Something seems not to be right, try again");
-            }
-        }
-
-    }else if (bbActive == 1 && sbActive === "div") {
-        if (checkAllowedUnit(bHeightUnit, bWidthUnit, levelN) && checkAllowedUnit(sHeightUnit, sWidthUnit, levelN)) {
-
-            console.log("big box and small box passed");
-
-            // Because of created Window, change viewports to percentage in order to fit to size
-            // Apply heights
-            bigBox.style.height = replaceViewport(bHeightInput);
-            bigBox.style.width = replaceViewport(bWidthInput);
-            smallBox.style.height = replaceViewport(sHeightInput);
-            smallBox.style.width = replaceViewport(sWidthInput);
-
-            // Check if inputs are correct
-            if (bHeightInput === dataL.bboxh && bWidthInput === dataL.bboxw && sHeightInput === dataL.sboxh && sWidthInput === dataL.sboxw) {
-                displayCorrectMessage(levelN, "CORRECT!")
-            } else {
-                displayWrongMessage(levelN, "Something seems not to be right, try again");
-            }
-        }
-    }else if (bbActive == 1) {
+    // Create only if's and if apply check
+    if (bbActive == 1) {
         if (checkAllowedUnit(bHeightUnit, bWidthUnit, levelN) ) {
 
-            console.log("Big box passed");
+
 
             // Because of created Window, change viewports to percentage in order to fit to size
             // Apply heights
@@ -387,13 +315,85 @@ function checkBoxSize(levelN) {
 
             // Check if inputs are correct
             if (bHeightInput === dataL.bboxh && bWidthInput === dataL.bboxw) {
-                displayCorrectMessage(levelN, "CORRECT!")
-            } else {
-                displayWrongMessage(levelN, "Something seems not to be right, try again");
+
             }
-        }
-    } else {
-        displayWrongMessage(levelN, "Sorry. Something went wrong :/ - Please contact lars@advena.me");
+            else{checkStatus = 1};
+        }else{checkStatus = 1};
+    }
+
+    if (sbActive === "div") {
+        if (checkAllowedUnit(sHeightUnit, sWidthUnit, levelN) ) {
+
+            console.log("Small box passed");
+
+            // Because of created Window, change viewports to percentage in order to fit to size
+            // Apply heights
+            smallBox.style.height = replaceViewport(sHeightInput);
+            smallBox.style.width = replaceViewport(sWidthInput);
+
+            // Check if inputs are correct
+            if (sHeightInput === dataL.sboxh && sWidthInput === dataL.sboxw) {
+
+            }else{checkStatus = 1};
+        }else{checkStatus = 1};
+    }
+
+    if (sbActive === "p") {
+        if (checkAllowedUnit(sFontUnit, "px", levelN)) {
+
+            console.log("Font box passed");
+
+            // Because of created Window, change viewports to percentage in order to fit to size
+            // Apply heights
+            smallText.style.fontSize = replaceViewport(sFontInput);
+
+            // Check if inputs are correct
+            if (sFontInput === dataL.sboxh) {
+
+            }else{checkStatus = 1};
+        }else{checkStatus = 1};
+    }
+
+    if (marginArrayActive(levelN)) {
+        if (marginUnit) {
+
+            console.log("Margin box passed");
+
+            // Because of created Window, change viewports to percentage in order to fit to size
+            // Apply heights
+            smallText.style.margin = replaceViewport(inputMargin);
+
+            // Check if inputs are correct
+            if (inputMargin === dataL.sboxm) {
+
+            }else{checkStatus = 1};
+        }else{checkStatus = 1};
+    }
+
+    if (paddingArrayActive(levelN)) {
+        if (paddingUnit) {
+
+            console.log("Padding box passed");
+
+            // Because of created Window, change viewports to percentage in order to fit to size
+            // Apply heights
+             smallText.style.padding = replaceViewport(inputPadding);
+
+            // Check if inputs are correct
+            if (inputPadding === dataL.sboxp) {
+
+            }else{checkStatus = 1};
+        }else{checkStatus = 1};
+    }
+
+    console.log("++++++")
+    console.log(checkStatus);
+
+    if(checkStatus === 0){
+        displayCorrectMessage(levelN, "CORRECT!");
+    }
+    else{
+        displayWrongMessage(levelN, "Something seems to be false, try again!");
     }
 }
 
@@ -427,33 +427,25 @@ function checkAllowedUnitArray(array, levelN) {
 function checkAllowedUnit(checkForHeight, checkForWidth, levelN) {
     let allowedH = ["vh", "px", "em", "%"];
     let allowedW = ["vw", "px", "em", "%"];
+    let status = 0;
 
     if (allowedH.indexOf(checkForHeight) > -1) {
         //do nothing
-        console.log("exists");
+        console.log("checkAllowedUnit true");
         //Check width units
         if (allowedW.indexOf(checkForWidth) > -1) {
             //do nothing
-            console.log("exists 2");
+            console.log("checkAllowedUnit true");
             return true;
         } else {
             displayWrongMessage(levelN, "Ups. Seems like you used an unit not made for that direction.");
-            console.log("not existing 2");
+            console.log("checkAllowedUnit false");
             return false;
         };
     } else {
         displayWrongMessage(levelN, "Ups. Seems like you used an unit not made for that direction.");
-        console.log("not existing");
-        //Check width units
-        if (allowedW.indexOf(checkForWidth) > -1) {
-            //do nothing
-            console.log("exists 2");
-            return true;
-        } else {
-            displayWrongMessage(levelN, "Ups. Seems like you used an unit not made for that direction.");
-            console.log("not existing 2");
-            return false;
-        }
+        console.log("checkAllowedUnit false");
+        return false;
     }
 }
 
@@ -480,7 +472,7 @@ function displayWrongMessage(levelN, message) {
     wrongMessage.classList.remove("hide");
     setTimeout(function () {
         wrongMessage.classList.add("hide");
-    }, 5000)
+    }, 3000)
 
 }
 //display wrong message
@@ -496,15 +488,16 @@ function displayCorrectMessage(levelN, message) {
 
 //show more or less info about css info
 function showInfo(status) {
-    let info = document.querySelector("#info");
+    let infoIcon = document.querySelector("#info .info-icon");
     let moreInfo = document.querySelector("#info .more-info");
-    console.log(typeof status);
+    let moreInfoBackground = document.querySelector("#info .more-info-background");
+
     if (status == "true") {
-        info.classList.add("active");
-        moreInfo.style.display = "block";
+        moreInfo.style.top = "0vh";
+        moreInfoBackground.style.bottom = "0px";
     } else {
-        info.classList.remove("active");
-        moreInfo.style.display = "none";
+        moreInfo.style.top = "-100vh";
+        moreInfoBackground.style.bottom = "-100vh";
     }
 }
 
