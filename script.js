@@ -516,8 +516,8 @@ function showInfo(status) {
         moreInfo.style.top = "0vh";
         moreInfoBackground.style.bottom = "0px";
     } else {
-        moreInfo.style.top = "-120vh";
-        moreInfoBackground.style.bottom = "-120vh";
+        moreInfo.style.removeProperty("top");
+        moreInfoBackground.style.removeProperty("bottom");
     }
 }
 
@@ -559,8 +559,8 @@ function showAbout(status) {
         moreAbout.style.top = "0vh";
         moreAboutBackground.style.bottom = "0px";
     } else {
-        moreAbout.style.top = "-160vh";
-        moreAboutBackground.style.bottom = "-100vh";
+        moreAbout.style.removeProperty("top");
+        moreAboutBackground.style.removeProperty("bottom");
     }
 }
 
