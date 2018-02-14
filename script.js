@@ -490,7 +490,7 @@ function displayCorrectMessage(levelN, message) {
 function showInfo(status) {
     let infoIcon = document.querySelector("#info .info-icon");
     let moreInfo = document.querySelector("#info .more-info");
-    let moreInfoBackground = document.querySelector("#info .more-info-background");
+    let moreInfoBackground = document.querySelector(".dark-background");
 
     if (status == "true") {
         moreInfo.style.top = "0vh";
@@ -500,6 +500,37 @@ function showInfo(status) {
         moreInfoBackground.style.bottom = "-100vh";
     }
 }
+function showAbout(status) {
+    let aboutIcon = document.querySelector("#about .about-icon");
+    let moreAbout = document.querySelector("#about .more-about");
+    let moreAboutBackground = document.querySelector(".dark-background");
+
+    if (status == "true") {
+        moreAbout.style.top = "0vh";
+        moreAboutBackground.style.bottom = "0px";
+    } else {
+        moreAbout.style.top = "-160vh";
+        moreAboutBackground.style.bottom = "-100vh";
+    }
+}
+
+
+
+
+
+
+
+document.addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode == 13){
+        console.log("hello");
+        checkBoxSize(currentLevel);
+
+    }
+});
+
+
+
 
 
 // disable mobile warning message for small screen

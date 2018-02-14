@@ -48,14 +48,12 @@
             <div class="info-icon" onclick="showInfo('true')">
                 <p class="info-icon-i">i</p>
             </div>
-            <div class="more-info-background">
-            </div>
             <div class="more-info" onclick="showInfo('false')">
                 <div class="info-left">
-                    <h2>CSS UNITS</h2>
-                    <p>CSS or the style sheet of a website has many length units, same as we have centimeters (cm), millimeters (mm), inches (in) and so on and so forth in the real world. While we can use the units cm, mm and in with our style sheet, they are yet not recommended as they are not friendly to use with Web sites. Moreover, as Web sites are displayed on different screen sizes, we want to work relative to the screen size of the device displaying the website.<br><br> Therefore, in CSS we work with two types of length units:</p>
+                    <h1>CSS UNITS GAME</h1>
+                    <p>CSS or the style sheet of a website has many length units, same as we have centimeters (cm), millimeters (mm), inches (in) and so on and so forth in the real world. While we can use the units cm, mm and in with our style sheet, they are yet not recommended as they are not friendly to use with Web sites. Moreover, as Web sites are displayed on different screen sizes, we want to work relatively to the screen size of the device displaying the website.<br><br> Therefore, in CSS we work with two types of length units:</p>
                     <ul>
-                        <li>relative (depends on screen or an element size) and </li>
+                        <li>relative (depends on screen- / element-size) </li>
                         <li>absolute (fixed size)</li>
                     </ul>
                     <br><br>
@@ -94,19 +92,46 @@
                     </table>
                 </div>
                 <div class="info-right">
-                   <h3>Tablet Example</h3><br>
-                   <p>Imagine this was a Tablet, which has a browser window with a height of 300px and a width of 280px. All these lines below have a height of 20px and the width are indicated inside the box.</p>
+                    <h3>Tablet Example</h3><br>
+                    <p>Imagine this was a Tablet, which has a browser window with a height of 300px and a width of 260px. The font-size is 14px.</p>
                     <div class="info-tablet">
-                       <div class="tablet-browser"><br>
-                           <p>200px ( filling 75% of 280px )</p>
-                           <p>12em ( equals to 168px )</p>
-                       </div>
+                        <div class="tablet-browser"><br>
+                            <div class="browser-navbar">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                            <p>195px ( filling 75% of 260px )</p>
+                            <p>12em ( equals to 168px )</p>
+                            <p>84vw ( 84/100 of the browser width )</p>
+                            <p>81% (81% of the containers width)</p>
+                            <p>This container has a width of 81vw.<br><span>This box has a width of 50%</span></p>
+                            <p>90vh (90/100 of browser height)</p>
+                        </div>
+                        <div class="tablet-button"></div>
                     </div>
+                    <p>Depending on the screen size, only the 200px will keep same size. CSS length units are written with the length and then the unit without a space inbetween. vw and vh can both be used for height and width lengths.</p>
+                </div>
+            </div>
+        </div>
+        <div id="about">
+            <div class="about-icon" onclick="showAbout('true')">
+                <p class="info-icon-i">ABOUT</p>
+            </div>
+            <div class="more-about" onclick="showAbout('false')">
+                <h2>About CSS Unit Game</h2>
+                <p>Working with websites, if it's a designer, programmer or copywriter, they all need to work with lengths to create stunning user interfaces and articles. However, not all of them have access to get easily understand how these length units work without a programming interface or analysing the codes behind. That's where this "game" comes in. By several objectives, I want to bring everyone working on the web closer to the understanding of digital units.</p>
+                <div class="about-footer">
+                    <a href="mailto:lars@advena.me">Contact e-mail</a>
+                    <a href="https://www.linkedin.com/in/lars-albert/">LinkedIN</a>
+                    <a href="https://github.com/advename">GitHub</a>
+                    <a href="https://www.advena.me/" class="copyright">&copy;2018 Advena - Lars Ljungdahl ALBERT</a>
                 </div>
             </div>
         </div>
 
-
+        <div class="dark-background">
+        </div>
     </main>
 
 
