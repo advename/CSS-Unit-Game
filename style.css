@@ -147,7 +147,8 @@ main {
     margin-bottom: 15px;
     font-size: 25px;
 }
-#sidebar .description span{
+
+#sidebar .description span {
     font-weight: bold;
     color: #FFEB3B;
 }
@@ -190,7 +191,7 @@ button {
     text-align: center;
     text-shadow: 1px 1px #f3f3f3;
     font-size: 18px;
-    color: #282b2d;
+    color: #2a2c2d;
     transition: all .1s;
     display: block;
     margin: auto;
@@ -208,7 +209,7 @@ button:hover {
 
 #sidebar table {
     margin: 0 auto;
-
+    width: 100%
 }
 
 #sidebar input {
@@ -280,9 +281,7 @@ button:hover {
     float: right;
 }
 
-#info {
-
-}
+#info {}
 
 #info .info-icon {
     height: 50px;
@@ -296,6 +295,7 @@ button:hover {
     color: white;
     transition: transform .3s;
 }
+
 #info .info-icon:hover {
     transform: scale(1.1);
 }
@@ -322,7 +322,7 @@ button:hover {
     position: fixed;
     left: 0px;
     bottom: 0;
-    top: -100vh;
+    top: -120vh;
     width: 90vw;
     height: 90vh;
     background: #415584;
@@ -332,23 +332,28 @@ button:hover {
     transition: top .8s;
     z-index: 300;
     display: grid;
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(2, 1fr);
     color: white;
     cursor: pointer;
 }
-#info .more-info .info-left ,#info .more-info .info-right{
+
+#info .more-info .info-left,
+#info .more-info .info-right {
     padding-top: 1em;
     padding-left: 1em;
     color: #e0e0e0;
 }
-#info .more-info h1{
+
+#info .more-info h1 {
     padding-bottom: .5em;
 
 }
-#info .more-info p{
-}
-#info ol, #info ul {
-	list-style:initial;
+
+#info .more-info p {}
+
+#info ol,
+#info ul {
+    list-style: initial;
     padding-left: 2em;
     padding-top: .5em;
 }
@@ -361,7 +366,8 @@ button:hover {
     margin-top: 1em;
 }
 
-#info .more-info td, #info .more-info th {
+#info .more-info td,
+#info .more-info th {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 2px 8px;
@@ -370,14 +376,15 @@ button:hover {
 #info .more-info tr:nth-child(odd) {
     background-color: #c5c5c5
 }
-#info .more-info th{
+
+#info .more-info th {
     font-weight: bold;
     background-color: #a9c2e6;
     padding: 4px 8px;
     color: #383838;
 }
 
-#info .more-info .info-tablet{
+#info .more-info .info-tablet {
     height: 330px;
     width: 260px;
     background: black;
@@ -387,7 +394,8 @@ button:hover {
     margin-top: 1em;
     position: relative;
 }
-#info .more-info .info-tablet .tablet-browser{
+
+#info .more-info .info-tablet .tablet-browser {
     height: 316px;
     width: 260px;
     background: white;
@@ -396,7 +404,8 @@ button:hover {
     padding-top: 0px;
     position: relative;
 }
-#info .more-info .info-tablet .tablet-button{
+
+#info .more-info .info-tablet .tablet-button {
     height: 22px;
     width: 22px;
     background: #565656;
@@ -409,7 +418,8 @@ button:hover {
     border: 1px solid #85848e;
 
 }
-#info .more-info .info-tablet .tablet-browser .browser-navbar{
+
+#info .more-info .info-tablet .tablet-browser .browser-navbar {
     height: 20px;
     width: 260px;
     margin: 0 auto;
@@ -418,7 +428,8 @@ button:hover {
     background: #d8d8d8;
     border-radius: 6px 6px 0px 0px;
 }
-#info .more-info .info-tablet .tablet-browser .browser-navbar div{
+
+#info .more-info .info-tablet .tablet-browser .browser-navbar div {
     height: 6px;
     width: 6px;
     background: #62d5e9;
@@ -426,13 +437,16 @@ button:hover {
     display: inline-block;
     margin-left: 6px;
 }
-#info .more-info .info-tablet .tablet-browser .browser-navbar div:nth-child(2){
+
+#info .more-info .info-tablet .tablet-browser .browser-navbar div:nth-child(2) {
     background: #58f9a2;
 }
-#info .more-info .info-tablet .tablet-browser .browser-navbar div:nth-child(3){
+
+#info .more-info .info-tablet .tablet-browser .browser-navbar div:nth-child(3) {
     background: #ff8d72;
 }
-#info .more-info .info-tablet .tablet-browser p{
+
+#info .more-info .info-tablet .tablet-browser p {
     height: 20px;
     margin: 10px 0px;
     padding-left: 10px;
@@ -440,30 +454,36 @@ button:hover {
     font-size: 14px;
 
 }
-#info .more-info .info-tablet  .tablet-browser p:nth-child(3){
+
+#info .more-info .info-tablet .tablet-browser p:nth-child(3) {
     width: calc(200px - 10px);
     background: #e91e63;
     margin: 0px 0px;
 }
-#info .more-info .info-tablet  .tablet-browser p:nth-child(4){
+
+#info .more-info .info-tablet .tablet-browser p:nth-child(4) {
     width: calc(12em - 10px);
     background: #e91e63;
 }
-#info .more-info .info-tablet  .tablet-browser p:nth-child(5){
+
+#info .more-info .info-tablet .tablet-browser p:nth-child(5) {
     width: calc(84% - 10px);
     background: #e91e63;
 }
-#info .more-info .info-tablet  .tablet-browser p:nth-child(6){
+
+#info .more-info .info-tablet .tablet-browser p:nth-child(6) {
     width: calc(81% - 10px);
     background: #e91e63;
 }
-#info .more-info .info-tablet  .tablet-browser p:nth-child(7){
+
+#info .more-info .info-tablet .tablet-browser p:nth-child(7) {
     width: calc(81% - 10px);
     height: 62px;
     background: #e91e63;
     font-size: 12px;
 }
-#info .more-info .info-tablet  .tablet-browser p:nth-child(7) span{
+
+#info .more-info .info-tablet .tablet-browser p:nth-child(7) span {
     max-width: calc(50% - 10px);
     height: 40px;
     background: yellow;
@@ -472,11 +492,12 @@ button:hover {
     margin-left: 0px;
     padding-left: 5px;
     padding-right: 5px;
-    display:block;
+    display: block;
     color: #282b2d;
     margin-bottom: 2px;
 }
-#info .more-info .info-tablet  .tablet-browser p:nth-child(8){
+
+#info .more-info .info-tablet .tablet-browser p:nth-child(8) {
     float: right;
     width: calc(300px - 46px);
     height: 20px;
@@ -488,7 +509,7 @@ button:hover {
     right: -110px;
 }
 
-#about .about-icon{
+#about .about-icon {
     height: 80px;
     width: 20px;
     position: absolute;
@@ -504,18 +525,21 @@ button:hover {
     transition: width .3s;
     cursor: pointer;
 }
-#about .about-icon p{
+
+#about .about-icon p {
     width: 14px;
     font-size: 14px;
     padding: 5px;
     padding-left: 3px;
 }
-#about .about-icon:hover{
-    width:50px;
+
+#about .about-icon:hover {
+    width: 50px;
 }
-#about .more-about{
+
+#about .more-about {
     position: fixed;
-    top: -160vh;
+    top: -170vh;
     bottom: 0;
     left: 0;
     right: 0;
@@ -525,38 +549,45 @@ button:hover {
     background: #415584;
     z-index: 3000;
     transition: top .8s;
-    cursor:pointer;
+    cursor: pointer;
     color: white;
 }
-#about .more-about h2{
+
+#about .more-about h2 {
     padding-top: 1em;
     padding-left: 10px;
 }
-#about .more-about p{
+
+#about .more-about p {
     padding-top: 1em;
     padding-left: 10px;
 }
-#about .more-about .about-footer{
+
+#about .more-about .about-footer {
     width: 100%;
-    height: 70px;
-    background: #222222;
+    padding: 10px 0px 0px 0px;
     position: absolute;
     bottom: 0px;
-    border-top: 5px solid #F26A84;
+
 }
-#about .more-about .about-footer a{
+
+#about .more-about .about-footer a {
     display: inline-block;
-    width: 33%;
+    width: 32%;
     text-align: center;
     margin-top: 15px;
     color: #F26A84;
     text-decoration: none;
 }
-#about .more-about .about-footer a.copyright{
+
+#about .more-about .about-footer a.copyright {
     display: block;
     margin-top: 15px;
     width: 100%;
     text-align: center;
+    background: #222222;
+    border-top: 2px solid #F26A84;
+    padding: 10px 0px;
 
 }
 
@@ -592,19 +623,15 @@ button:hover {
         padding: 5px 10px;
     }
     #sidebar .header {
-    margin-bottom: 15px;
-    }
-    /*
-    #sidebar .box-controls {
-        transform: scale(.8);
-        margin-top: -10px;
-    }
-    #sidebar {
-        margin: 10px;
+        margin-bottom: 15px;
     }
     #sidebar input {
-        width: 70px;
-    }*/
+        max-width: 72%;
+        text-align: right;
+        font-size: 14px;
+        padding-right: 5px;
+        margin-left: 5px;
+    }
 }
 
 /* Large devices (desktops, 992px and up) */
@@ -616,8 +643,25 @@ button:hover {
     #sidebar h2 {
         font-size: 200%;
     }
-    #sidebar {
-        margin: 7px;
+    #info .more-info p , #info li, #info td{
+        font-size: 12px;
+    }
+    #sidebar .box-controls h3 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    }
+    #sidebar .box-controls .bigBox-control,
+    #sidebar .box-controls .smallBox-control {
+        margin: 0 5px 10px 5px;
+        padding-left: 5px;
+        font-size: 85%;
+    }
+    #sidebar input {
+        max-width: 70%;
+        text-align: right;
+        font-size: 12px;
+        padding-right: 5px;
+        margin-left: 5px;
     }
 }
 

@@ -496,8 +496,8 @@ function showInfo(status) {
         moreInfo.style.top = "0vh";
         moreInfoBackground.style.bottom = "0px";
     } else {
-        moreInfo.style.top = "-100vh";
-        moreInfoBackground.style.bottom = "-100vh";
+        moreInfo.style.top = "-120vh";
+        moreInfoBackground.style.bottom = "-120vh";
     }
 }
 function showAbout(status) {
