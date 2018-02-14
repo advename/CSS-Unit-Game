@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Assistant" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
     <link rel="stylesheet" href="css-reset.css">
     <link rel="stylesheet" href="style.css">
     <style>
     </style>
-    <title>CSS length Unit Game</title>
+    <title>CSS Length Units Game</title>
 
 </head>
 
@@ -48,15 +49,15 @@
             <div class="info-icon" onclick="showInfo('true')">
                 <p class="info-icon-i">i</p>
             </div>
-            <div class="more-info" onclick="showInfo('false')">
-                <div class="info-left">
+            <div class="more-info">
+                <div class="info-left" onclick="showInfo('false')">
                     <h1>CSS UNITS GAME</h1>
                     <p>CSS or the style sheet of a website has many length units, same as we have centimeters (cm), millimeters (mm), inches (in) and so on and so forth in the real world. While we can use the units cm, mm and in with our style sheet, they are yet not recommended as they are not friendly to use with Web sites. Moreover, as Web sites are displayed on different screen sizes, we want to work relatively to the screen size of the device displaying the website.<br><br> Therefore, in CSS we work with two types of length units:</p>
                     <ul>
                         <li>relative (depends on screen- / element-size) </li>
                         <li>absolute (fixed size)</li>
                     </ul>
-                    <br><br>
+                    <br>
                     <p>There are over 10 length units compatible with CSS, however, most of the times we're only going to need a couple of them:</p>
                     <table>
                         <tr>
@@ -91,8 +92,8 @@
                         </tr>
                     </table>
                 </div>
-                <div class="info-right">
-                    <h3>Tablet Example</h3><br>
+                <div class="info-right" onclick="showInfo('false')">
+                    <h3>Tablet Example with unit lengths</h3><br>
                     <p>Imagine this was a Tablet, which has a browser window with a height of 300px and a width of 260px. The font-size is 14px.</p>
                     <div class="info-tablet">
                         <div class="tablet-browser"><br>
@@ -112,6 +113,28 @@
                     </div>
                     <p>Depending on the screen size, only the 200px will keep same size. CSS length units are written with the length and then the unit without a space inbetween. vw and vh can both be used for height and width lengths.</p>
                 </div>
+                <p class="switch-info-tab-1" onclick="switchMoreInfo('second')">READ MORE ABOUT WHAT TO USE THEM FOR &#9658;</p>
+                <div class="info-second-right hide">
+                    <h2>What to use them for?</h2><br>
+                    <p>Besides defining the height and width of a container, we can also add a border to our container or elements, define the size of the fonts, and add space in two ways between the element and the container enclosing it:</p><br>
+                    <ul>
+                        <li>margin, adding empty space around the element</li>
+                        <li>padding, adding space from the inside of the element</li>
+                    </ul>
+                    <br><br>
+                    <p>Margin and padding are set with one, two or four values:</p><br>
+                    <ul>
+                        <li><span>margin : 10px</span> (is equal to a 10px empty space on every side around the element)</li>
+                        <li><span>margin : 10px 20px </span>(is equal to a 10px of empty space to the top and bottom, and 20px of empty space to the left and right of the element)</li>
+                        <li><span>margin : 10px 20px 30px 40px </span>(is equal to add 10px to the top, 20px to the right, 30px to the bottom and 40px of margin to the left. same applies for padding.)
+                        </li>
+                    </ul><br>
+                    <p>The same rule applies for padding.</p><br>
+                    <img src="img/margin-padding-example-difference.png" alt="difference between margin and padding" class="margin-padding-img">
+
+                </div>
+                <p class="switch-info-tab-2 hide" onclick="switchMoreInfo('first')">&#9668; RETURN</p>
+                <p class="info-close" onclick="showInfo('false')">X</p>
             </div>
         </div>
         <div id="about">
@@ -120,13 +143,16 @@
             </div>
             <div class="more-about" onclick="showAbout('false')">
                 <h2>About CSS Unit Game</h2>
-                <p>Working with websites, if it's a designer, programmer or copywriter, they all need to work with lengths to create stunning user interfaces and articles. However, not all of them have access to get easily understand how these length units work without a programming interface or analysing the codes behind. That's where this "game" comes in. By several objectives, I want to bring everyone working on the web closer to the understanding of digital units.</p>
+                <p>Working with websites, if it's a designer, programmer or copywriter, they all need to work with lengths to create stunning user interfaces and articles. However, not all of them have access to get easily understand how these length units work without a programming interface or analysing the codes behind. That's where this "game" comes in. By several objectives, I want to bring everyone working on the web closer to the understanding of digital units.</p><br>
+                <br>
+                <p>This Website was created by Lars ALBERT, and applies to the <a style="color: #ef6982;" src="https://choosealicense.com/licenses/agpl-3.0/">GNU AGPLv3 License</a></p>
                 <div class="about-footer">
                     <a href="mailto:lars@advena.me">Contact e-mail</a>
                     <a href="https://www.linkedin.com/in/lars-albert/">LinkedIN</a>
                     <a href="https://github.com/advename">GitHub</a>
                     <a href="https://www.advena.me/" class="copyright">&copy;2018 Advena - Lars Ljungdahl ALBERT</a>
                 </div>
+                <p class="about-close" onclick="showAbout('false')">X</p>
             </div>
         </div>
 
@@ -199,7 +225,7 @@
     <div id="screenWarning">
         <div class="screenWarningBox">
             <h2>Oh snap!</h2>
-            <p>Your screen size seems to be to small to experience the website in its full potential. If possible, please visit the website from a PC / MAC. If you still wish to continue, press the button.</p>
+            <p>Your screen size seems to be too small to experience the website to its full potential. <br>If possible, please visit the website from a PC / MAC or if you're on a tablet, rotate it to a horizontal direction and reload the page. <br><br>If you still wish to continue, press the "I understand" button.</p>
             <button onclick="letMeContinue()">I understand</button>
         </div>
     </div>

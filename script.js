@@ -1,21 +1,22 @@
-let mainContainer = document.querySelector("main #main-container");
-let mainContainerSize = mainContainer.getBoundingClientRect();
-let svg = document.querySelector("main svg");
-let svgDesktop = document.querySelector("main #desktop-svg rect.cls-5");
-let bigBox = document.querySelector("#bigBox");
-let smallBox = document.querySelector("#smallBox");
-let smallText = document.querySelector("#smallText");
-let play = document.querySelector("main #play");
+const mainContainer = document.querySelector("main #main-container");
+const mainContainerSize = mainContainer.getBoundingClientRect();
+const svg = document.querySelector("main svg");
+const svgDesktop = document.querySelector("main #desktop-svg rect.cls-5");
+const bigBox = document.querySelector("#bigBox");
+const smallBox = document.querySelector("#smallBox");
+const smallText = document.querySelector("#smallText");
+const play = document.querySelector("main #play");
 const levelTemplate = document.querySelector("#level-template");
 const sideBar = document.querySelector("#sidebar");
-let leftDirection = document.querySelector("#direction .left");
-let rightDirection = document.querySelector("#direction .right");
-let currentLevel = 1;
-let sideBarContainer = document.querySelector("#sidebar-container");
+const leftDirection = document.querySelector("#direction .left");
+const rightDirection = document.querySelector("#direction .right");
+const sideBarContainer = document.querySelector("#sidebar-container");
 let sideBarContainerSize = sideBarContainer.getBoundingClientRect();
+const link = "https://spreadsheets.google.com/feeds/list/1T2dyKXx_OuFsAcSLnPaUYEamOZpcW4uEDNOEZqYZcok/od6/public/values?alt=json";
+
 
 let topValue, data, widthOfSideBar, levelContainer;
-const link = "https://spreadsheets.google.com/feeds/list/1T2dyKXx_OuFsAcSLnPaUYEamOZpcW4uEDNOEZqYZcok/od6/public/values?alt=json";
+let currentLevel = 1;
 
 init();
 // INITIALIZE SIZES
@@ -47,9 +48,21 @@ function init() {
 
     sideBar.style.width = (sideBarContainerSize.width - 40) + "px";
     widthOfSideBar = sideBarContainerSize.width + 41;
+    showInfo("true");
 }
 
+// Transform Google JSON data to normal array (JONAS FROM KEA'S google spreadsheet to jSON code GitHub)
+var FetchGoogleJSON=function(url,callback,prettify){prettify=prettify===undefined?true:prettify;var re=/^https:/;if(!re.test(url))url="https://spreadsheets.google.com/feeds/list/"+url+"/od6/public/values?alt=json";fetch(url).then(function(e){return e.json()}).then(function(d){if(prettify)callback((new PrettifyGoogleJSON(d)).get());else callback(d)})};
+var PrettifyGoogleJSON=function(googleData){var $jscomp$this=this;this.newJSON=[];var re=/^gsx\$/;googleData.feed.entry.forEach(function(obj){var temp={};for(var prop in obj)if(re.test(prop)){var parts=prop.split("$");temp[parts[1]]=obj[prop].$t}$jscomp$this.newJSON.push(temp)})};PrettifyGoogleJSON.prototype.get=function(){return this.newJSON};
+// and work with the retrieved data!
+new FetchGoogleJSON(link, show);
+function show(d) {
+    console.log(d);
+    data = d;
+    createLevels();
+}
 
+// Fetch data, clone the template and append levels into body
 function createLevels() {
     data.forEach(elem => {
         const levelTemplate = document.querySelector("#level-template").content;
@@ -90,8 +103,7 @@ function createLevels() {
     hideShowBig(1);
 }
 
-
-
+// With arrow keys left and right to change levels
 function changeLevel(direction) {
     if (direction == "left") {
         document.querySelector("#level-" + (currentLevel - 1)).style.left = "0px";
@@ -128,6 +140,7 @@ function changeLevel(direction) {
     }
 }
 
+// Depending on current level, hide or show big red box
 function hideShowBig(level) {
     if (data[level - 1].bboxa == 0) {
         bigBox.style.display = "none";
@@ -137,6 +150,7 @@ function hideShowBig(level) {
     }
 }
 
+// Depending on current level, hide or show small green box/text/margin/padding
 function hideShowSmall(level) {
     let cLevel = level - 1;
     if (data[cLevel].sboxa === "div") {
@@ -171,83 +185,11 @@ function hideShowSmall(level) {
 
 }
 
-function getHeightUnit(levelN, box) {
-    let heightInput = document.querySelector("#level-" + levelN + " " + box + " .inputHeight").value;
-    let heightInputUnit = heightInput.substr(-2);
-    if (heightInputUnit.includes("%")) {
-        heightInputUnit = "%"
-    };
-    return heightInputUnit;
-}
-
-function getWidthUnit(levelN, box) {
-    let widthInput = document.querySelector("#level-" + levelN + " " + box + " .inputWidth").value;
-    let widthInputUnit = widthInput.substr(-2);
-    if (widthInputUnit.includes("%")) {
-        widthInputUnit = "%"
-    };
-    return widthInputUnit;
-}
-
-function getArrayUnit(levelN, box) {
-    let arrayUnit = [];
-    let arrayInput = document.querySelector("#level-" + levelN + " " + box).value;
-    let arrayInputValues = arrayInput.split(/[ ]/);
-    arrayInputValues.forEach(elem => {
-        let temp = elem.substr(-2);
-        if (temp.includes("%")) {
-            temp = "%"
-        };
-        arrayUnit.push(temp);
-    })
-    return arrayUnit;
-}
-
-function marginArrayActive(levelN) {
-    let status = 0;
-    let array = data[(levelN - 1)].sboxm.split(/[ ]/);
-    array.forEach(elem => {
-        if (elem == 0) {
-            status = 1;
-        }
-    });
-    if (status == 1) {
-        return false;
-    } else {
-        return true;
-    }
-
-}
-
-function splitToArray(input){
-    let array = input.split(/[ ]/);
-    return array;
-}
-
-function paddingArrayActive(levelN) {
-    let status = 0;
-    let array = data[(levelN - 1)].sboxp.split(/[ ]/);
-    array.forEach(elem => {
-        if (elem == 0) {
-            status = 1;
-        }
-    });
-    if (status == 1) {
-        return false;
-    } else {
-        return true;
-    }
-
-}
-
-// Replace all vh and vw to %
-function replaceViewport(text){
-    let temp = text.replace("vh","%");
-    let temp2 = temp.replace("vw","%");
-    return temp2;
-}
-
-//check input for current level
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// CHECK FOR INPUTS IF THEY ARE ACTIVE
+// NEXT CHECK IF INPUT VALUES HAVE A VALID UNIT
+// LAST CHECK IF INPUT MATCHES THE DATA OF INPUT
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 function checkBoxSize(levelN) {
 
     // Current levels array data
@@ -263,8 +205,6 @@ function checkBoxSize(levelN) {
     let bWidthUnit = getWidthUnit(levelN, ".bigBox-control");
     let bWidthInput = document.querySelector("#level-" + levelN + " .bigBox-table .inputWidth").value;
 
-
-
     //Green Box (small box) VARIABLES
     let sHeightUnit = getHeightUnit(levelN, ".smallBox-control");
     let sHeightInput = document.querySelector("#level-" + levelN + " .smallBox-table .inputHeight").value;
@@ -276,9 +216,11 @@ function checkBoxSize(levelN) {
     let sFontUnit = getHeightUnit(levelN, ".smallBox-control");
     let sFontInput = document.querySelector("#level-" + levelN + " .smallBox-table .inputHeight").value;
     let sFontActive = data[levelN - 1].sboxh;
+
     // Margin
     let marginUnit = getArrayUnit(levelN, ".inputMargin");
     let inputMargin = document.querySelector("#level-" + levelN + " .inputMargin").value;
+
     // Convert margin input from one value or two value to four values
     if(splitToArray(inputMargin).length == 1){
         inputMargin = inputMargin + " " + inputMargin + " " + inputMargin + " " + inputMargin;
@@ -290,6 +232,7 @@ function checkBoxSize(levelN) {
     // Padding
     let paddingUnit = getArrayUnit(levelN, ".inputPadding");
     let inputPadding = document.querySelector("#level-" + levelN + " .inputPadding").value;
+
     // Convert padding input from one value or two value to four values
     if(splitToArray(inputPadding).length == 1){
         inputPadding = inputPadding + " " + inputPadding + " " + inputPadding + " " + inputPadding;
@@ -299,10 +242,11 @@ function checkBoxSize(levelN) {
     }
 
 
+    // Used to generate correct or false message at the end
     let checkStatus = 0;
 
 
-    // Create only if's and if apply check
+    // Check every input for beeing active, then the unit and finaly the value
     if (bbActive == 1) {
         if (checkAllowedUnit(bHeightUnit, bWidthUnit, levelN) ) {
 
@@ -362,6 +306,7 @@ function checkBoxSize(levelN) {
             // Because of created Window, change viewports to percentage in order to fit to size
             // Apply heights
             smallText.style.margin = replaceViewport(inputMargin);
+            smallBox.style.margin = replaceViewport(inputMargin);
 
             // Check if inputs are correct
             if (inputMargin === dataL.sboxm) {
@@ -378,7 +323,7 @@ function checkBoxSize(levelN) {
             // Because of created Window, change viewports to percentage in order to fit to size
             // Apply heights
              smallText.style.padding = replaceViewport(inputPadding);
-
+            smallBox.style.padding = replaceViewport(inputPadding);
             // Check if inputs are correct
             if (inputPadding === dataL.sboxp) {
 
@@ -389,6 +334,7 @@ function checkBoxSize(levelN) {
     console.log("++++++")
     console.log(checkStatus);
 
+    // If checkstatus is 0 = correct and display message
     if(checkStatus === 0){
         displayCorrectMessage(levelN, "CORRECT!");
     }
@@ -396,17 +342,90 @@ function checkBoxSize(levelN) {
         displayWrongMessage(levelN, "Something seems to be false, try again!");
     }
 }
+// get the height unit of an input
+function getHeightUnit(levelN, box) {
+    let heightInput = document.querySelector("#level-" + levelN + " " + box + " .inputHeight").value;
+    let heightInputUnit = heightInput.substr(-2);
+    if (heightInputUnit.includes("%")) {
+        heightInputUnit = "%"
+    };
+    return heightInputUnit;
+}
+
+// get the width unit of an input
+function getWidthUnit(levelN, box) {
+    let widthInput = document.querySelector("#level-" + levelN + " " + box + " .inputWidth").value;
+    let widthInputUnit = widthInput.substr(-2);
+    if (widthInputUnit.includes("%")) {
+        widthInputUnit = "%"
+    };
+    return widthInputUnit;
+}
+
+// get the unit of multiple inputs for margin or padding input
+function getArrayUnit(levelN, box) {
+    let arrayUnit = [];
+    let arrayInput = document.querySelector("#level-" + levelN + " " + box).value;
+    let arrayInputValues = arrayInput.split(/[ ]/);
+    arrayInputValues.forEach(elem => {
+        let temp = elem.substr(-2);
+        if (temp.includes("%")) {
+            temp = "%"
+        };
+        arrayUnit.push(temp);
+    })
+    return arrayUnit;
+}
+
+// check if margin has been defined as active for current level
+function marginArrayActive(levelN) {
+    let status = 0;
+    let array = data[(levelN - 1)].sboxm.split(/[ ]/);
+    array.forEach(elem => {
+        if (elem == 0) {
+            status = 1;
+        }
+    });
+    if (status == 1) {
+        return false;
+    } else {
+        return true;
+    }
+
+}
+// check if padding has been defined as active for current level
+function paddingArrayActive(levelN) {
+    let status = 0;
+    let array = data[(levelN - 1)].sboxp.split(/[ ]/);
+    array.forEach(elem => {
+        if (elem == 0) {
+            status = 1;
+        }
+    });
+    if (status == 1) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+// split multiple inputs from margin or padding into an array list. Instead of = "10px 10px 10px 10px" it is var array = ["10px","10px",...]
+function splitToArray(input){
+    let array = input.split(/[ ]/);
+    return array;
+}
 
 
 
+// Replace all vh and vw to %
+function replaceViewport(text){
+    let temp = text.replace("vh","%");
+    let temp2 = temp.replace("vw","%");
+    return temp2;
+}
 
 
-
-
-// getHeightUnit(1,'.bigBox-control')
-// checkAllowedUnit(getHeightUnit(1,'.bigBox-control'), getWidthUnit(1, '.bigBox-control'), 1);
-
-// checkAllowedUnitArray(getArrayUnit(5, ".inputPadding");, 5);
+// check if array input has valid units
 function checkAllowedUnitArray(array, levelN) {
     let allowed = ["vh", "px", "em", "%"];
     let status = 0;
@@ -424,6 +443,7 @@ function checkAllowedUnitArray(array, levelN) {
     }
 }
 
+// check if either big box, small box, or font has valid units (font just checks checkForHeight - 2nd parameter is defined as 10px so it returns true)
 function checkAllowedUnit(checkForHeight, checkForWidth, levelN) {
     let allowedH = ["vh", "px", "em", "%"];
     let allowedW = ["vw", "px", "em", "%"];
@@ -449,7 +469,7 @@ function checkAllowedUnit(checkForHeight, checkForWidth, levelN) {
     }
 }
 
-
+// depending on data, resize the boxes or text to their default sizes.
 function defaultSize(level) {
     let defaultSizeDataBB = data[level - 1].bboxd;
     let defaultArrayBB = defaultSizeDataBB.split(/[/]/);
@@ -475,7 +495,7 @@ function displayWrongMessage(levelN, message) {
     }, 3000)
 
 }
-//display wrong message
+//display correct message
 function displayCorrectMessage(levelN, message) {
     let correctMessage = document.querySelector("#level-" + levelN + " .correct-message");
     correctMessage.textContent = message;
@@ -486,7 +506,7 @@ function displayCorrectMessage(levelN, message) {
 
 }
 
-//show more or less info about css info
+//show more or less info about css game (modal screen)
 function showInfo(status) {
     let infoIcon = document.querySelector("#info .info-icon");
     let moreInfo = document.querySelector("#info .more-info");
@@ -500,6 +520,36 @@ function showInfo(status) {
         moreInfoBackground.style.bottom = "-120vh";
     }
 }
+
+// Info modal, switch between tablet example with units and
+// explanation of margin and padding.
+function switchMoreInfo(status) {
+    let firstRight = document.querySelector("#info .info-right");
+    let secondRight = document.querySelector("#info .info-second-right");
+    let switchOne = document.querySelector("#info .switch-info-tab-1");
+    let switchTwo = document.querySelector("#info .switch-info-tab-2");
+
+    if (status == "second") {
+        switchOne.classList.add("hide");
+        firstRight.style.opacity = 0;
+        setTimeout(function(){firstRight.classList.add("hide");},500);
+        setTimeout(function(){secondRight.classList.remove("hide");},600);
+        setTimeout(function(){secondRight.style.opacity = 1;},700);
+        setTimeout(function(){switchTwo.classList.remove("hide");},800);
+
+    } else {
+        switchTwo.classList.add("hide");
+        secondRight.style.opacity = 0;
+        setTimeout(function(){secondRight.classList.add("hide");},500);
+        setTimeout(function(){firstRight.classList.remove("hide");},600);
+        setTimeout(function(){firstRight.style.opacity = 1;},700);
+        setTimeout(function(){switchOne.classList.remove("hide");},800);
+
+    }
+}
+
+
+// show more or less info about the website and creator
 function showAbout(status) {
     let aboutIcon = document.querySelector("#about .about-icon");
     let moreAbout = document.querySelector("#about .more-about");
@@ -514,12 +564,7 @@ function showAbout(status) {
     }
 }
 
-
-
-
-
-
-
+// eventListener for the "ENTER" key, which can be used to click the "Apply & Check" buttons
 document.addEventListener("keyup", function(event) {
     event.preventDefault();
     if (event.keyCode == 13){
@@ -529,57 +574,7 @@ document.addEventListener("keyup", function(event) {
     }
 });
 
-
-
-
-
 // disable mobile warning message for small screen
 function letMeContinue() {
     document.querySelector("#screenWarning").style.display = "none";
-}
-// Transform Google JSON data to normal array
-class FetchGoogleJSON {
-    constructor(url, callback, prettify = true) {
-        let re = /^https:/;
-        if (!re.test(url)) {
-            url = "https://spreadsheets.google.com/feeds/list/" + url + "/od6/public/values?alt=json";
-        }
-        fetch(url).then(e => e.json()).then(d => {
-            if (prettify) {
-                callback(new PrettifyGoogleJSON(d).get());
-            } else {
-                callback(d);
-            }
-        })
-    }
-}
-class PrettifyGoogleJSON {
-    constructor(googleData) {
-        this.newJSON = [];
-        let re = /^gsx\$/;
-        googleData.feed.entry.forEach(obj => {
-            let temp = {};
-            for (let prop in obj) {
-                if (re.test(prop)) {
-                    let parts = prop.split('$')
-                    temp[parts[1]] = obj[prop].$t;
-                }
-            }
-            this.newJSON.push(temp);
-        });
-    }
-
-    get() {
-        return this.newJSON;
-    }
-}
-
-
-// Fetch data
-new FetchGoogleJSON(link, show);
-
-function show(d) {
-    console.log(d);
-    data = d;
-    createLevels();
 }

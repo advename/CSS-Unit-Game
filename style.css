@@ -84,6 +84,7 @@ main {
     left: 0;
     max-height: 100%;
     max-width: 100%;
+    float: left;
 }
 
 #smallText {
@@ -96,6 +97,7 @@ main {
     max-height: 100%;
     max-width: 100%;
     text-shadow: 0px 0px 10px #ffffff;
+    float: left;
 
 }
 
@@ -236,13 +238,13 @@ button:hover {
 #sidebar .wrong-message {
     color: #2eff37;
     text-align: center;
-    font-size: 30px;
-    text-shadow: 2px 1px 2px #484848;
-    margin-top: 5px;
+    font-size: 25px;
+    text-shadow: 1px 1px 2px #484848;
+    margin-top: 20px;
 }
 
 #sidebar .wrong-message {
-    color: #e05a34;
+    color: #ffa14d;
 
 }
 
@@ -337,11 +339,40 @@ button:hover {
     cursor: pointer;
 }
 
+#info .more-info .info-close {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 25px;
+    background: #37373c;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 50%;
+    border: 1px solid #737070;
+    font-family: monospace;
+    font-weight: 100;
+    color: #ececec;
+}
+
 #info .more-info .info-left,
-#info .more-info .info-right {
+#info .more-info .info-right,
+#info .more-info .info-second-right {
     padding-top: 1em;
     padding-left: 1em;
     color: #e0e0e0;
+}
+
+#info .more-info .info-right {
+    opacity: 1;
+    transition: opacity .4s;
+}
+
+#info .more-info .info-second-right {
+    opacity: 0;
+    transition: opacity .4s;
 }
 
 #info .more-info h1 {
@@ -356,6 +387,11 @@ button:hover {
     list-style: initial;
     padding-left: 2em;
     padding-top: .5em;
+}
+
+#info li span {
+    color: #FFEB3B;
+    font-weight: bold;
 }
 
 #info .more-info table {
@@ -509,6 +545,43 @@ button:hover {
     right: -110px;
 }
 
+#info .more-info .info-second-right .margin-padding-img {
+    width: 80%;
+    height: auto;
+}
+
+
+
+
+
+
+#info .more-info .switch-info-tab-1 {
+    float: right;
+    height: 20px;
+    width: 355px;
+    background: #151517;
+    font-size: 18px;
+    padding: 2px 4px;
+    position: relative;
+    top: -10px;
+    right: -60%;
+}
+
+#info .more-info .switch-info-tab-2 {
+    float: left;
+    height: 20px;
+    width: 355px;
+    background: #151517;
+    font-size: 18px;
+    padding: 2px 4px;
+    position: relative;
+    top: -10px;
+    right: -60%;
+    top: -30px;
+    right: -1%;
+}
+
+
 #about .about-icon {
     height: 80px;
     width: 20px;
@@ -551,6 +624,28 @@ button:hover {
     transition: top .8s;
     cursor: pointer;
     color: white;
+    border-radius: 20px;
+}
+
+#about .more-about .about-close {
+    padding-top: 0px;
+    padding-left: 0px;
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 25px;
+    background: #37373c;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 50%;
+    border: 1px solid #737070;
+    font-family: monospace;
+    font-weight: 100;
+    color: #ececec;
+
 }
 
 #about .more-about h2 {
@@ -568,6 +663,7 @@ button:hover {
     padding: 10px 0px 0px 0px;
     position: absolute;
     bottom: 0px;
+
 
 }
 
@@ -588,6 +684,7 @@ button:hover {
     background: #222222;
     border-top: 2px solid #F26A84;
     padding: 10px 0px;
+    border-radius: 8px;
 
 }
 
@@ -609,7 +706,7 @@ button:hover {
 /* Big devices (very large desktops, more than 1200px)
     No media query since this is the default in Bootstrap */
 
-/* Extra large devices (large desktops, 1200px and up) */
+/* large devices (large desktops, 1200px and up) */
 
 @media (max-width: 1600px) and (max-height: 800px) {
 
@@ -632,9 +729,12 @@ button:hover {
         padding-right: 5px;
         margin-left: 5px;
     }
+    button {
+        font-size: 16px;
+    }
 }
 
-/* Large devices (desktops, 992px and up) */
+/* desktops*/
 
 @media (max-width: 992px) {
     #grid-container {
@@ -643,12 +743,15 @@ button:hover {
     #sidebar h2 {
         font-size: 200%;
     }
-    #info .more-info p , #info li, #info td{
+    #info .more-info p,
+    #info li,
+    #info td {
         font-size: 12px;
     }
     #sidebar .box-controls h3 {
-    margin-top: 10px;
-    margin-bottom: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding-left: 5px;
     }
     #sidebar .box-controls .bigBox-control,
     #sidebar .box-controls .smallBox-control {
@@ -663,15 +766,14 @@ button:hover {
         padding-right: 5px;
         margin-left: 5px;
     }
+    button {
+        font-size: 14px;
+    }
 }
 
-/* Medium devices (tablets, 768px and up) */
+/* Medium devices*/
 
-@media (max-width: 768px) {}
-
-/* Small devices (landscape phones, 576px and up) */
-
-@media (max-width: 576px) {
+@media (max-width: 768px) {
     #main-container {
         grid-column: span 3;
 
@@ -708,4 +810,40 @@ button:hover {
         padding: 20px;
         text-align: justify;
     }
+    #info .more-info {
+        height: 100%;
+        width: 100vw;
+        margin: 0;
+        grid-template-columns: repeat(1, 1fr);
+        overflow: scroll;
+    }
+    #info .more-info .switch-info-tab-1 {
+        float: right;
+        height: 20px;
+        width: 355px;
+        background: #151517;
+        font-size: 18px;
+        padding: 2px 4px;
+        position: relative;
+        top: 0px;
+        right: -2%;
+    }
+    #info .more-info .switch-info-tab-2 {
+        float: left;
+        height: 20px;
+        width: 355px;
+        background: #151517;
+        font-size: 18px;
+        padding: 2px 4px;
+        position: relative;
+        top: -10px;
+        right: -60%;
+        top: -1px;
+        right: -1%;
+    }
+
 }
+
+/* Small devices*/
+
+@media (max-width: 576px) {}
