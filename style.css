@@ -431,6 +431,8 @@ button:hover {
     padding: 20px;
     margin-top: 1em;
     position: relative;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 1em;
 }
 
 #info .more-info .info-tablet .tablet-browser {
@@ -566,7 +568,7 @@ button:hover {
     padding: 2px 4px;
     position: relative;
     top: -10px;
-    right: -60%;
+    left: 100%;
 }
 
 #info .more-info .switch-info-tab-2 {
@@ -577,8 +579,6 @@ button:hover {
     font-size: 18px;
     padding: 2px 4px;
     position: relative;
-    top: -10px;
-    right: -60%;
     top: -30px;
     right: -1%;
 }
@@ -733,6 +733,22 @@ button:hover {
     }
     button {
         font-size: 16px;
+    }
+    #info .more-info .info-tablet {
+        margin-top: 3px;
+        margin-bottom: 3px
+    }
+     #info .more-info {
+        height: 95vh;
+        width: 95vw;
+        margin: 2.5vh 2.5vw;
+    }
+    #info .more-info .switch-info-tab-1 {
+        top: 0px;
+        left: 100%;
+    }
+    #info .more-info .switch-info-tab-2 {
+        top: 0px;
     }
 }
 
