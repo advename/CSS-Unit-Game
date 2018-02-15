@@ -7,7 +7,6 @@ body {
 main {
     height: 100vh;
     width: 100vw;
-    max-width: 100%;
 }
 
 #grid-container {
@@ -124,12 +123,23 @@ main {
     color: white;
     position: relative;
     overflow-x: hidden;
+    width: 100%;
+}
+
+#sidebar .sidebar-levels{
+    width: auto;
+    height: auto;
+    background: red;
+    color: white;
+    position: relative;
+    transition: left .7s;
+    display:block;
+    top: 0px;
+    left: 0px;
 }
 
 #sidebar .level-container {
-    position: absolute;
-    left: 110%;
-    transition: left .7s;
+    float:left;
 }
 
 
@@ -234,19 +244,7 @@ button:hover {
     font-weight: 500;
 }
 
-#sidebar .correct-message,
-#sidebar .wrong-message {
-    color: #2eff37;
-    text-align: center;
-    font-size: 25px;
-    text-shadow: 1px 1px 2px #484848;
-    margin-top: 20px;
-}
 
-#sidebar .wrong-message {
-    color: #ffa14d;
-
-}
 
 
 
@@ -293,9 +291,12 @@ button:hover {
     cursor: pointer;
     position: absolute;
     left: 15px;
-    bottom: 15px;
+    bottom: 14px;
     color: white;
     transition: transform .3s;
+    z-index: 290;
+    border: 2px solid #6f6465;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #info .info-icon:hover {
@@ -303,7 +304,6 @@ button:hover {
 }
 
 #info .info-icon-i {
-    font-family: serif;
     text-align: center;
     font-size: 45px;
     line-height: 50px;
@@ -318,6 +318,7 @@ button:hover {
     left: 0px;
     bottom: -100vh;
     transition: bottom .8s;
+    z-index: 295;
 }
 
 #info .more-info {
@@ -568,7 +569,7 @@ button:hover {
     padding: 2px 4px;
     position: relative;
     top: -10px;
-    left: 100%;
+    left: 50%;
 }
 
 #info .more-info .switch-info-tab-2 {
@@ -606,10 +607,14 @@ button:hover {
     font-size: 14px;
     padding: 5px;
     padding-left: 3px;
+    transition: padding-left .3s;
 }
 
 #about .about-icon:hover {
     width: 50px;
+}
+#about .about-icon:hover p {
+    padding-left: 30px;
 }
 
 #about .more-about {
@@ -690,6 +695,47 @@ button:hover {
 
 }
 
+#info .explanation {
+    height: 50px;
+    width: 30%;
+    background: #e6e6e6;
+    border-radius: 25px;
+    cursor: pointer;
+    position: absolute;
+    left: 18px;
+    bottom: 14px;
+    color: white;
+    transition: transform .3s;
+    z-index: 280;
+    border: 2px solid rgba(93, 93, 93, 0.9);
+    transition: width 3s;
+}
+#info .messages-expl{
+    float:left;
+    margin-left: 70px;
+}
+#info .correct-message,
+#info .wrong-message {
+    color: #2eff37;
+    text-align: center;
+    font-size: 35px;
+    text-shadow: 1px 1px 2px #484848;
+    line-height: 46px;
+    font-weight: bold;
+}
+
+#info .wrong-message {
+    color: #ffa14d;
+    font-size: 15px;
+}
+
+
+
+
+
+
+
+
 #screenWarning {
     display: none;
 }
@@ -745,7 +791,7 @@ button:hover {
     }
     #info .more-info .switch-info-tab-1 {
         top: 0px;
-        left: 100%;
+        left: 50%;
     }
     #info .more-info .switch-info-tab-2 {
         top: 0px;

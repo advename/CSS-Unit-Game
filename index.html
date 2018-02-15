@@ -49,6 +49,9 @@
             </div>
             <div id="sidebar-container">
                 <div id="sidebar">
+                    <div class="sidebar-levels">
+
+                    </div>
                 </div>
                 <div id="direction">
                     <p class="left hide" onclick="changeLevel('left')">&#9668;</p>
@@ -59,7 +62,14 @@
 
         <div id="info">
             <div class="info-icon" onclick="showInfo('true')">
-                <p class="info-icon-i">i</p>
+                <p class="info-icon-i">?</p>
+            </div>
+            <div class="explanation">
+                <div class="messages-expl">
+                    <h4 class="correct-message hide">CORRECT!</h4>
+                    <h4 class="wrong-message hide">Wrong, try again!</h4>
+                </div>
+                <p class="explain-this"></p>
             </div>
             <div class="more-info">
                 <div class="info-left" onclick="showInfo('false')">
@@ -228,9 +238,6 @@
                         </div>
                         <button onclick="checkBoxSize('level-n','bHeight','bWidth','sHeight',,'sWidth')">Apply &amp; Check</button>
                         </div>
-
-                        <h4 class="correct-message hide">CORRECT!</h4>
-                        <h4 class="wrong-message hide">Wrong, try again!</h4>
                     </div>
     </template>
     <div id="screenWarning">

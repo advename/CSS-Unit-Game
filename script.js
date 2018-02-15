@@ -8,6 +8,7 @@ const smallText = document.querySelector("#smallText");
 const play = document.querySelector("main #play");
 const levelTemplate = document.querySelector("#level-template");
 const sideBar = document.querySelector("#sidebar");
+const sideBarLevels = document.querySelector("#sidebar .sidebar-levels");
 const leftDirection = document.querySelector("#direction .left");
 const rightDirection = document.querySelector("#direction .right");
 const sideBarContainer = document.querySelector("#sidebar-container");
@@ -27,7 +28,6 @@ function init() {
 
     function reSizePlay() {
         let svgDesktopSize = svgDesktop.getBoundingClientRect();
-
         function getOffset(el) {
             el = el.getBoundingClientRect();
             return {
@@ -35,21 +35,28 @@ function init() {
                 top: el.top + window.scrollY
             }
         }
-
         play.style.height = svgDesktopSize.height + "px";
         play.style.width = (svgDesktopSize.width - 1.3) + "px";
-
         topValue = Math.abs((getOffset(svgDesktop).top) - (getOffset(play).top));
-
         play.style.top = -1 * topValue + "px";
         play.style.bottom = topValue + "px";
-
     }
 
+    // Resize sidebar
     sideBar.style.width = (sideBarContainerSize.width - 40) + "px";
-    widthOfSideBar = sideBarContainerSize.width + 41;
+    widthOfSideBar = sideBarContainerSize.width + 60;
+    widthOfSideBar = sideBarContainerSize.width + 60;
     showInfo("true");
+
+    // Jump directly to a level with the link css-game.com/#level-6
+    // and disable frontpage
+    if(window.location.hash != ""){
+        let value = window.location.hash.replace("#level-","");
+        jumpToLevel(value);
+        showInfo("false");
+    }
 }
+
 
 // Transform Google JSON data to normal array (JONAS FROM KEA'S google spreadsheet to jSON code GitHub)
 var FetchGoogleJSON=function(url,callback,prettify){prettify=prettify===undefined?true:prettify;var re=/^https:/;if(!re.test(url))url="https://spreadsheets.google.com/feeds/list/"+url+"/od6/public/values?alt=json";fetch(url).then(function(e){return e.json()}).then(function(d){if(prettify)callback((new PrettifyGoogleJSON(d)).get());else callback(d)})};
@@ -60,14 +67,16 @@ function show(d) {
     console.log(d);
     data = d;
     createLevels();
+    sideBarLevels.style.width = (data.length * (sideBarContainerSize.width - 40))+"px";
 }
+
 
 // Fetch data, clone the template and append levels into body
 function createLevels() {
     data.forEach(elem => {
         const levelTemplate = document.querySelector("#level-template").content;
-
         const clone = levelTemplate.cloneNode(true);
+
         clone.querySelector("#level-n").id = "level-" + elem.level;
         clone.querySelector(".level-number").textContent = "Level " + elem.level;
         clone.querySelector(".description").innerHTML = elem.description;
@@ -92,12 +101,11 @@ function createLevels() {
             clone.querySelector(".smallBox-control .inputWidth").classList.add("hide");
         }
         clone.querySelector("button").setAttribute("onClick", "checkBoxSize('" + elem.level + "')");
-        sideBar.appendChild(clone);
+        sideBarLevels.appendChild(clone);
     });
-    document.querySelector("#level-1").style.left = "0px";
     levelContainer = document.querySelectorAll(".level-container");
     levelContainer.forEach(elem => {
-        elem.style.width = (sideBarContainerSize.width - 39) + "px";
+        elem.style.width = (sideBarContainerSize.width - 40) + "px";
     })
     hideShowSmall(1);
     hideShowBig(1);
@@ -106,38 +114,33 @@ function createLevels() {
 // With arrow keys left and right to change levels
 function changeLevel(direction) {
     if (direction == "left") {
-        document.querySelector("#level-" + (currentLevel - 1)).style.left = "0px";
-        document.querySelector("#level-" + currentLevel).style.left = (1 * widthOfSideBar) + "px";
-
-
-        if (currentLevel == 2) {
-            leftDirection.classList.add("hide");
-        } else if (currentLevel == data.length) {
-            rightDirection.classList.remove("hide");
-        }
-        if (currentLevel > 1) {
-            currentLevel = currentLevel - 1;
-        }
+        rightDirection.classList.remove("hide");
+        currentLevel = currentLevel - 1;
 
         hideShowSmall(currentLevel);
         hideShowBig(currentLevel);
         defaultSize(currentLevel);
     } else if (direction == "right") {
-        document.querySelector("#level-" + currentLevel).style.left = (-1 * widthOfSideBar) + "px";
-        document.querySelector("#level-" + (currentLevel + 1)).style.left = "0px";
+        leftDirection.classList.remove("hide");
+        currentLevel = currentLevel + 1;
 
-        if (currentLevel == 1) {
-            leftDirection.classList.remove("hide");
-        } else if (currentLevel == (data.length - 1)) {
-            rightDirection.classList.add("hide");
-        }
-        if (currentLevel < data.length) {
-            currentLevel = currentLevel + 1;
-        }
         hideShowSmall(currentLevel);
         hideShowBig(currentLevel);
         defaultSize(currentLevel);
     }
+    if(currentLevel === 1){
+            leftDirection.classList.add("hide");
+            console.log("remove this thing");
+    }else if(currentLevel == (data.length)){
+            rightDirection.classList.add("hide");
+    }
+    sideBarLevels.style.left = (-1 * (currentLevel-1) * (sideBarContainerSize.width - 40)) + "px";
+}
+
+
+function jumpToLevel(value){
+    value = value - 1;
+    sideBarLevels.style.left = (-1 * value * (sideBarContainerSize.width - 40)) + "px";
 }
 
 // Depending on current level, hide or show big red box
@@ -333,13 +336,15 @@ function checkBoxSize(levelN) {
 
     console.log("++++++")
     console.log(checkStatus);
-
     // If checkstatus is 0 = correct and display message
     if(checkStatus === 0){
-        displayCorrectMessage(levelN, "CORRECT!");
+        displayCorrectMessage("CORRECT!");
+        if(data[levelN - 1].noticemessage != ""){
+            document.querySelector("#info .explanation .explain-this").textContent = data[levelN - 1].noticemessage;
+        }
     }
     else{
-        displayWrongMessage(levelN, "Something seems to be false, try again!");
+        displayWrongMessage("Something seems to be false, try again!");
     }
 }
 // get the height unit of an input
@@ -432,7 +437,7 @@ function checkAllowedUnitArray(array, levelN) {
 
     array.forEach(elem => {
         if (allowed.indexOf(elem) > -1) {} else {
-            displayWrongMessage(levelN, "Ups. Seems like you used an unit not made for that direction.");
+            displayWrongMessage("Ups. Seems like you used an unit not made for that direction.");
             status = 1;
         }
     });
@@ -486,18 +491,18 @@ function defaultSize(level) {
 }
 
 //display wrong message
-function displayWrongMessage(levelN, message) {
-    let wrongMessage = document.querySelector("#level-" + levelN + " .wrong-message");
+function displayWrongMessage(message) {
+    let wrongMessage = document.querySelector("#info .wrong-message");
     wrongMessage.textContent = message;
     wrongMessage.classList.remove("hide");
     setTimeout(function () {
         wrongMessage.classList.add("hide");
-    }, 3000)
+    }, 4000)
 
 }
 //display correct message
-function displayCorrectMessage(levelN, message) {
-    let correctMessage = document.querySelector("#level-" + levelN + " .correct-message");
+function displayCorrectMessage(message) {
+    let correctMessage = document.querySelector("#info .correct-message");
     correctMessage.textContent = message;
     correctMessage.classList.remove("hide");
     setTimeout(function () {
