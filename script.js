@@ -12,11 +12,14 @@ const sideBarLevels = document.querySelector("#sidebar .sidebar-levels");
 const leftDirection = document.querySelector("#direction .left");
 const rightDirection = document.querySelector("#direction .right");
 const sideBarContainer = document.querySelector("#sidebar-container");
-let sideBarContainerSize = sideBarContainer.getBoundingClientRect();
+const sideBarContainerSize = sideBarContainer.getBoundingClientRect();
+const explainThis = document.querySelector("#info .explain-this");
+const wrongMessage = document.querySelector("#info .wrong-message");
+const correctMessage = document.querySelector("#info .correct-message");
 const link = "https://spreadsheets.google.com/feeds/list/1T2dyKXx_OuFsAcSLnPaUYEamOZpcW4uEDNOEZqYZcok/od6/public/values?alt=json";
 
 
-let topValue, data, widthOfSideBar, levelContainer;
+let topValue, data, widthOfSideBar, levelContainer, wrongTimeout;
 let currentLevel = 1;
 
 init();
@@ -28,6 +31,7 @@ function init() {
 
     function reSizePlay() {
         let svgDesktopSize = svgDesktop.getBoundingClientRect();
+
         function getOffset(el) {
             el = el.getBoundingClientRect();
             return {
@@ -50,8 +54,8 @@ function init() {
 
     // Jump directly to a level with the link css-game.com/#level-6
     // and disable frontpage
-    if(window.location.hash != ""){
-        let value = window.location.hash.replace("#level-","");
+    if (window.location.hash != "") {
+        let value = window.location.hash.replace("#level-", "");
         jumpToLevel(value);
         showInfo("false");
     }
@@ -59,15 +63,42 @@ function init() {
 
 
 // Transform Google JSON data to normal array (JONAS FROM KEA'S google spreadsheet to jSON code GitHub)
-var FetchGoogleJSON=function(url,callback,prettify){prettify=prettify===undefined?true:prettify;var re=/^https:/;if(!re.test(url))url="https://spreadsheets.google.com/feeds/list/"+url+"/od6/public/values?alt=json";fetch(url).then(function(e){return e.json()}).then(function(d){if(prettify)callback((new PrettifyGoogleJSON(d)).get());else callback(d)})};
-var PrettifyGoogleJSON=function(googleData){var $jscomp$this=this;this.newJSON=[];var re=/^gsx\$/;googleData.feed.entry.forEach(function(obj){var temp={};for(var prop in obj)if(re.test(prop)){var parts=prop.split("$");temp[parts[1]]=obj[prop].$t}$jscomp$this.newJSON.push(temp)})};PrettifyGoogleJSON.prototype.get=function(){return this.newJSON};
+var FetchGoogleJSON = function (url, callback, prettify) {
+    prettify = prettify === undefined ? true : prettify;
+    var re = /^https:/;
+    if (!re.test(url)) url = "https://spreadsheets.google.com/feeds/list/" + url + "/od6/public/values?alt=json";
+    fetch(url).then(function (e) {
+        return e.json()
+    }).then(function (d) {
+        if (prettify) callback((new PrettifyGoogleJSON(d)).get());
+        else callback(d)
+    })
+};
+var PrettifyGoogleJSON = function (googleData) {
+    var $jscomp$this = this;
+    this.newJSON = [];
+    var re = /^gsx\$/;
+    googleData.feed.entry.forEach(function (obj) {
+        var temp = {};
+        for (var prop in obj)
+            if (re.test(prop)) {
+                var parts = prop.split("$");
+                temp[parts[1]] = obj[prop].$t
+            }
+        $jscomp$this.newJSON.push(temp)
+    })
+};
+PrettifyGoogleJSON.prototype.get = function () {
+    return this.newJSON
+};
 // and work with the retrieved data!
 new FetchGoogleJSON(link, show);
+
 function show(d) {
     console.log(d);
     data = d;
     createLevels();
-    sideBarLevels.style.width = (data.length * (sideBarContainerSize.width - 40))+"px";
+    sideBarLevels.style.width = (data.length * (sideBarContainerSize.width - 40)) + "px";
 }
 
 
@@ -96,8 +127,9 @@ function createLevels() {
             clone.querySelector(".smallBox-control h3").textContent = "Text controls:";
             clone.querySelector(".smallBox-control .text-height").textContent = "Font-size:";
             clone.querySelector(".smallBox-control .text-width").classList.add("hide");
-            if(elem.sboxh == 0){
-                clone.querySelector(".smallBox-control .inputHeight").classList.add("hide");}
+            if (elem.sboxh == 0) {
+                clone.querySelector(".smallBox-control .inputHeight").classList.add("hide");
+            }
             clone.querySelector(".smallBox-control .inputWidth").classList.add("hide");
         }
         clone.querySelector("button").setAttribute("onClick", "checkBoxSize('" + elem.level + "')");
@@ -109,6 +141,7 @@ function createLevels() {
     })
     hideShowSmall(1);
     hideShowBig(1);
+    changeTabFocus(1);
 }
 
 // With arrow keys left and right to change levels
@@ -117,6 +150,8 @@ function changeLevel(direction) {
         rightDirection.classList.remove("hide");
         currentLevel = currentLevel - 1;
 
+        closeAllMessages();
+        changeTabFocus(currentLevel);
         hideShowSmall(currentLevel);
         hideShowBig(currentLevel);
         defaultSize(currentLevel);
@@ -124,23 +159,26 @@ function changeLevel(direction) {
         leftDirection.classList.remove("hide");
         currentLevel = currentLevel + 1;
 
+        closeAllMessages();
+        changeTabFocus(currentLevel);
         hideShowSmall(currentLevel);
         hideShowBig(currentLevel);
         defaultSize(currentLevel);
     }
-    if(currentLevel === 1){
-            leftDirection.classList.add("hide");
-            console.log("remove this thing");
-    }else if(currentLevel == (data.length)){
-            rightDirection.classList.add("hide");
+    if (currentLevel === 1) {
+        leftDirection.classList.add("hide");
+    } else if (currentLevel == (data.length)) {
+        rightDirection.classList.add("hide");
     }
-    sideBarLevels.style.left = (-1 * (currentLevel-1) * (sideBarContainerSize.width - 40)) + "px";
+    history.replaceState(undefined, undefined, "#level-"+currentLevel);
+    sideBarLevels.style.left = (-1 * (currentLevel - 1) * (sideBarContainerSize.width - 40)) + "px";
 }
 
 
-function jumpToLevel(value){
+function jumpToLevel(value) {
     value = value - 1;
     sideBarLevels.style.left = (-1 * value * (sideBarContainerSize.width - 40)) + "px";
+    console.log("jump to level");
 }
 
 // Depending on current level, hide or show big red box
@@ -225,10 +263,9 @@ function checkBoxSize(levelN) {
     let inputMargin = document.querySelector("#level-" + levelN + " .inputMargin").value;
 
     // Convert margin input from one value or two value to four values
-    if(splitToArray(inputMargin).length == 1){
+    if (splitToArray(inputMargin).length == 1) {
         inputMargin = inputMargin + " " + inputMargin + " " + inputMargin + " " + inputMargin;
-    }
-    else if(splitToArray(inputMargin).length == 2){
+    } else if (splitToArray(inputMargin).length == 2) {
         inputMargin = splitToArray(inputMargin)[0] + " " + splitToArray(inputMargin)[1] + " " + splitToArray(inputMargin)[0] + " " + splitToArray(inputMargin)[1];
     }
 
@@ -237,10 +274,9 @@ function checkBoxSize(levelN) {
     let inputPadding = document.querySelector("#level-" + levelN + " .inputPadding").value;
 
     // Convert padding input from one value or two value to four values
-    if(splitToArray(inputPadding).length == 1){
+    if (splitToArray(inputPadding).length == 1) {
         inputPadding = inputPadding + " " + inputPadding + " " + inputPadding + " " + inputPadding;
-    }
-    else if(splitToArray(inputPadding).length == 2){
+    } else if (splitToArray(inputPadding).length == 2) {
         inputPadding = splitToArray(inputPadding)[0] + " " + splitToArray(inputPadding)[1] + " " + splitToArray(inputPadding)[0] + " " + splitToArray(inputPadding)[1];
     }
 
@@ -251,7 +287,7 @@ function checkBoxSize(levelN) {
 
     // Check every input for beeing active, then the unit and finaly the value
     if (bbActive == 1) {
-        if (checkAllowedUnit(bHeightUnit, bWidthUnit, levelN) ) {
+        if (checkAllowedUnit(bHeightUnit, bWidthUnit, levelN)) {
 
 
 
@@ -263,13 +299,17 @@ function checkBoxSize(levelN) {
             // Check if inputs are correct
             if (bHeightInput === dataL.bboxh && bWidthInput === dataL.bboxw) {
 
-            }
-            else{checkStatus = 1};
-        }else{checkStatus = 1};
+            } else {
+                checkStatus = 1;
+            };
+        } else {
+            checkStatus = 1;
+            return;
+        };
     }
 
     if (sbActive === "div") {
-        if (checkAllowedUnit(sHeightUnit, sWidthUnit, levelN) ) {
+        if (checkAllowedUnit(sHeightUnit, sWidthUnit, levelN)) {
 
             console.log("Small box passed");
 
@@ -281,8 +321,13 @@ function checkBoxSize(levelN) {
             // Check if inputs are correct
             if (sHeightInput === dataL.sboxh && sWidthInput === dataL.sboxw) {
 
-            }else{checkStatus = 1};
-        }else{checkStatus = 1};
+            } else {
+                checkStatus = 1;
+            };
+        } else {
+            checkStatus = 1;
+            return;
+        };
     }
 
     if (sbActive === "p") {
@@ -297,8 +342,13 @@ function checkBoxSize(levelN) {
             // Check if inputs are correct
             if (sFontInput === dataL.sboxh) {
 
-            }else{checkStatus = 1};
-        }else{checkStatus = 1};
+            } else {
+                checkStatus = 1;
+            };
+        } else {
+            checkStatus = 1;
+            return;
+        };
     }
 
     if (marginArrayActive(levelN)) {
@@ -314,8 +364,13 @@ function checkBoxSize(levelN) {
             // Check if inputs are correct
             if (inputMargin === dataL.sboxm) {
 
-            }else{checkStatus = 1};
-        }else{checkStatus = 1};
+            } else {
+                checkStatus = 1;
+            };
+        } else {
+            checkStatus = 1;
+            return;
+        };
     }
 
     if (paddingArrayActive(levelN)) {
@@ -325,26 +380,28 @@ function checkBoxSize(levelN) {
 
             // Because of created Window, change viewports to percentage in order to fit to size
             // Apply heights
-             smallText.style.padding = replaceViewport(inputPadding);
+            smallText.style.padding = replaceViewport(inputPadding);
             smallBox.style.padding = replaceViewport(inputPadding);
             // Check if inputs are correct
             if (inputPadding === dataL.sboxp) {
 
-            }else{checkStatus = 1};
-        }else{checkStatus = 1};
+            } else {
+                checkStatus = 1;
+            };
+        } else {
+            checkStatus = 1;
+            return;
+        };
     }
 
     console.log("++++++")
     console.log(checkStatus);
     // If checkstatus is 0 = correct and display message
-    if(checkStatus === 0){
+    if (checkStatus === 0) {
         displayCorrectMessage("CORRECT!");
-        if(data[levelN - 1].noticemessage != ""){
-            document.querySelector("#info .explanation .explain-this").textContent = data[levelN - 1].noticemessage;
-        }
-    }
-    else{
-        displayWrongMessage("Something seems to be false, try again!");
+        displayExplainThis(levelN - 1);
+    } else {
+        displayWrongMessage("Not correct!");
     }
 }
 // get the height unit of an input
@@ -415,7 +472,7 @@ function paddingArrayActive(levelN) {
 }
 
 // split multiple inputs from margin or padding into an array list. Instead of = "10px 10px 10px 10px" it is var array = ["10px","10px",...]
-function splitToArray(input){
+function splitToArray(input) {
     let array = input.split(/[ ]/);
     return array;
 }
@@ -423,25 +480,26 @@ function splitToArray(input){
 
 
 // Replace all vh and vw to %
-function replaceViewport(text){
-    let temp = text.replace("vh","%");
-    let temp2 = temp.replace("vw","%");
+function replaceViewport(text) {
+    let temp = text.replace("vh", "%");
+    let temp2 = temp.replace("vw", "%");
     return temp2;
 }
 
 
 // check if array input has valid units
 function checkAllowedUnitArray(array, levelN) {
-    let allowed = ["vh", "px", "em", "%"];
+    let allowed = ["vh", "vw" , "px", "em", "%"];
     let status = 0;
 
     array.forEach(elem => {
         if (allowed.indexOf(elem) > -1) {} else {
-            displayWrongMessage("Ups. Seems like you used an unit not made for that direction.");
             status = 1;
         }
     });
     if (status) {
+        console.log("checkAllowedUnit false");
+        displayWrongMessage("Invalid unit!");
         return false;
     } else {
         return true;
@@ -463,12 +521,12 @@ function checkAllowedUnit(checkForHeight, checkForWidth, levelN) {
             console.log("checkAllowedUnit true");
             return true;
         } else {
-            displayWrongMessage(levelN, "Ups. Seems like you used an unit not made for that direction.");
+            displayWrongMessage("Invalid unit!");
             console.log("checkAllowedUnit false");
             return false;
         };
     } else {
-        displayWrongMessage(levelN, "Ups. Seems like you used an unit not made for that direction.");
+        displayWrongMessage("Invalid unit!");
         console.log("checkAllowedUnit false");
         return false;
     }
@@ -492,23 +550,62 @@ function defaultSize(level) {
 
 //display wrong message
 function displayWrongMessage(message) {
-    let wrongMessage = document.querySelector("#info .wrong-message");
+
     wrongMessage.textContent = message;
     wrongMessage.classList.remove("hide");
-    setTimeout(function () {
+    wrongTimeout = setTimeout(function () {
         wrongMessage.classList.add("hide");
     }, 4000)
 
 }
 //display correct message
 function displayCorrectMessage(message) {
-    let correctMessage = document.querySelector("#info .correct-message");
     correctMessage.textContent = message;
     correctMessage.classList.remove("hide");
-    setTimeout(function () {
-        correctMessage.classList.add("hide");
-    }, 10000)
+}
 
+function displayExplainThis(level) {
+
+
+    if (data[level].noticemessage != "") {
+        explainThis.innerHTML = data[level].noticemessage;
+        explainThis.classList.remove("hide");
+        document.querySelector("#info .explanation").style.width = "50%";
+    }
+}
+
+function closeAllMessages(){
+    explainThis.classList.add("hide");
+    correctMessage.classList.add("hide");
+    wrongMessage.classList.add("hide");
+    clearTimeout(wrongTimeout);
+    document.querySelector("#info .explanation").style.removeProperty("width");
+}
+
+function changeTabFocus(level){
+    console.log("+++++++++");
+    console.log(level);
+    let inputArray = document.querySelectorAll("#sidebar input");
+    let buttonArray = document.querySelectorAll("#sidebar button");
+
+    let inputActive = document.querySelectorAll("#level-" + level + " input")
+    let buttonActive = document.querySelectorAll("#level-" + level + " button")
+
+    //Disable all for tab
+    inputArray.forEach(elem=>{
+      elem.setAttribute("tabIndex", "-1");
+    })
+    buttonArray.forEach(elem=>{
+      elem.setAttribute("tabIndex", "-1");
+    })
+
+    //Enable only active
+    inputActive.forEach(elem=>{
+      elem.setAttribute("tabIndex", "0");
+    })
+    buttonActive.forEach(elem=>{
+      elem.setAttribute("tabIndex", "0");
+    })
 }
 
 //show more or less info about css game (modal screen)
@@ -537,18 +634,34 @@ function switchMoreInfo(status) {
     if (status == "second") {
         switchOne.classList.add("hide");
         firstRight.style.opacity = 0;
-        setTimeout(function(){firstRight.classList.add("hide");},500);
-        setTimeout(function(){secondRight.classList.remove("hide");},600);
-        setTimeout(function(){secondRight.style.opacity = 1;},700);
-        setTimeout(function(){switchTwo.classList.remove("hide");},800);
+        setTimeout(function () {
+            firstRight.classList.add("hide");
+        }, 500);
+        setTimeout(function () {
+            secondRight.classList.remove("hide");
+        }, 600);
+        setTimeout(function () {
+            secondRight.style.opacity = 1;
+        }, 700);
+        setTimeout(function () {
+            switchTwo.classList.remove("hide");
+        }, 800);
 
     } else {
         switchTwo.classList.add("hide");
         secondRight.style.opacity = 0;
-        setTimeout(function(){secondRight.classList.add("hide");},500);
-        setTimeout(function(){firstRight.classList.remove("hide");},600);
-        setTimeout(function(){firstRight.style.opacity = 1;},700);
-        setTimeout(function(){switchOne.classList.remove("hide");},800);
+        setTimeout(function () {
+            secondRight.classList.add("hide");
+        }, 500);
+        setTimeout(function () {
+            firstRight.classList.remove("hide");
+        }, 600);
+        setTimeout(function () {
+            firstRight.style.opacity = 1;
+        }, 700);
+        setTimeout(function () {
+            switchOne.classList.remove("hide");
+        }, 800);
 
     }
 }
@@ -570,10 +683,9 @@ function showAbout(status) {
 }
 
 // eventListener for the "ENTER" key, which can be used to click the "Apply & Check" buttons
-document.addEventListener("keyup", function(event) {
+document.addEventListener("keyup", function (event) {
     event.preventDefault();
-    if (event.keyCode == 13){
-        console.log("hello");
+    if (event.keyCode == 13) {
         checkBoxSize(currentLevel);
 
     }
