@@ -361,9 +361,47 @@ button:hover {
     color: #282b2d;
     font-size: 30px;
     text-align: center;
-    margin: 30px 0 200px 0;
+    margin: 30px 0 150px 0;
 }
 
+#info .scroll{
+    height: 39px;
+    width: 23px;
+    margin: 0 auto;
+    border-radius: 39%;
+    margin-bottom: 40px;
+    border: 2px solid white;
+    position: relative;
+}
+#info .scroll-wheel{
+    background: white;
+    height: 10px;
+    width: 5px;
+    border-radius: 39%;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 3px;
+    animation: scrollWheel 1s linear infinite;
+}
+@keyframes scrollWheel{
+    to{
+        top: 15px;
+        opacity: .4;
+    }
+}
+#info .scroll p{
+    color: white !important;
+    width: 95px !important;
+    margin: auto !important;
+    left: -33px !important;
+    right: 0 !important;
+    bottom: -25px !important;
+    font-size: 20px !important;
+    text-align: center !important;
+    position: absolute !important;
+}
 #info .more-info p {
     font-size: 20px;
     margin-bottom: 20px;
@@ -704,6 +742,9 @@ button:hover {
     }
     button {
         font-size: 16px;
+    }
+    #info .more-info h1 {
+    margin: 2em 0 30px 0;
     }
     #info .more-info p {
         margin-left: 15px;
