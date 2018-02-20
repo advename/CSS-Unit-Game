@@ -610,77 +610,21 @@ function changeTabFocus(level){
 
 //show more or less info about css game (modal screen)
 function showInfo(status) {
-    let infoIcon = document.querySelector("#info .info-icon");
+    let infoClose = document.querySelector("#info .info-close");
     let moreInfo = document.querySelector("#info .more-info");
     let moreInfoBackground = document.querySelector(".dark-background");
 
     if (status == "true") {
+        infoClose.style.removeProperty("display");
         moreInfo.style.top = "0vh";
         moreInfoBackground.style.bottom = "0px";
     } else {
+        infoClose.style.display ="none";
         moreInfo.style.removeProperty("top");
         moreInfoBackground.style.removeProperty("bottom");
     }
 }
 
-// Info modal, switch between tablet example with units and
-// explanation of margin and padding.
-function switchMoreInfo(status) {
-    let firstRight = document.querySelector("#info .info-right");
-    let secondRight = document.querySelector("#info .info-second-right");
-    let switchOne = document.querySelector("#info .switch-info-tab-1");
-    let switchTwo = document.querySelector("#info .switch-info-tab-2");
-
-    if (status == "second") {
-        switchOne.classList.add("hide");
-        firstRight.style.opacity = 0;
-        setTimeout(function () {
-            firstRight.classList.add("hide");
-        }, 500);
-        setTimeout(function () {
-            secondRight.classList.remove("hide");
-        }, 600);
-        setTimeout(function () {
-            secondRight.style.opacity = 1;
-        }, 700);
-        setTimeout(function () {
-            switchTwo.classList.remove("hide");
-        }, 800);
-
-    } else {
-        switchTwo.classList.add("hide");
-        secondRight.style.opacity = 0;
-        setTimeout(function () {
-            secondRight.classList.add("hide");
-        }, 500);
-        setTimeout(function () {
-            firstRight.classList.remove("hide");
-        }, 600);
-        setTimeout(function () {
-            firstRight.style.opacity = 1;
-        }, 700);
-        setTimeout(function () {
-            switchOne.classList.remove("hide");
-        }, 800);
-
-    }
-}
-
-
-// show more or less info about the website and creator
-function showAbout(status) {
-    let aboutIcon = document.querySelector("#about .about-icon");
-    let moreAbout = document.querySelector("#about .more-about");
-    let moreAboutBackground = document.querySelector(".dark-background");
-
-    if (status == "true") {
-        moreAbout.style.top = "0vh";
-        moreAboutBackground.style.bottom = "0px";
-    } else {
-        moreAbout.style.removeProperty("top");
-        moreAboutBackground.style.removeProperty("bottom");
-    }
-}
 
 // eventListener for the "ENTER" key, which can be used to click the "Apply & Check" buttons
 document.addEventListener("keyup", function (event) {

@@ -72,110 +72,104 @@
                 <p class="explain-this"></p>
             </div>
             <div class="more-info">
-                <div class="info-left" onclick="showInfo('false')">
-                    <h1>CSS UNITS GAME</h1>
-                    <p>CSS or the style sheet of a website has many length units, same as we have centimeters (cm), millimeters (mm), inches (in) and so on and so forth in the real world. While we can use the units cm, mm and in with our style sheet, they are yet not recommended as they are not friendly to use with Web sites. Moreover, as Web sites are displayed on different screen sizes, we want to work relatively to the screen size of the device displaying the website.</p><br><br><p> Therefore, in CSS we work with two types of length units:</p>
-                    <ul>
-                        <li>relative (depends on screen- / element-size) </li>
-                        <li>absolute (fixed size)</li>
-                    </ul>
-                    <br>
-                    <p>There are over 10 length units compatible with CSS, however, most of the times we're only going to need a couple of them:</p>
-                    <table>
-                        <tr>
-                            <th>Unit</th>
-                            <th>Description</th>
-                            <th>Example</th>
-                        </tr>
-                        <tr>
-                            <td>px</td>
-                            <td>Pixels - absolute unit</td>
-                            <td>1px = 1/96th of 1in</td>
-                        </tr>
-                        <tr>
-                            <td>em</td>
-                            <td>Relative to the font size of the element</td>
-                            <td>2em means 2 times the size of the elements font</td>
-                        </tr>
-                        <tr>
-                            <td>vh</td>
-                            <td>Viewport Height - relative to the browser window height</td>
-                            <td>50vh would fill half of the screen vertically</td>
-                        </tr>
-                        <tr>
-                            <td>vw</td>
-                            <td>Viewport Width - relative to the browser window width</td>
-                            <td>50vw would fill half of the screen horizontally</td>
-                        </tr>
-                        <tr>
-                            <td>%</td>
-                            <td>Percentage - relative to the size of container enclosing the element</td>
-                            <td>Self explaining</td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="info-right" onclick="showInfo('false')">
-                    <h3>Tablet Example with unit lengths</h3><br>
-                    <p>Imagine this was a Tablet, which has a browser window with a height of 300px and a width of 260px. The font-size is 14px.</p>
-                    <div class="info-tablet">
-                        <div class="tablet-browser"><br>
-                            <div class="browser-navbar">
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                            </div>
-                            <p>195px ( filling 75% of 260px )</p>
-                            <p>12em ( equals to 168px )</p>
-                            <p>84vw ( 84/100 of the browser width )</p>
-                            <p>81% (81% of the containers width)</p>
-                            <p>This container has a width of 81vw.<br><span>This box has a width of 50%</span></p>
-                            <p>90vh (90/100 of browser height)</p>
+                <h1>CSS UNITS GAME</h1>
+                <hr>
+                <h2>Learn progressivly the length units of the web</h2>
+                <p>CSS or the style sheet of a website has many length units, same as we have centimeters (cm), millimeters (mm), inches (in) and so on and so forth in the real world. While we can use the units cm, mm and in with our style sheet, they are yet not recommended as they are not friendly to use with Web sites. Moreover, as Web sites are displayed on different screen sizes, we want to work relatively to the screen size of the device displaying the website.</p><br><br>
+                <p>Therefore, in CSS we work with two types of length units:</p>
+                <ul>
+                    <li>relative (depends on screen- / element-size) </li>
+                    <li>absolute (fixed size)</li>
+                </ul>
+                <br>
+                <p>There are over 10 length units compatible with CSS, however, most of the times we're only going to need a couple of them:</p>
+                <table>
+                    <tr>
+                        <th>Unit</th>
+                        <th>Description</th>
+                        <th>Example</th>
+                    </tr>
+                    <tr>
+                        <td>px</td>
+                        <td>Pixels - absolute unit</td>
+                        <td>1px = 1/96th of 1in</td>
+                    </tr>
+                    <tr>
+                        <td>em</td>
+                        <td>Relative to the font size of the element</td>
+                        <td>2em means 2 times the size of the elements font</td>
+                    </tr>
+                    <tr>
+                        <td>vh</td>
+                        <td>Viewport Height - relative to the browser window height</td>
+                        <td>50vh would fill half of the screen vertically</td>
+                    </tr>
+                    <tr>
+                        <td>vw</td>
+                        <td>Viewport Width - relative to the browser window width</td>
+                        <td>50vw would fill half of the screen horizontally</td>
+                    </tr>
+                    <tr>
+                        <td>%</td>
+                        <td>Percentage - relative to the size of container enclosing the element</td>
+                        <td>Self explaining</td>
+                    </tr>
+                </table>
+                <h3>Tablet Example with unit lengths</h3><br>
+                <p>Imagine this was a Tablet, which has a browser window with a height of 300px and a width of 260px. The font-size is 14px.</p>
+                <div class="info-tablet">
+                    <div class="tablet-browser"><br>
+                        <div class="browser-navbar">
+                            <div></div>
+                            <div></div>
+                            <div></div>
                         </div>
-                        <div class="tablet-button"></div>
+                        <p>195px ( filling 75% of 260px )</p>
+                        <p>12em ( equals to 168px )</p>
+                        <p>84vw ( 84/100 of the browser width )</p>
+                        <p>81% (81% of the containers width)</p>
+                        <p>This container has a width of 81vw.<br><span>This box has a width of 50%</span></p>
+                        <p>90vh (90/100 of browser height)</p>
                     </div>
-                    <p>Depending on the screen size, only the 200px will keep same size. CSS length units are written with the length and then the unit without a space inbetween. vw and vh can both be used for height and width lengths.</p>
+                    <div class="tablet-button"></div>
                 </div>
-                <p class="switch-info-tab-1" onclick="switchMoreInfo('second')">READ MORE ABOUT WHAT TO USE THEM FOR &#9658;</p>
-                <div class="info-second-right hide">
-                    <h3>What to use them for?</h3><br>
-                    <p>Besides defining the height and width of a container, we can also add a border to our container or elements, define the size of the fonts, and add space in two ways between the element and the container enclosing it:</p><br>
-                    <ul>
-                        <li>margin, adding empty space around the element</li>
-                        <li>padding, adding space from the inside of the element</li>
-                    </ul>
-                    <br><br>
-                    <p>Margin and padding are set with one, two or four values:</p><br>
-                    <ul>
-                        <li><span>margin : 10px</span> (is equal to a 10px empty space on every side around the element)</li>
-                        <li><span>margin : 10px 20px </span>(is equal to a 10px of empty space to the top and bottom, and 20px of empty space to the left and right of the element)</li>
-                        <li><span>margin : 10px 20px 30px 40px </span>(is equal to add 10px to the top, 20px to the right, 30px to the bottom and 40px of margin to the left. same applies for padding.)
-                        </li>
-                    </ul><br>
-                    <p>The same rule applies for padding.</p><br>
-                    <img src="img/margin-padding-example-difference.png" alt="difference between margin and padding" class="margin-padding-img">
+                <p>Depending on the screen size, only the 200px will keep same size. CSS length units are written with the length and then the unit without a space inbetween. vw and vh can both be used for height and width lengths.</p>
 
-                </div>
-                <p class="switch-info-tab-2 hide" onclick="switchMoreInfo('first')">&#9668; RETURN</p>
-                <p class="info-close" onclick="showInfo('false')">X</p>
-            </div>
-        </div>
-        <div id="about">
-            <div class="about-icon" onclick="showAbout('true')">
-                <p class="info-icon-i">ABOUT</p>
-            </div>
-            <div class="more-about" onclick="showAbout('false')">
-                <h2>About CSS Unit Game</h2>
+                <h3>What to use them for?</h3><br>
+                <p>Besides defining the height and width of a container, we can also add a border to our container or elements, define the size of the fonts, and add space in two ways between the element and the container enclosing it:</p><br>
+                <ul>
+                    <li>margin, adding empty space around the element</li>
+                    <li>padding, adding space from the inside of the element</li>
+                </ul>
+                <br><br>
+                <p>Margin and padding are set with one, two or four values:</p><br>
+                <ul>
+                    <li><span>margin : 10px</span> (is equal to a 10px empty space on every side around the element)</li>
+                    <li><span>margin : 10px 20px </span>(is equal to a 10px of empty space to the top and bottom, and 20px of empty space to the left and right of the element)</li>
+                    <li><span>margin : 10px 20px 30px 40px </span>(is equal to add 10px to the top, 20px to the right, 30px to the bottom and 40px of margin to the left. same applies for padding.)
+                    </li>
+                </ul><br>
+                <p>The same rule applies for padding.</p><br>
+                <div style="text-align: center;">
+                <img src="img/margin-padding-example-difference.png" alt="difference between margin and padding" class="margin-padding-img"></div>
+
+
+                <button onclick="showInfo('false')">START CSS GAME</button>
+
+                <h2 class="about">About CSS Unit Game</h2>
                 <p>Working with websites, if it's a designer, programmer or copywriter, they all need to work with lengths to create stunning user interfaces and articles. However, not all of them have access to get easily understand how these length units work without a programming interface or analysing the codes behind. That's where this "game" comes in. By several objectives, I want to bring everyone working on the web closer to the understanding of digital units.</p><br>
                 <br>
                 <p>This Website was created by Lars ALBERT, and applies to the <a style="color: #ef6982;" src="https://choosealicense.com/licenses/agpl-3.0/">GNU AGPLv3 License</a></p>
                 <div class="about-footer">
-                    <a href="mailto:lars@advena.me">Contact e-mail</a>
                     <a href="https://www.linkedin.com/in/lars-albert/">LinkedIN</a>
                     <a href="https://github.com/advename">GitHub</a>
-                    <a href="https://www.advena.me/" class="copyright">&copy;2018 Advena - Lars Ljungdahl ALBERT</a>
+                    <a href="mailto:lars@advena.me">Contact e-mail</a>
                 </div>
-                <p class="about-close" onclick="showAbout('false')">X</p>
+                <footer>
+                    <a href="https://www.advena.me/" class="copyright">&copy;2018 Advena - Lars Ljungdahl ALBERT</a>
+                </footer>
             </div>
+            <p class="info-close" onclick="showInfo('false')">X</p>
         </div>
 
         <div class="dark-background">
