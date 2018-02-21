@@ -14,8 +14,7 @@ const rightDirection = document.querySelector("#direction .right");
 const sideBarContainer = document.querySelector("#sidebar-container");
 const sideBarContainerSize = sideBarContainer.getBoundingClientRect();
 const explainThis = document.querySelector("#info .explain-this");
-const wrongMessage = document.querySelector("#info .wrong-message");
-const correctMessage = document.querySelector("#info .correct-message");
+const displayMessage = document.querySelector("#info .display-message");
 const link = "https://spreadsheets.google.com/feeds/list/1T2dyKXx_OuFsAcSLnPaUYEamOZpcW4uEDNOEZqYZcok/od6/public/values?alt=json";
 
 
@@ -52,13 +51,7 @@ function init() {
     widthOfSideBar = sideBarContainerSize.width + 60;
     showInfo("true");
 
-    // Jump directly to a level with the link css-game.com/#level-6
-    // and disable frontpage
-    if (window.location.hash != "") {
-        let value = window.location.hash.replace("#level-", "");
-        jumpToLevel(value);
-        showInfo("false");
-    }
+
 }
 
 
@@ -142,6 +135,16 @@ function createLevels() {
     hideShowSmall(1);
     hideShowBig(1);
     changeTabFocus(1);
+
+    // Jump directly to a level with the link css-game.com/#level-6
+    // and disable frontpage
+    if (window.location.hash != "") {
+        let value = window.location.hash.replace("#level-", "");
+        for (let i = 0; i < value - 1; i++) {
+            changeLevel("right");
+        }
+        showInfo("false");
+    }
 }
 
 // With arrow keys left and right to change levels
@@ -170,15 +173,8 @@ function changeLevel(direction) {
     } else if (currentLevel == (data.length)) {
         rightDirection.classList.add("hide");
     }
-    history.replaceState(undefined, undefined, "#level-"+currentLevel);
+    history.replaceState(undefined, undefined, "#level-" + currentLevel);
     sideBarLevels.style.left = (-1 * (currentLevel - 1) * (sideBarContainerSize.width - 40)) + "px";
-}
-
-
-function jumpToLevel(value) {
-    value = value - 1;
-    sideBarLevels.style.left = (-1 * value * (sideBarContainerSize.width - 40)) + "px";
-    console.log("jump to level");
 }
 
 // Depending on current level, hide or show big red box
@@ -240,6 +236,7 @@ function checkBoxSize(levelN) {
     let marginActive;
 
     //BIG BOX VARIABLES
+
     let bHeightUnit = getHeightUnit(levelN, ".bigBox-control");
     let bHeightInput = document.querySelector("#level-" + levelN + " .bigBox-table .inputHeight").value;
 
@@ -293,8 +290,8 @@ function checkBoxSize(levelN) {
 
             // Because of created Window, change viewports to percentage in order to fit to size
             // Apply heights
-            bigBox.style.height = replaceViewport(bHeightInput);
-            bigBox.style.width = replaceViewport(bWidthInput);
+            bigBox.style.height = replaceViewport(bHeightInput, levelN);
+            bigBox.style.width = replaceViewport(bWidthInput, levelN);
 
             // Check if inputs are correct
             if (bHeightInput === dataL.bboxh && bWidthInput === dataL.bboxw) {
@@ -315,8 +312,8 @@ function checkBoxSize(levelN) {
 
             // Because of created Window, change viewports to percentage in order to fit to size
             // Apply heights
-            smallBox.style.height = replaceViewport(sHeightInput);
-            smallBox.style.width = replaceViewport(sWidthInput);
+            smallBox.style.height = replaceViewport(sHeightInput, levelN);
+            smallBox.style.width = replaceViewport(sWidthInput, levelN);
 
             // Check if inputs are correct
             if (sHeightInput === dataL.sboxh && sWidthInput === dataL.sboxw) {
@@ -337,7 +334,7 @@ function checkBoxSize(levelN) {
 
             // Because of created Window, change viewports to percentage in order to fit to size
             // Apply heights
-            smallText.style.fontSize = replaceViewport(sFontInput);
+            smallText.style.fontSize = replaceViewport(sFontInput, levelN);
 
             // Check if inputs are correct
             if (sFontInput === dataL.sboxh) {
@@ -358,8 +355,8 @@ function checkBoxSize(levelN) {
 
             // Because of created Window, change viewports to percentage in order to fit to size
             // Apply heights
-            smallText.style.margin = replaceViewport(inputMargin);
-            smallBox.style.margin = replaceViewport(inputMargin);
+            smallText.style.margin = replaceViewport(inputMargin, levelN);
+            smallBox.style.margin = replaceViewport(inputMargin, levelN);
 
             // Check if inputs are correct
             if (inputMargin === dataL.sboxm) {
@@ -380,8 +377,8 @@ function checkBoxSize(levelN) {
 
             // Because of created Window, change viewports to percentage in order to fit to size
             // Apply heights
-            smallText.style.padding = replaceViewport(inputPadding);
-            smallBox.style.padding = replaceViewport(inputPadding);
+            smallText.style.padding = replaceViewport(inputPadding, levelN);
+            smallBox.style.padding = replaceViewport(inputPadding, levelN);
             // Check if inputs are correct
             if (inputPadding === dataL.sboxp) {
 
@@ -394,33 +391,26 @@ function checkBoxSize(levelN) {
         };
     }
 
-    console.log("++++++")
-    console.log(checkStatus);
     // If checkstatus is 0 = correct and display message
     if (checkStatus === 0) {
-        displayCorrectMessage("CORRECT!");
+        displayResult("CORRECT!", true)
         displayExplainThis(levelN - 1);
     } else {
-        displayWrongMessage("Not correct!");
+        displayResult("Not correct!", false)
+
     }
 }
 // get the height unit of an input
 function getHeightUnit(levelN, box) {
     let heightInput = document.querySelector("#level-" + levelN + " " + box + " .inputHeight").value;
-    let heightInputUnit = heightInput.substr(-2);
-    if (heightInputUnit.includes("%")) {
-        heightInputUnit = "%"
-    };
+    let heightInputUnit = heightInput.replace(/[0-9]/g, '');
     return heightInputUnit;
 }
 
 // get the width unit of an input
 function getWidthUnit(levelN, box) {
     let widthInput = document.querySelector("#level-" + levelN + " " + box + " .inputWidth").value;
-    let widthInputUnit = widthInput.substr(-2);
-    if (widthInputUnit.includes("%")) {
-        widthInputUnit = "%"
-    };
+    let widthInputUnit = widthInput.replace(/[0-9]/g, '');
     return widthInputUnit;
 }
 
@@ -430,10 +420,7 @@ function getArrayUnit(levelN, box) {
     let arrayInput = document.querySelector("#level-" + levelN + " " + box).value;
     let arrayInputValues = arrayInput.split(/[ ]/);
     arrayInputValues.forEach(elem => {
-        let temp = elem.substr(-2);
-        if (temp.includes("%")) {
-            temp = "%"
-        };
+        let temp = elem.replace(/[0-9]/g, '');
         arrayUnit.push(temp);
     })
     return arrayUnit;
@@ -480,16 +467,20 @@ function splitToArray(input) {
 
 
 // Replace all vh and vw to %
-function replaceViewport(text) {
-    let temp = text.replace("vh", "%");
-    let temp2 = temp.replace("vw", "%");
-    return temp2;
+function replaceViewport(text, levelN, ) {
+    if (data[levelN - 1].viewporta == 0) {
+        let temp = text.replace("vh", "%");
+        let temp2 = temp.replace("vw", "%");
+        return temp2;
+    } else {
+        return text;
+    }
 }
 
 
 // check if array input has valid units
 function checkAllowedUnitArray(array, levelN) {
-    let allowed = ["vh", "vw" , "px", "em", "%"];
+    let allowed = ["vh", "vw", "px", "em", "%"];
     let status = 0;
 
     array.forEach(elem => {
@@ -499,7 +490,7 @@ function checkAllowedUnitArray(array, levelN) {
     });
     if (status) {
         console.log("checkAllowedUnit false");
-        displayWrongMessage("Invalid unit!");
+        displayResult("Invalid unit!", false)
         return false;
     } else {
         return true;
@@ -508,8 +499,8 @@ function checkAllowedUnitArray(array, levelN) {
 
 // check if either big box, small box, or font has valid units (font just checks checkForHeight - 2nd parameter is defined as 10px so it returns true)
 function checkAllowedUnit(checkForHeight, checkForWidth, levelN) {
-    let allowedH = ["vh", "px", "em", "%"];
-    let allowedW = ["vw", "px", "em", "%"];
+    let allowedH = ["vh", "px", "em", "%", "auto"];
+    let allowedW = ["vw", "px", "em", "%", "auto"];
     let status = 0;
 
     if (allowedH.indexOf(checkForHeight) > -1) {
@@ -521,12 +512,13 @@ function checkAllowedUnit(checkForHeight, checkForWidth, levelN) {
             console.log("checkAllowedUnit true");
             return true;
         } else {
-            displayWrongMessage("Invalid unit!");
+
+           displayResult("Invalid unit!", false)
             console.log("checkAllowedUnit false");
             return false;
         };
     } else {
-        displayWrongMessage("Invalid unit!");
+        displayResult("Invalid unit!", false)
         console.log("checkAllowedUnit false");
         return false;
     }
@@ -548,20 +540,19 @@ function defaultSize(level) {
     }
 }
 
-//display wrong message
-function displayWrongMessage(message) {
+function displayResult(message, value) {
+    displayMessage.textContent = message;
+    displayMessage.classList.remove("hide");
+    if (value == false) {
+        displayMessage.style.color = "#ff4d4d";
+        wrongTimeout = setTimeout(function () {
+            displayMessage.classList.add("hide");
+        }, 4000)
+    }
+    else{
+        displayMessage.style.color = "#2eff37";
+    }
 
-    wrongMessage.textContent = message;
-    wrongMessage.classList.remove("hide");
-    wrongTimeout = setTimeout(function () {
-        wrongMessage.classList.add("hide");
-    }, 4000)
-
-}
-//display correct message
-function displayCorrectMessage(message) {
-    correctMessage.textContent = message;
-    correctMessage.classList.remove("hide");
 }
 
 function displayExplainThis(level) {
@@ -574,17 +565,14 @@ function displayExplainThis(level) {
     }
 }
 
-function closeAllMessages(){
+function closeAllMessages() {
     explainThis.classList.add("hide");
-    correctMessage.classList.add("hide");
-    wrongMessage.classList.add("hide");
+    displayMessage.classList.add("hide");
     clearTimeout(wrongTimeout);
     document.querySelector("#info .explanation").style.removeProperty("width");
 }
 
-function changeTabFocus(level){
-    console.log("+++++++++");
-    console.log(level);
+function changeTabFocus(level) {
     let inputArray = document.querySelectorAll("#sidebar input");
     let buttonArray = document.querySelectorAll("#sidebar button");
 
@@ -592,19 +580,19 @@ function changeTabFocus(level){
     let buttonActive = document.querySelectorAll("#level-" + level + " button")
 
     //Disable all for tab
-    inputArray.forEach(elem=>{
-      elem.setAttribute("tabIndex", "-1");
+    inputArray.forEach(elem => {
+        elem.setAttribute("tabIndex", "-1");
     })
-    buttonArray.forEach(elem=>{
-      elem.setAttribute("tabIndex", "-1");
+    buttonArray.forEach(elem => {
+        elem.setAttribute("tabIndex", "-1");
     })
 
     //Enable only active
-    inputActive.forEach(elem=>{
-      elem.setAttribute("tabIndex", "0");
+    inputActive.forEach(elem => {
+        elem.setAttribute("tabIndex", "0");
     })
-    buttonActive.forEach(elem=>{
-      elem.setAttribute("tabIndex", "0");
+    buttonActive.forEach(elem => {
+        elem.setAttribute("tabIndex", "0");
     })
 }
 
@@ -619,7 +607,7 @@ function showInfo(status) {
         moreInfo.style.top = "0vh";
         moreInfoBackground.style.bottom = "0px";
     } else {
-        infoClose.style.display ="none";
+        infoClose.style.display = "none";
         moreInfo.style.removeProperty("top");
         moreInfoBackground.style.removeProperty("bottom");
     }

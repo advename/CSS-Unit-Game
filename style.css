@@ -72,12 +72,15 @@ main {
     position: relative;
     top: 0;
     left: 0;
+    overflow:auto;
 }
 
 #smallBox {
     height: 50%;
     width: 50%;
     background: #51d86a;
+    /* Background image or plain color? */
+    /*background-image: linear-gradient(rgba(81, 216, 106, 0.3), rgba(81, 216, 106, 0.3)),url(img/green-dotted-background-720x720x.png);*/
     transition: height 1.5s, width 1.5s;
     border-radius: 5px;
     position: relative;
@@ -668,18 +671,12 @@ button:hover {
     max-width: 200px;
 }
 
-#info .correct-message,
-#info .wrong-message {
-    color: #2eff37;
+#info .display-message{
     text-align: center;
     font-size: 35px;
     text-shadow: 1px 1px 2px #484848;
     line-height: 46px;
     font-weight: bold;
-}
-
-#info .wrong-message {
-    color: #ff4d4d;
 }
 
 #info .explain-this {
