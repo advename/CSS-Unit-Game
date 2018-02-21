@@ -80,14 +80,12 @@ main {
     width: 50%;
     background: #51d86a;
     /* Background image or plain color? */
-    /*background-image: linear-gradient(rgba(81, 216, 106, 0.3), rgba(81, 216, 106, 0.3)),url(img/green-dotted-background-720x720x.png);*/
+    background-image: linear-gradient(rgba(81, 216, 106, 0.3), rgba(81, 216, 106, 0.3)),url(img/green-dotted-background-720x720x.png);
     transition: height 1.5s, width 1.5s;
     border-radius: 1px;
     position: relative;
     top: 0;
     left: 0;
-    max-height: 100%;
-    max-width: 100%;
     float: left;
 }
 
@@ -607,7 +605,6 @@ button:hover {
 #info img.margin-padding-img {
     width: 800px;
     height: auto;
-    margin-bottom: 100px;
 }
 
 #info button {
