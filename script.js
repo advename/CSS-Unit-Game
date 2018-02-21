@@ -133,7 +133,6 @@ function createLevels() {
         elem.style.width = (sideBarContainerSize.width - 40) + "px";
     })
     hideShowSmall(1);
-    hideShowBig(1);
     changeTabFocus(1);
 
     // Jump directly to a level with the link css-game.com/#level-6
@@ -156,7 +155,6 @@ function changeLevel(direction) {
         closeAllMessages();
         changeTabFocus(currentLevel);
         hideShowSmall(currentLevel);
-        hideShowBig(currentLevel);
         defaultSize(currentLevel);
     } else if (direction == "right") {
         leftDirection.classList.remove("hide");
@@ -165,7 +163,6 @@ function changeLevel(direction) {
         closeAllMessages();
         changeTabFocus(currentLevel);
         hideShowSmall(currentLevel);
-        hideShowBig(currentLevel);
         defaultSize(currentLevel);
     }
     if (currentLevel === 1) {
@@ -175,16 +172,6 @@ function changeLevel(direction) {
     }
     history.replaceState(undefined, undefined, "#level-" + currentLevel);
     sideBarLevels.style.left = (-1 * (currentLevel - 1) * (sideBarContainerSize.width - 40)) + "px";
-}
-
-// Depending on current level, hide or show big red box
-function hideShowBig(level) {
-    if (data[level - 1].bboxa == 0) {
-        bigBox.style.display = "none";
-    } else {
-        bigBox.style.display = "block";
-        bigBox.style.height = data[level - 1].bboxd
-    }
 }
 
 // Depending on current level, hide or show small green box/text/margin/padding

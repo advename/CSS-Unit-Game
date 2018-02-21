@@ -68,7 +68,7 @@ main {
     width: 50%;
     background: #DF2935;
     transition: height 1.5s, width 1.5s;
-    border-radius: 5px;
+    border-radius: 1px;
     position: relative;
     top: 0;
     left: 0;
@@ -82,7 +82,7 @@ main {
     /* Background image or plain color? */
     /*background-image: linear-gradient(rgba(81, 216, 106, 0.3), rgba(81, 216, 106, 0.3)),url(img/green-dotted-background-720x720x.png);*/
     transition: height 1.5s, width 1.5s;
-    border-radius: 5px;
+    border-radius: 1px;
     position: relative;
     top: 0;
     left: 0;
