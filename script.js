@@ -17,7 +17,6 @@ const explainThis = document.querySelector("#info .explain-this");
 const displayMessage = document.querySelector("#info .display-message");
 const link = "https://spreadsheets.google.com/feeds/list/1T2dyKXx_OuFsAcSLnPaUYEamOZpcW4uEDNOEZqYZcok/od6/public/values?alt=json";
 
-
 let topValue, data, widthOfSideBar, levelContainer, wrongTimeout;
 let currentLevel = 1;
 
@@ -128,6 +127,7 @@ function createLevels() {
         clone.querySelector("button").setAttribute("onClick", "checkBoxSize('" + elem.level + "')");
         sideBarLevels.appendChild(clone);
     });
+    //Resize the width of each level container in the sidebar
     levelContainer = document.querySelectorAll(".level-container");
     levelContainer.forEach(elem => {
         elem.style.width = (sideBarContainerSize.width - 40) + "px";
@@ -174,7 +174,7 @@ function changeLevel(direction) {
     sideBarLevels.style.left = (-1 * (currentLevel - 1) * (sideBarContainerSize.width - 40)) + "px";
 }
 
-// Depending on current level, hide or show small green box/text/margin/padding
+// Depending on current level, hide or show small green box/text/margin/padding inputs
 function hideShowSmall(level) {
     let cLevel = level - 1;
     if (data[cLevel].sboxa === "div") {
@@ -264,10 +264,8 @@ function checkBoxSize(levelN) {
         inputPadding = splitToArray(inputPadding)[0] + " " + splitToArray(inputPadding)[1] + " " + splitToArray(inputPadding)[0] + " " + splitToArray(inputPadding)[1];
     }
 
-
     // Used to generate correct or false message at the end
     let checkStatus = 0;
-
 
     // Check every input for beeing active, then the unit and finaly the value
     if (bbActive == 1) {
@@ -403,7 +401,7 @@ function getWidthUnit(levelN, box) {
     return widthInputUnit;
 }
 
-// get the unit of multiple inputs for margin or padding input
+// get the unit of multiple inputs in an array for margin or padding input
 function getArrayUnit(levelN, box) {
     let arrayUnit = [];
     let arrayInput = document.querySelector("#level-" + levelN + " " + box).value;
@@ -430,8 +428,8 @@ function marginArrayActive(levelN) {
     } else {
         return true;
     }
-
 }
+
 // check if padding has been defined as active for current level
 function paddingArrayActive(levelN) {
     let status = 0;
@@ -534,6 +532,7 @@ function defaultSize(level) {
     }
 }
 
+// Display Correct or wrong message with given Message input
 function displayResult(message, value) {
     displayMessage.textContent = message;
     displayMessage.classList.remove("hide");
@@ -549,9 +548,8 @@ function displayResult(message, value) {
 
 }
 
+// If available, explain current level behaviour (e.g. scrollbar appears bcz of..)
 function displayExplainThis(level) {
-
-
     if (data[level].noticemessage != "") {
         explainThis.innerHTML = data[level].noticemessage;
         explainThis.classList.remove("hide");
@@ -559,6 +557,7 @@ function displayExplainThis(level) {
     }
 }
 
+// Close all messages as correct/wrong, explain this etc...
 function closeAllMessages() {
     explainThis.classList.add("hide");
     displayMessage.classList.add("hide");
@@ -566,6 +565,7 @@ function closeAllMessages() {
     document.querySelector("#info .explanation").style.removeProperty("width");
 }
 
+// Fix for using the TAB key switching between inputs only available for current active level
 function changeTabFocus(level) {
     let inputArray = document.querySelectorAll("#sidebar input");
     let buttonArray = document.querySelectorAll("#sidebar button");
@@ -608,7 +608,7 @@ function showInfo(status) {
 }
 
 
-// eventListener for the "ENTER" key, which can be used to click the "Apply & Check" buttons
+// eventListener for the "ENTER" key, which can be used to fire the "Apply & Check" button
 document.addEventListener("keyup", function (event) {
     event.preventDefault();
     if (event.keyCode == 13) {
@@ -617,7 +617,7 @@ document.addEventListener("keyup", function (event) {
     }
 });
 
-// disable mobile warning message for small screen
+// hide mobile warning message for small screen
 function letMeContinue() {
     document.querySelector("#screenWarning").style.display = "none";
 }
