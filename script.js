@@ -588,6 +588,10 @@ function changeTabFocus(level) {
     buttonActive.forEach(elem => {
         elem.setAttribute("tabIndex", "0");
     })
+    /*
+    console.log("+++++++");
+    console.log(inputActive[0]);
+    inputActive[0].focus();*/
 }
 
 //show more or less info about css game (modal screen)
