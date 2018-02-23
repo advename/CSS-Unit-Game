@@ -68,7 +68,6 @@ main {
     width: 50%;
     background: #DF2935;
     transition: height 1.5s, width 1.5s;
-    border-radius: 1px;
     position: relative;
     top: 0;
     left: 0;
@@ -81,8 +80,7 @@ main {
     background: #51d86a;
     /* Background image or plain color? */
     background-image: linear-gradient(rgba(81, 216, 106, 0.3), rgba(81, 216, 106, 0.3)),url(img/green-dotted-background-720x720x.png);
-    transition: height 1.5s, width 1.5s;
-    border-radius: 1px;
+    transition: height 1.5s, width 1.5s, margin 1.5s, padding 1.5s;
     position: relative;
     top: 0;
     left: 0;
@@ -92,7 +90,7 @@ main {
 #smallText {
     font-size: 16px;
     color: #2c3a2f;
-    transition: font-size 1.5s;
+    transition: font-size 1.5s, margin 1.5s, padding 1.5s;
     position: relative;
     top: 0;
     left: 0;
@@ -322,7 +320,6 @@ button:hover {
     background: #d8e0e8;
     transition: top .8s;
     z-index: 300;
-    cursor: pointer;
     color: #282b2d;
 }
 
@@ -331,12 +328,12 @@ button:hover {
     top: 20px;
     right: 35px;
     cursor: pointer;
-    font-size: 25px;
+    font-size: 50px;
+    line-height: 36px;
     background: #37373c;
     height: 40px;
     width: 40px;
     text-align: center;
-    line-height: 40px;
     border-radius: 50%;
     border: 1px solid #737070;
     font-family: monospace;
@@ -577,7 +574,7 @@ button:hover {
 }
 
 #info .more-info .info-tablet .tablet-browser p:nth-child(7) span {
-    max-width: calc(50% - 10px);
+    max-width: 50%;
     height: 40px;
     background: yellow;
     padding-left: 0px;
@@ -611,14 +608,30 @@ button:hover {
     margin-bottom: 50px;
     font-size: 40px;
 }
+#info .bottom-shadow {
+    box-shadow: 0px 10px 5px rgba(0, 0, 0, 0.72);
+    width: 100%;
+    height: 5px;
+    margin-bottom: 8px;
+}
+
+#info .about-section{
+    background: #354a5f;
+    padding: 20px 0px;
+}
 
 #info h2.about {
-    color: #282b2d;
+    color:#d9d9d9;
     font-size: 30px;
     text-align: center;
     margin: 0;
-    padding: 60px 0 20px 0;
-    border-top: 1px solid;
+    padding: 20px 0 20px 0;
+}
+#info .about-section p {
+    color: #d9d9d9;
+}
+#info .about-section a {
+    color: #ef6982;
 }
 
 #info .about-footer {
@@ -811,7 +824,6 @@ button:hover {
 
     }
     #info .about-footer a {
-        color: #ef6982;
         text-decoration: none;
         cursor: pointer;
         font-size: 20px;

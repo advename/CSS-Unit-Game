@@ -390,14 +390,16 @@ function checkBoxSize(levelN) {
 // get the height unit of an input
 function getHeightUnit(levelN, box) {
     let heightInput = document.querySelector("#level-" + levelN + " " + box + " .inputHeight").value;
-    let heightInputUnit = heightInput.replace(/[0-9]/g, '');
+    let temp = heightInput.replace(/\./g, "");
+    let heightInputUnit = temp.replace(/[0-9]/g, "");
     return heightInputUnit;
 }
 
 // get the width unit of an input
 function getWidthUnit(levelN, box) {
     let widthInput = document.querySelector("#level-" + levelN + " " + box + " .inputWidth").value;
-    let widthInputUnit = widthInput.replace(/[0-9]/g, '');
+    let temp = widthInput.replace(/\./g, "");
+    let widthInputUnit = temp.replace(/[0-9]/g, "");
     return widthInputUnit;
 }
 
@@ -407,8 +409,9 @@ function getArrayUnit(levelN, box) {
     let arrayInput = document.querySelector("#level-" + levelN + " " + box).value;
     let arrayInputValues = arrayInput.split(/[ ]/);
     arrayInputValues.forEach(elem => {
-        let temp = elem.replace(/[0-9]/g, '');
-        arrayUnit.push(temp);
+
+        let temp2 = elem.replace(/[0-9]/g, "");
+        arrayUnit.push(temp2);
     })
     return arrayUnit;
 }
@@ -522,8 +525,12 @@ function defaultSize(level) {
     if (data[level - 1].sboxa === "div") {
         smallBox.style.height = defaultArraySB[0];
         smallBox.style.width = defaultArraySB[1];
+        smallBox.style.removeProperty("margin");
+        smallBox.style.removeProperty("padding");
     } else if (data[level - 1].sboxa === "p") {
         smallText.style.fontSize = defaultArraySB[0];
+        smallText.style.removeProperty("margin");
+        smallText.style.removeProperty("padding");
     }
 }
 
