@@ -66,7 +66,7 @@ main {
 #bigBox {
     height: 50%;
     width: 50%;
-    background: #DF2935;
+    background: #FF6F99;
     transition: height 1.5s, width 1.5s;
     position: relative;
     top: 0;
@@ -77,9 +77,9 @@ main {
 #smallBox {
     height: 50%;
     width: 50%;
-    background: #51d86a;
+    background: #fff252;
     /* Background image or plain color? */
-    background-image: linear-gradient(rgba(81, 216, 106, 0.3), rgba(81, 216, 106, 0.3)),url(img/green-dotted-background-720x720x.png);
+    background-image: linear-gradient(rgba(255, 242, 82, 0.10), rgba(255, 242, 82, 0.10)),url(img/yellow-dotted-background-720x720x.png);
     transition: height 1.5s, width 1.5s, margin 1.5s, padding 1.5s;
     position: relative;
     top: 0;
@@ -118,6 +118,7 @@ main {
     max-height: 900px;
     margin-top: calc( (95vh - 900px) / 2);
     margin-bottom: calc( (95vh - 900px) / 2);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 }
 
@@ -149,6 +150,29 @@ main {
     float: left;
 }
 
+#sidebar-container .show-solution{
+    position: relative;
+    bottom: 25px;
+    left: 0px;
+    right: 0px;
+    margin: 0 auto;
+    text-align:center;
+    width: 120px;
+    visibility: hidden;
+}
+#sidebar-container .show-solution p{
+    color: #f3f3f3;
+    font-size:16px;
+    cursor: pointer;
+    border: 1px solid #f3f3f3;
+    padding: 3px 2px;
+    border-radius: 8px;
+
+}
+#sidebar-container .show-solution p:hover{
+    color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 
 #sidebar h2 {
     margin-bottom: 20px;
@@ -169,7 +193,7 @@ main {
 
 #sidebar .description span {
     font-weight: bold;
-    color: #FFEB3B;
+    color: #66e6ef;
 }
 
 #sidebar .box-controls .bigBox-control,
@@ -181,12 +205,12 @@ main {
 }
 
 #sidebar .bigBox-control {
-    border-left: 20px solid #DF2935;
+    border-left: 20px solid #FF6F99;
 
 }
 
 #sidebar .smallBox-control {
-    border-left: 20px solid #51d86a;
+    border-left: 20px solid #fff252;
 }
 
 #sidebar .textBorder {
@@ -329,7 +353,7 @@ button:hover {
     right: 35px;
     cursor: pointer;
     font-size: 50px;
-    line-height: 36px;
+    line-height: 40px;
     background: #37373c;
     height: 40px;
     width: 40px;

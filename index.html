@@ -28,6 +28,11 @@
     <meta name="og:image" content="https://www.repo.advena.me/css-game/img/css-unit-game.png">
     <meta name="og:url" content="https://www.repo.advena.me/css-game/">
     <meta name="og:type" content="website">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-114706517-1"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-114706517-1');
+    </script>
 </head>
 
 <body>
@@ -54,8 +59,11 @@
                     </div>
                 </div>
                 <div id="direction">
-                    <p class="left hide" onclick="changeLevel('left')">&#9668;</p>
-                    <p class="right" onclick="changeLevel('right')">&#9658;</p>
+                    <p class="left hide" onclick="changeLeft()">&#9668;</p>
+                    <p class="right" onclick="changeRight()">&#9658;</p>
+                </div>
+                <div class="show-solution">
+                    <p onclick="showSolution()">Show solution</p>
                 </div>
             </div>
         </div>
@@ -200,7 +208,7 @@
                         </div>
                         <div class="box-controls">
                            <div class="bigBox-control hide">
-                            <h3>Red container controls:</h3>
+                            <h3>Pink container controls:</h3>
                             <table class="bigBox-table">
                                 <tr>
                                     <td><p>Height:</p></td>
@@ -217,7 +225,7 @@
                             </table>
                             </div>
                         <div class="smallBox-control hide">
-                            <h3>Green container controls:</h3>
+                            <h3>Yellow container controls:</h3>
                             <table class="smallBox-table">
                                 <tr>
                                     <td class="text-height">Height:</td>
@@ -245,7 +253,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <button onclick="checkBoxSize('level-n','bHeight','bWidth','sHeight',,'sWidth')">Apply &amp; Check</button>
+                        <button onclick="checkBoxSize('level-n')">Apply &amp; Check</button>
                         </div>
                     </div>
     </template>
@@ -258,4 +266,5 @@
     </div>
 </body>
 <script src="script.js"></script>
+
 </html>

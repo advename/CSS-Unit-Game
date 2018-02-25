@@ -15,6 +15,7 @@ const sideBarContainer = document.querySelector("#sidebar-container");
 const sideBarContainerSize = sideBarContainer.getBoundingClientRect();
 const explainThis = document.querySelector("#info .explain-this");
 const displayMessage = document.querySelector("#info .display-message");
+const showSolutionButton = document.querySelector("#sidebar-container .show-solution");
 const link = "https://spreadsheets.google.com/feeds/list/1T2dyKXx_OuFsAcSLnPaUYEamOZpcW4uEDNOEZqYZcok/od6/public/values?alt=json";
 
 let topValue, data, widthOfSideBar, levelContainer, wrongTimeout;
@@ -140,31 +141,22 @@ function createLevels() {
     if (window.location.hash != "") {
         let value = window.location.hash.replace("#level-", "");
         for (let i = 0; i < value - 1; i++) {
-            changeLevel("right");
+            changeRight();
         }
         showInfo("false");
     }
+
 }
 
 // With arrow keys left and right to change levels
-function changeLevel(direction) {
-    if (direction == "left") {
-        rightDirection.classList.remove("hide");
-        currentLevel = currentLevel - 1;
+function changeLeft() {
+    rightDirection.classList.remove("hide");
+    currentLevel = currentLevel - 1;
+    closeAllMessages();
+    changeTabFocus(currentLevel);
+    hideShowSmall(currentLevel);
+    defaultSize(currentLevel);
 
-        closeAllMessages();
-        changeTabFocus(currentLevel);
-        hideShowSmall(currentLevel);
-        defaultSize(currentLevel);
-    } else if (direction == "right") {
-        leftDirection.classList.remove("hide");
-        currentLevel = currentLevel + 1;
-
-        closeAllMessages();
-        changeTabFocus(currentLevel);
-        hideShowSmall(currentLevel);
-        defaultSize(currentLevel);
-    }
     if (currentLevel === 1) {
         leftDirection.classList.add("hide");
     } else if (currentLevel == (data.length)) {
@@ -172,6 +164,25 @@ function changeLevel(direction) {
     }
     history.replaceState(undefined, undefined, "#level-" + currentLevel);
     sideBarLevels.style.left = (-1 * (currentLevel - 1) * (sideBarContainerSize.width - 40)) + "px";
+    showSolutionButton.style.visibility = "hidden";
+}
+
+// With arrow keys left and right to change levels
+function changeRight() {
+    leftDirection.classList.remove("hide");
+    currentLevel = currentLevel + 1;
+    closeAllMessages();
+    changeTabFocus(currentLevel);
+    hideShowSmall(currentLevel);
+    defaultSize(currentLevel);
+    if (currentLevel === 1) {
+        leftDirection.classList.add("hide");
+    } else if (currentLevel == (data.length)) {
+        rightDirection.classList.add("hide");
+    }
+    history.replaceState(undefined, undefined, "#level-" + currentLevel);
+    sideBarLevels.style.left = (-1 * (currentLevel - 1) * (sideBarContainerSize.width - 40)) + "px";
+    showSolutionButton.style.visibility = "hidden";
 }
 
 // Depending on current level, hide or show small green box/text/margin/padding inputs
@@ -382,7 +393,7 @@ function checkBoxSize(levelN) {
         displayExplainThis(levelN - 1);
     } else {
         displayResult("Not correct!", false)
-
+        showSolution.style.visibility = "visible";
     }
 }
 // get the height unit of an input
@@ -478,7 +489,8 @@ function checkAllowedUnitArray(array, levelN) {
     });
     if (status) {
         console.log("checkAllowedUnit false");
-        displayResult("Invalid unit!", false)
+        displayResult("Invalid unit!", false);
+        showSolutionButton.style.visibility = "visible";
         return false;
     } else {
         return true;
@@ -501,13 +513,15 @@ function checkAllowedUnit(checkForHeight, checkForWidth, levelN) {
             return true;
         } else {
 
-           displayResult("Invalid unit!", false)
+            displayResult("Invalid unit!", false)
             console.log("checkAllowedUnit false");
+            showSolutionButton.style.visibility = "visible";
             return false;
         };
     } else {
         displayResult("Invalid unit!", false)
         console.log("checkAllowedUnit false");
+        showSolutionButton.style.visibility = "visible";
         return false;
     }
 }
@@ -541,8 +555,7 @@ function displayResult(message, value) {
         wrongTimeout = setTimeout(function () {
             displayMessage.classList.add("hide");
         }, 4000)
-    }
-    else{
+    } else {
         displayMessage.style.color = "#2eff37";
     }
 
@@ -588,10 +601,7 @@ function changeTabFocus(level) {
     buttonActive.forEach(elem => {
         elem.setAttribute("tabIndex", "0");
     })
-    /*
-    console.log("+++++++");
-    console.log(inputActive[0]);
-    inputActive[0].focus();*/
+
 }
 
 //show more or less info about css game (modal screen)
@@ -608,9 +618,36 @@ function showInfo(status) {
         infoClose.style.display = "none";
         moreInfo.style.removeProperty("top");
         moreInfoBackground.style.removeProperty("bottom");
+
+        //First input field selected
+        let firstInput = document.querySelector("#level-1 input");
+        firstInput.focus();
     }
 }
 
+//Insert correct inputs and apply the checkBoxSize
+function showSolution() {
+    let levelN = currentLevel;
+    try {
+        document.querySelector("#level-" + levelN + " .bigBox-table .inputHeight").value = data[levelN - 1].bboxh;
+
+        document.querySelector("#level-" + levelN + " .bigBox-table .inputWidth").value = data[levelN - 1].bboxw;
+
+        document.querySelector("#level-" + levelN + " .smallBox-table .inputHeight").value = data[levelN - 1].sboxh;
+
+        document.querySelector("#level-" + levelN + " .smallBox-table .inputWidth").value = data[levelN - 1].sboxw;
+
+
+        document.querySelector("#level-" + levelN + " .smallBox-table .inputHeight").value = data[levelN - 1].sboxh;
+
+        document.querySelector("#level-" + levelN + " .inputMargin").value = data[levelN - 1].sboxm;
+
+        document.querySelector("#level-" + levelN + " .inputPadding").value = data[levelN - 1].sboxp;
+    } catch (err) {
+        console.log("Error: " + err + ".");
+    }
+    checkBoxSize(levelN);
+}
 
 // eventListener for the "ENTER" key, which can be used to fire the "Apply & Check" button
 document.addEventListener("keyup", function (event) {
