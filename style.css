@@ -344,6 +344,7 @@ button:hover {
     max-width: 100%;
     overflow-y: scroll;
     background: #d8e0e8;
+    /*background-image: url(img/white_wall.png); /* W3C */
     transition: top .8s;
     z-index: 300;
     color: #282b2d;
@@ -688,57 +689,19 @@ button:hover {
     text-decoration: none;
 }
 
-#info .explanation {
-    height: 50px;
-    width: 30%;
-    background: #e6e6e6;
-    border-radius: 25px;
-    cursor: pointer;
-    position: absolute;
-    left: 18px;
-    bottom: 14px;
-    color: white;
-    transition: transform .3s;
-    z-index: 280;
-    border: 2px solid rgba(93, 93, 93, 0.9);
-    transition: width .8s;
-}
-
-#info .messages-expl {
-    float: left;
-    margin-left: 70px;
-    max-width: 200px;
-}
-
-#info .display-message {
-    text-align: center;
-    font-size: 35px;
-    text-shadow: 1px 1px 2px #484848;
-    line-height: 46px;
-    font-weight: bold;
-}
-
-#info .explain-this {
-    color: #282b2d;
-    text-align: center;
-    font-size: 16px;
-    margin: 5px 0px 0px 0px;
-}
-
-#info .explain-this strong {
-    font-weight: bold;
-}
-
-
 #result {
     position: absolute;
+    display: table;
     left: 50%;
     transform: translate(-50%, 0);
-    top: -60px;
+    top: -100px;
     height: 60px;
     z-index: 300;
     transition: top .8s;
     max-width: 90vw;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 
@@ -765,9 +728,11 @@ button:hover {
     background: #2ecc71;
     padding: 20px 15px 0px 15px;
     height: 40px;
-    max-width: 27vw;
+    max-width: 40vw;
+}
 
-
+#result .message strong {
+    font-weight:bold;
 }
 
 #result .proceed {

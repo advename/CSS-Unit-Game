@@ -555,6 +555,7 @@ function displayResult(message, value, level) {
     if (value == false) {
         resultState.textContent = "WRONG";
         resultMessage.textContent = message;
+        resultMessage.style.removeProperty("display");
         resultProceed.style.display = "none";
         resultMessage.style.borderBottomRightRadius = "15px";
         resultState.style.background = "#c0392b";
@@ -568,7 +569,11 @@ function displayResult(message, value, level) {
         resultMessage.style.removeProperty("border-bottom-right-radius");
         resultState.innerHTML = "&#10003; CORRECT";
         if (data[level].noticemessage != "") {
+            resultMessage.style.removeProperty("display");
             resultMessage.innerHTML = "<p>"+data[level].noticemessage;
+        }
+        else{
+            resultMessage.style.display = "none";
         }
         resultState.style.background = "#27ae60";
         resultMessage.style.background = "#2ecc71";
