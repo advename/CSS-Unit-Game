@@ -646,6 +646,7 @@ function showSolution() {
     } catch (err) {
         console.log("Error: " + err + ".");
     }
+
     checkBoxSize(levelN);
 }
 
