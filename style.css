@@ -732,51 +732,57 @@ button:hover {
 
 #result {
     position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    margin: auto;
+    left: 50%;
+    transform: translate(-50%, 0);
+    top: -60px;
     height: 60px;
     z-index: 300;
-    float: left;
-    width: 700px;
+    transition: top .8s;
+    max-width: 90vw;
 }
 
-#result .result-wrapper {
-    height: 60px;
 
-}
-
-#result .result-wrapper div {
+#result div {
     float: left;
     color: white;
     height: 60px;
-
+    margin-left: -2px;
 }
 
-#result .result-wrapper div:last-child {
-    float: right;
+#result  div:last-child {
+    float: left;
 }
 
-#result .result-wrapper .state {
+#result .state {
     background: #27ae60;
     font-size: 30px;
     line-height: 60px;
     border-bottom-left-radius: 15px;
-    padding: 0px 10px;
+    padding: 0px 15px;
 }
 
-#result .result-wrapper .message {
+#result .message {
     background: #2ecc71;
-    padding: 5px 5px;
-    height: 50px;
-    max-width: 40vw;
+    padding: 20px 15px 0px 15px;
+    height: 40px;
+    max-width: 27vw;
+
 
 }
 
-#result .result-wrapper .proceed {
-    background: rgba(255, 255, 255, 0.2);
+#result .proceed {
+    background: #58d68d;
+    padding: 0 15px;
+    line-height: 60px;
+    border-bottom-right-radius: 15px;
+    font-size: 25px;
+    cursor: pointer;
+}
+#result .proceed span{
+    font-size: 18px;
+}
+#result .proceed:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 

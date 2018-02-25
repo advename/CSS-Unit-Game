@@ -13,8 +13,7 @@ const leftDirection = document.querySelector("#direction .left");
 const rightDirection = document.querySelector("#direction .right");
 const sideBarContainer = document.querySelector("#sidebar-container");
 const sideBarContainerSize = sideBarContainer.getBoundingClientRect();
-const explainThis = document.querySelector("#info .explain-this");
-const displayMessage = document.querySelector("#info .display-message");
+
 const showSolutionButton = document.querySelector("#sidebar-container .show-solution");
 const link = "https://spreadsheets.google.com/feeds/list/1T2dyKXx_OuFsAcSLnPaUYEamOZpcW4uEDNOEZqYZcok/od6/public/values?alt=json";
 
@@ -389,8 +388,7 @@ function checkBoxSize(levelN) {
 
     // If checkstatus is 0 = correct and display message
     if (checkStatus === 0) {
-        displayResult("CORRECT!", true)
-        displayExplainThis(levelN - 1);
+        displayResult("CORRECT!", true, (levelN - 1))
     } else {
         displayResult("Not correct!", false)
         showSolution.style.visibility = "visible";
@@ -546,36 +544,45 @@ function defaultSize(level) {
     }
 }
 
+const result = document.querySelector("#result");
+const resultMessage = document.querySelector("#result .message");
+const resultState = document.querySelector("#result .state");
+const resultProceed = document.querySelector("#result .proceed");
 // Display Correct or wrong message with given Message input
-function displayResult(message, value) {
-    displayMessage.textContent = message;
-    displayMessage.classList.remove("hide");
+function displayResult(message, value, level) {
+    result.style.removeProperty("top");
+    clearTimeout(wrongTimeout);
     if (value == false) {
-        displayMessage.style.color = "#ff4d4d";
+        resultState.textContent = "WRONG";
+        resultMessage.textContent = message;
+        resultProceed.style.display = "none";
+        resultMessage.style.borderBottomRightRadius = "15px";
+        resultState.style.background = "#c0392b";
+        resultMessage.style.background = "#e74c3c";
+        result.style.top = "0px";
         wrongTimeout = setTimeout(function () {
-            displayMessage.classList.add("hide");
+            result.style.removeProperty("top");
         }, 4000)
     } else {
-        displayMessage.style.color = "#2eff37";
+        resultProceed.style.removeProperty("display");
+        resultMessage.style.removeProperty("border-bottom-right-radius");
+        resultState.innerHTML = "&#10003; CORRECT";
+        if (data[level].noticemessage != "") {
+            resultMessage.innerHTML = "<p>"+data[level].noticemessage;
+        }
+        resultState.style.background = "#27ae60";
+        resultMessage.style.background = "#2ecc71";
+        resultProceed.style.background = "#58d68d";
+        result.style.top = "0px";
     }
 
-}
-
-// If available, explain current level behaviour (e.g. scrollbar appears bcz of..)
-function displayExplainThis(level) {
-    if (data[level].noticemessage != "") {
-        explainThis.innerHTML = data[level].noticemessage;
-        explainThis.classList.remove("hide");
-        document.querySelector("#info .explanation").style.width = "50%";
-    }
 }
 
 // Close all messages as correct/wrong, explain this etc...
 function closeAllMessages() {
-    explainThis.classList.add("hide");
-    displayMessage.classList.add("hide");
+    result.style.removeProperty("top");
     clearTimeout(wrongTimeout);
-    document.querySelector("#info .explanation").style.removeProperty("width");
+
 }
 
 // Fix for using the TAB key switching between inputs only available for current active level
