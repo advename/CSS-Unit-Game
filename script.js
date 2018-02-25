@@ -6,19 +6,37 @@ const bigBox = document.querySelector("#bigBox");
 const smallBox = document.querySelector("#smallBox");
 const smallText = document.querySelector("#smallText");
 const play = document.querySelector("main #play");
-const levelTemplate = document.querySelector("#level-template");
+const levelTemplate = document.querySelector("#level-template").content;
 const sideBar = document.querySelector("#sidebar");
 const sideBarLevels = document.querySelector("#sidebar .sidebar-levels");
 const leftDirection = document.querySelector("#direction .left");
 const rightDirection = document.querySelector("#direction .right");
 const sideBarContainer = document.querySelector("#sidebar-container");
 const sideBarContainerSize = sideBarContainer.getBoundingClientRect();
-
+const inputArray = document.querySelectorAll("#sidebar input");
+const buttonArray = document.querySelectorAll("#sidebar button");
 const showSolutionButton = document.querySelector("#sidebar-container .show-solution");
+const result = document.querySelector("#result");
+const resultMessage = document.querySelector("#result .message");
+const resultState = document.querySelector("#result .state");
+const resultProceed = document.querySelector("#result .proceed");
+const infoClose = document.querySelector("#info .info-close");
+const moreInfo = document.querySelector("#info .more-info");
+const moreInfoBackground = document.querySelector(".dark-background");
+
+//Google spreadsheet jSON link
 const link = "https://spreadsheets.google.com/feeds/list/1T2dyKXx_OuFsAcSLnPaUYEamOZpcW4uEDNOEZqYZcok/od6/public/values?alt=json";
 
 let topValue, data, widthOfSideBar, levelContainer, wrongTimeout;
+
+//Global value of current level
 let currentLevel = 1;
+
+//Allowed units for vertical and hoizontal directions or global
+let allowedH = ["vh", "px", "em", "%", "auto"];
+let allowedW = ["vw", "px", "em", "%", "auto"];
+let allowed = ["vh", "vw", "px", "em", "%", "auto"];
+
 
 init();
 // INITIALIZE SIZES
@@ -97,7 +115,7 @@ function show(d) {
 // Fetch data, clone the template and append levels into body
 function createLevels() {
     data.forEach(elem => {
-        const levelTemplate = document.querySelector("#level-template").content;
+
         const clone = levelTemplate.cloneNode(true);
 
         clone.querySelector("#level-n").id = "level-" + elem.level;
@@ -477,7 +495,6 @@ function replaceViewport(text, levelN, ) {
 
 // check if array input has valid units
 function checkAllowedUnitArray(array, levelN) {
-    let allowed = ["vh", "vw", "px", "em", "%"];
     let status = 0;
 
     array.forEach(elem => {
@@ -497,8 +514,6 @@ function checkAllowedUnitArray(array, levelN) {
 
 // check if either big box, small box, or font has valid units (font just checks checkForHeight - 2nd parameter is defined as 10px so it returns true)
 function checkAllowedUnit(checkForHeight, checkForWidth, levelN) {
-    let allowedH = ["vh", "px", "em", "%", "auto"];
-    let allowedW = ["vw", "px", "em", "%", "auto"];
     let status = 0;
 
     if (allowedH.indexOf(checkForHeight) > -1) {
@@ -544,16 +559,13 @@ function defaultSize(level) {
     }
 }
 
-const result = document.querySelector("#result");
-const resultMessage = document.querySelector("#result .message");
-const resultState = document.querySelector("#result .state");
-const resultProceed = document.querySelector("#result .proceed");
+
 // Display Correct or wrong message with given Message input
 function displayResult(message, value, level) {
     result.style.removeProperty("top");
     clearTimeout(wrongTimeout);
     if (value == false) {
-        resultState.textContent = "WRONG";
+        resultState.innerHTML = "&#10008; WRONG";
         resultMessage.textContent = message;
         resultMessage.style.removeProperty("display");
         resultProceed.style.display = "none";
@@ -570,9 +582,8 @@ function displayResult(message, value, level) {
         resultState.innerHTML = "&#10003; CORRECT";
         if (data[level].noticemessage != "") {
             resultMessage.style.removeProperty("display");
-            resultMessage.innerHTML = "<p>"+data[level].noticemessage;
-        }
-        else{
+            resultMessage.innerHTML = "<p>" + data[level].noticemessage;
+        } else {
             resultMessage.style.display = "none";
         }
         resultState.style.background = "#27ae60";
@@ -592,9 +603,6 @@ function closeAllMessages() {
 
 // Fix for using the TAB key switching between inputs only available for current active level
 function changeTabFocus(level) {
-    let inputArray = document.querySelectorAll("#sidebar input");
-    let buttonArray = document.querySelectorAll("#sidebar button");
-
     let inputActive = document.querySelectorAll("#level-" + level + " input")
     let buttonActive = document.querySelectorAll("#level-" + level + " button")
 
@@ -618,10 +626,6 @@ function changeTabFocus(level) {
 
 //show more or less info about css game (modal screen)
 function showInfo(status) {
-    let infoClose = document.querySelector("#info .info-close");
-    let moreInfo = document.querySelector("#info .more-info");
-    let moreInfoBackground = document.querySelector(".dark-background");
-
     if (status == "true") {
         infoClose.style.removeProperty("display");
         moreInfo.style.top = "0vh";
@@ -642,23 +646,15 @@ function showSolution() {
     let levelN = currentLevel;
     try {
         document.querySelector("#level-" + levelN + " .bigBox-table .inputHeight").value = data[levelN - 1].bboxh;
-
         document.querySelector("#level-" + levelN + " .bigBox-table .inputWidth").value = data[levelN - 1].bboxw;
-
         document.querySelector("#level-" + levelN + " .smallBox-table .inputHeight").value = data[levelN - 1].sboxh;
-
         document.querySelector("#level-" + levelN + " .smallBox-table .inputWidth").value = data[levelN - 1].sboxw;
-
-
         document.querySelector("#level-" + levelN + " .smallBox-table .inputHeight").value = data[levelN - 1].sboxh;
-
         document.querySelector("#level-" + levelN + " .inputMargin").value = data[levelN - 1].sboxm;
-
         document.querySelector("#level-" + levelN + " .inputPadding").value = data[levelN - 1].sboxp;
     } catch (err) {
         console.log("Error: " + err + ".");
     }
-
     checkBoxSize(levelN);
 }
 

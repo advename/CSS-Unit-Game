@@ -40,20 +40,21 @@
         gtag('js', new Date());
         gtag('config', 'UA-114706517-1');
     </script>
+
 </head>
 
 <body>
     <main>
         <div id="result">
-                <div class="state">
-                    <p>&#10003; CORRECT</p>
-                </div>
-                <div class="message">
-                    <p>HINT MESSAGE BLA BLA BLA</p>
-                </div>
-                <div class="proceed" onclick="changeRight()">
-                    <p>Continue <span>&#x25B6;</span></p>
-                </div>
+            <div class="state">
+                <p>STATUS</p>
+            </div>
+            <div class="message">
+                <p>HINT MESSAGE</p>
+            </div>
+            <div class="proceed" onclick="changeRight()">
+                <p>Continue <span>&#x25B6;</span></p>
+            </div>
         </div>
         <div id="grid-container">
             <div id="main-container">
@@ -271,9 +272,9 @@
                                 </tr>
                             </table>
                         </div>
-                        <button onclick="checkBoxSize('level-n')">Apply &amp; Check</button>
-                        </div>
-                    </div>
+                    <button onclick="checkBoxSize('level-n')">Apply &amp; Check</button>
+                </div>
+            </div>
     </template>
     <div id="screenWarning">
         <div class="screenWarningBox">
@@ -284,5 +285,4 @@
     </div>
 </body>
 <script src="script.js"></script>
-
 </html>
