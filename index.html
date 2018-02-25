@@ -31,12 +31,32 @@
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-114706517-1"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-114706517-1');
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'UA-114706517-1');
     </script>
 </head>
 
 <body>
     <main>
+        <div id="result">
+            <div class="result-wrapper">
+                <div class="state">
+                    <p>CORRECT OR WRONG</p>
+                </div>
+                <div class="message">
+                    <p>HINT MESSAGE BLA BLA BLA</p>
+                </div>
+                <div class="proceed">
+                    <p>next level</p>
+                </div>
+            </div>
+        </div>
         <div id="grid-container">
             <div id="main-container">
                 <div id="play">
