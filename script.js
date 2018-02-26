@@ -636,8 +636,8 @@ function showInfo(status) {
         moreInfoBackground.style.removeProperty("bottom");
 
         //First input field selected
-        let firstInput = document.querySelector("#level-1 input");
-        firstInput.focus();
+        //let firstInput = document.querySelector("#level-1 input");
+        //firstInput.focus();
     }
 }
 
