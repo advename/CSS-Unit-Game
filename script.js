@@ -62,15 +62,13 @@ function init() {
         play.style.bottom = topValue + "px";
     }
 
+    console.log(sideBarContainerSize.width);
     // Resize sidebar
     sideBar.style.width = (sideBarContainerSize.width - 40) + "px";
-    widthOfSideBar = sideBarContainerSize.width + 60;
-    widthOfSideBar = sideBarContainerSize.width + 60;
     showInfo("true");
-
+    console.log("init");
 
 }
-
 
 // Transform Google JSON data to normal array (JONAS FROM KEA'S google spreadsheet to jSON code GitHub)
 var FetchGoogleJSON = function (url, callback, prettify) {
@@ -148,7 +146,7 @@ function createLevels() {
     //Resize the width of each level container in the sidebar
     levelContainer = document.querySelectorAll(".level-container");
     levelContainer.forEach(elem => {
-        elem.style.width = (sideBarContainerSize.width - 40) + "px";
+        elem.style.width = (sideBarContainerSize.width - 50) + "px";
     })
     hideShowSmall(1);
     changeTabFocus(1);
@@ -311,6 +309,8 @@ function checkBoxSize(levelN) {
 
             } else {
                 checkStatus = 1;
+                shakeInput(bHeightInput);
+                shakeInput(bWidthInput);
             };
         } else {
             checkStatus = 1;
@@ -333,6 +333,8 @@ function checkBoxSize(levelN) {
 
             } else {
                 checkStatus = 1;
+                shakeInput(sHeightInput);
+                shakeInput(sWidthInput);
             };
         } else {
             checkStatus = 1;
@@ -354,6 +356,7 @@ function checkBoxSize(levelN) {
 
             } else {
                 checkStatus = 1;
+                shakeInput(sFontInput);
             };
         } else {
             checkStatus = 1;
@@ -376,6 +379,7 @@ function checkBoxSize(levelN) {
 
             } else {
                 checkStatus = 1;
+                shakeInput(inputMargin);
             };
         } else {
             checkStatus = 1;
@@ -397,6 +401,7 @@ function checkBoxSize(levelN) {
 
             } else {
                 checkStatus = 1;
+                shakeInput(paddingUnit);
             };
         } else {
             checkStatus = 1;
@@ -409,9 +414,9 @@ function checkBoxSize(levelN) {
         displayResult("CORRECT!", true, (levelN - 1))
     } else {
         displayResult("Not correct!", false)
-        showSolution.style.visibility = "visible";
     }
 }
+
 // get the height unit of an input
 function getHeightUnit(levelN, box) {
     let heightInput = document.querySelector("#level-" + levelN + " " + box + " .inputHeight").value;
@@ -492,26 +497,6 @@ function replaceViewport(text, levelN, ) {
     }
 }
 
-
-// check if array input has valid units
-function checkAllowedUnitArray(array, levelN) {
-    let status = 0;
-
-    array.forEach(elem => {
-        if (allowed.indexOf(elem) > -1) {} else {
-            status = 1;
-        }
-    });
-    if (status) {
-        console.log("checkAllowedUnit false");
-        displayResult("Invalid unit!", false);
-        showSolutionButton.style.visibility = "visible";
-        return false;
-    } else {
-        return true;
-    }
-}
-
 // check if either big box, small box, or font has valid units (font just checks checkForHeight - 2nd parameter is defined as 10px so it returns true)
 function checkAllowedUnit(checkForHeight, checkForWidth, levelN) {
     let status = 0;
@@ -529,14 +514,71 @@ function checkAllowedUnit(checkForHeight, checkForWidth, levelN) {
             displayResult("Invalid unit!", false)
             console.log("checkAllowedUnit false");
             showSolutionButton.style.visibility = "visible";
+            shakeInput(checkForWidth);
             return false;
         };
     } else {
         displayResult("Invalid unit!", false)
         console.log("checkAllowedUnit false");
         showSolutionButton.style.visibility = "visible";
+        shakeInput(checkForHeight);
         return false;
     }
+}
+
+// check if array input has valid units
+function checkAllowedUnitArray(array, levelN) {
+    let status = 0;
+
+    array.forEach(elem => {
+        if (allowed.indexOf(elem) > -1) {} else {
+            status = 1;
+        }
+    });
+    if (status) {
+        console.log("checkAllowedUnit false");
+        displayResult("Invalid unit!", false);
+        showSolutionButton.style.visibility = "visible";
+        shakeInput(array);
+        return false;
+    } else {
+        return true;
+    }
+}
+
+
+//show and shake the input field with incorrect input
+function shakeInput(value) {
+    let activeInputs = document.querySelectorAll("#level-" + currentLevel + " input");
+    let shakeInputAnimation = document.querySelectorAll("#sidebar .shake-input");
+
+    //remove class from all inputs
+    activeInputs.forEach(elem => {
+        elem.classList.remove("shake-input");
+    });
+
+    setTimeout(function () {
+        activeInputs.forEach(elem => {
+            elem.classList.remove("shake-input");
+            if (elem.value == undefined) {
+                elem.classList.add("shake-input");
+                console.log("undefined 2");
+            }
+            if (elem.value.indexOf(value) > -1) {
+                elem.classList.add("shake-input");
+                console.log("indexOf");
+            } else {
+                console.log("none");
+            }
+        })
+    }, 50);
+
+
+
+
+
+
+    console.log("nothing");
 }
 
 // depending on data, resize the boxes or text to their default sizes.

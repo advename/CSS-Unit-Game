@@ -66,7 +66,7 @@ main {
 #bigBox {
     height: 50%;
     width: 50%;
-    background: #FF6F99;
+    background: #FE6F66;
     transition: height 1.5s, width 1.5s;
     position: relative;
     top: 0;
@@ -77,9 +77,9 @@ main {
 #smallBox {
     height: 50%;
     width: 50%;
-    background: #fff252;
+    background: #073D76;
     /* Background image or plain color? */
-    background-image: linear-gradient(rgba(255, 242, 82, 0.10), rgba(255, 242, 82, 0.10)), url(img/yellow-dotted-background-720x720x.png);
+    background-image: linear-gradient(rgba(7, 61, 118, 0.6), rgba(7, 61, 118, 0.6)), url(img/blue-dotted-background-720x720x.png);
     transition: height 1.5s, width 1.5s, margin 1.5s, padding 1.5s;
     position: relative;
     top: 0;
@@ -148,6 +148,7 @@ main {
 
 #sidebar .level-container {
     float: left;
+    margin: 0 5px;
 }
 
 #sidebar-container .show-solution {
@@ -195,24 +196,26 @@ main {
 
 #sidebar .description span {
     font-weight: bold;
-    color: #66e6ef;
+    color: #EEC643;
+    text-shadow: 0px 0px 3px #2e3238;
 }
 
 #sidebar .box-controls .bigBox-control,
 #sidebar .box-controls .smallBox-control {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    padding: 15px 0px;
+    padding: 15px 10px;
     margin: 0 5px 50px 5px;
     border-radius: 0px 0px 0px 5px;
 }
 
+
 #sidebar .bigBox-control {
-    border-left: 20px solid #FF6F99;
+    border-left: 20px solid #FE6F66;
 
 }
 
 #sidebar .smallBox-control {
-    border-left: 20px solid #fff252;
+    border-left: 20px solid #073D76;
 }
 
 #sidebar .textBorder {
@@ -268,7 +271,7 @@ button:hover {
 }
 
 #sidebar table {
-    margin: 0 auto;
+    margin-left: 0 auto;
     width: 100%
 }
 
@@ -679,6 +682,13 @@ button:hover {
     color: #ef6982;
 }
 
+#info .about-section a:hover,
+#info .about-footer a:hover {
+    color: #d8405d;
+    text-shadow: 0px 1px 2px #000000;
+    transition: color .3s, text-shadow .3s;
+}
+
 #info .about-footer {
     width: 500px;
     margin: 20px auto;
@@ -703,11 +713,27 @@ button:hover {
     line-height: 80px;
     text-decoration: none;
 }
-#info button{
+
+#info button {
     height: 60px;
     width: 240px;
     line-height: 60px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#sidebar .shake-input{
+    animation: shaking .4s 2;
+    background-color: #FFEBD6;
+    box-shadow: -3px 0px 0px rgb(231, 76, 60);
+}
+
+@keyframes shaking{
+    50%{
+        transform: translateX(-5px);
+    }
+    100%{
+        transform: translateX(5px);
+    }
 }
 
 #result {
@@ -922,6 +948,9 @@ button:hover {
     #info ol,
     #info ul {
         max-width: 90vw;
+    }
+    #sidebar table {
+        margin-left: 3px;
     }
 
 }
