@@ -776,3 +776,11 @@ document.addEventListener("keyup", function (event) {
 function letMeContinue() {
     document.querySelector("#screenWarning").style.display = "none";
 }
+
+function refreshPage() {
+    window.location.reload();
+}
+
+window.addEventListener('resize', function(event){
+    document.querySelector("#resizeWarning").style.display = "table";
+});
