@@ -16,9 +16,12 @@ main {
     width: 95vw;
     max-height: 1280px;
     max-width: 1280px;
+    display: -ms-grid;
     display: grid;
     grid-gap: 25px;
+    -ms-grid-columns: (1fr)[3];
     grid-template-columns: repeat(3, 1fr);
+    -ms-grid-rows: auto;
     grid-template-rows: auto;
     position: relative;
     left: 50%;
@@ -28,6 +31,7 @@ main {
 }
 
 #main-container {
+    -ms-grid-column: span 2;
     grid-column: span 2;
     width: 100%;
     height: 95vh;
@@ -67,11 +71,12 @@ main {
     height: 50%;
     width: 50%;
     background: #FE6F66;
+    -webkit-transition: height 1.5s, width 1.5s;
     transition: height 1.5s, width 1.5s;
     position: relative;
     top: 0;
     left: 0;
-    overflow: auto;
+    overflow: hidden;
 }
 
 #smallBox {
@@ -79,7 +84,9 @@ main {
     width: 50%;
     background: #073D76;
     /* Background image or plain color? */
+    background-image: -webkit-linear-gradient(rgba(7, 61, 118, 0.6), rgba(7, 61, 118, 0.6)), url(img/blue-dotted-background-720x720x.png);
     background-image: linear-gradient(rgba(7, 61, 118, 0.6), rgba(7, 61, 118, 0.6)), url(img/blue-dotted-background-720x720x.png);
+    -webkit-transition: height 1.5s, width 1.5s, margin 1.5s, padding 1.5s;
     transition: height 1.5s, width 1.5s, margin 1.5s, padding 1.5s;
     position: relative;
     top: 0;
@@ -90,6 +97,7 @@ main {
 #smallText {
     font-size: 16px;
     color: #2c3a2f;
+    -webkit-transition: font-size 1.5s, margin 1.5s, padding 1.5s;
     transition: font-size 1.5s, margin 1.5s, padding 1.5s;
     position: relative;
     top: 0;
@@ -109,6 +117,7 @@ main {
 
 
 #sidebar-container {
+    -ms-grid-column: span 1;
     grid-column: span 1;
     width: 100%;
     background: #8295a9;
@@ -140,6 +149,7 @@ main {
     background: red;
     color: white;
     position: relative;
+    -webkit-transition: left .7s;
     transition: left .7s;
     display: block;
     top: 0px;
@@ -239,7 +249,6 @@ button {
     margin: 30px auto 0px auto;
     display: block;
     border-radius: 5px;
-    -webkit-box-shadow: inset 0 -3px 0 0 rgba(0, 0, 0, 0.15);
     box-shadow: inset 0 -3px 0 0 rgba(0, 0, 0, 0.15);
     font-size: 18px;
     line-height: 37px;
@@ -266,6 +275,7 @@ button:hover {
     background: #e6e6e6;
     color: #222;
     outline-width: 0;
+    -webkit-transition: all .1s;
     transition: all .1s;
     cursor: pointer;
 }
@@ -285,6 +295,18 @@ button:hover {
     border: none;
     padding-right: 5px;
     margin-left: 10px;
+}
+
+#sidebar input::-webkit-input-placeholder {
+    color: #cdcdcd;
+}
+
+#sidebar input::-moz-placeholder {
+    color: #cdcdcd;
+}
+
+#sidebar input:-ms-input-placeholder {
+    color: #cdcdcd;
 }
 
 #sidebar input::placeholder {
@@ -337,7 +359,10 @@ button:hover {
     left: 15px;
     bottom: 14px;
     color: white;
+    -webkit-transition: -webkit-transform .3s;
+    transition: -webkit-transform .3s;
     transition: transform .3s;
+    transition: transform .3s, -webkit-transform .3s;
     z-index: 290;
     border: 2px solid #6f6465;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -347,6 +372,7 @@ button:hover {
 }
 
 #info .info-icon:hover {
+    -webkit-transform: scale(1.1);
     transform: scale(1.1);
 }
 
@@ -363,6 +389,7 @@ button:hover {
     overflow-y: scroll;
     background: #d8e0e8;
     /*background-image: url(img/white_wall.png); /* W3C */
+    -webkit-transition: top .8s;
     transition: top .8s;
     z-index: 300;
     color: #282b2d;
@@ -427,13 +454,23 @@ button:hover {
     left: 0;
     right: 0;
     top: 3px;
+    -webkit-animation: scrollWheel 1s linear infinite;
     animation: scrollWheel 1s linear infinite;
+}
+
+@-webkit-keyframes scrollWheel {
+    to {
+        top: 15px;
+        opacity: .4;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+    }
 }
 
 @keyframes scrollWheel {
     to {
         top: 15px;
         opacity: .4;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
     }
 }
 
@@ -455,7 +492,7 @@ button:hover {
     color: #282b2d;
     max-width: 1280px;
     margin: 5px auto;
-    line-height:22px;
+    line-height: 22px;
 }
 
 #info .more-info p:nth-child(6) {
@@ -526,6 +563,7 @@ button:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin-top: 125px;
     margin-bottom: 125px;
+    -webkit-transform: scale(1.5);
     transform: scale(1.5);
 
 }
@@ -639,6 +677,7 @@ button:hover {
     height: 20px;
     background: #7720ff;
     font-size: 15px;
+    -webkit-transform: rotate(90deg);
     transform: rotate(90deg);
     position: relative;
     top: -96px;
@@ -687,6 +726,7 @@ button:hover {
 #info .about-footer a:hover {
     color: #d8405d;
     text-shadow: 0px 1px 2px #000000;
+    -webkit-transition: color .3s, text-shadow .3s;
     transition: color .3s, text-shadow .3s;
 }
 
@@ -722,17 +762,31 @@ button:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#sidebar .shake-input{
+#sidebar .shake-input {
+    -webkit-animation: shaking .4s 2;
     animation: shaking .4s 2;
     background-color: #FFEBD6;
     box-shadow: -3px 0px 0px rgb(231, 76, 60);
 }
 
-@keyframes shaking{
-    50%{
+@-webkit-keyframes shaking {
+    50% {
+        -webkit-transform: translateX(-5px);
         transform: translateX(-5px);
     }
-    100%{
+    100% {
+        -webkit-transform: translateX(5px);
+        transform: translateX(5px);
+    }
+}
+
+@keyframes shaking {
+    50% {
+        -webkit-transform: translateX(-5px);
+        transform: translateX(-5px);
+    }
+    100% {
+        -webkit-transform: translateX(5px);
         transform: translateX(5px);
     }
 }
@@ -740,11 +794,13 @@ button:hover {
 #result {
     position: absolute;
     display: table;
-    left: 50%;
-    transform: translate(-50%, 0);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
     top: -100px;
     height: 60px;
     z-index: 300;
+    -webkit-transition: top .8s;
     transition: top .8s;
     max-width: 90vw;
     border-bottom-left-radius: 15px;
@@ -821,6 +877,7 @@ button:hover {
     position: fixed;
     left: 0px;
     bottom: -100vh;
+    -webkit-transition: bottom .8s;
     transition: bottom .8s;
     z-index: 295;
 }
@@ -960,10 +1017,12 @@ button:hover {
 
 @media (max-width: 768px) {
     #main-container {
+        -ms-grid-column: span 3;
         grid-column: span 3;
 
     }
     #sidebar-container {
+        -ms-grid-column: span 3;
         grid-column: span 3;
         height: 90vh;
     }
@@ -999,6 +1058,7 @@ button:hover {
         height: 100%;
         width: 100vw;
         margin: 0;
+        -ms-grid-columns: (1fr)[1];
         grid-template-columns: repeat(1, 1fr);
         overflow: scroll;
     }
@@ -1014,6 +1074,7 @@ button:hover {
     #info .more-info .info-tablet {
         margin-top: 25px;
         margin-bottom: 25px;
+        -webkit-transform: scale(1);
         transform: scale(1);
     }
     #info ol,
