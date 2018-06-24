@@ -7,3 +7,5 @@ That's where CSS-UNIT-GAME comes in. By several objectives, I want to bring ever
 
 This Website was created by Lars ALBERT, and is published under the GNU AGPLv3 License. If you found an issue, please e-mail me via lars@advena.me
 If you wish to contribute with coding, don't hesitate to create a pull request on the github page.
+
+The game can be found here: https://repo.advena.me/css-game/
